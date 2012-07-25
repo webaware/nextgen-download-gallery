@@ -3,7 +3,7 @@
 Plugin Name: NextGEN Download Gallery
 Plugin URI: http://snippets.webaware.com.au/wordpress-plugins/nextgen-download-gallery/
 Description: Add a template to NextGEN Gallery to provide multiple-file downloads for trade/media galleries
-Version: 1.0.0
+Version: 1.0.1
 Author: WebAware
 Author URI: http://www.webaware.com.au/
 */
@@ -25,6 +25,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+if (!defined('NGG_DLGALL_PLUGIN_ROOT')) {
+	define('NGG_DLGALL_PLUGIN_ROOT', dirname(__FILE__) . '/');
+	define('NGG_DLGALL_PLUGIN_NAME', basename(dirname(__FILE__)) . '/' . basename(__FILE__));
+}
+
 class NextGENDownloadGallery {
 
 	/**
@@ -34,12 +39,15 @@ class NextGENDownloadGallery {
 		// load gettext domain
 		load_plugin_textdomain('nextgen-download-gallery', false, dirname(plugin_basename(__FILE__)) . '/languages');
 
-		add_action('wp_print_scripts', array(__CLASS__, 'actionScripts'));
+		add_action('wp_enqueue_scripts', array(__CLASS__, 'actionScripts'));
 		add_filter('ngg_render_template', array(__CLASS__, 'filterNggRenderTemplate'), 10, 2);
 
 		// register AJAX actions
 		add_action('wp_ajax_ngg-download-gallery-zip', array(__CLASS__, 'ajaxDownloadZip'));
 		add_action('wp_ajax_nopriv_ngg-download-gallery-zip', array(__CLASS__, 'ajaxDownloadZip'));
+
+		// add action hook for adding plugin meta links
+		add_filter('plugin_row_meta', array(__CLASS__, 'addPluginDetailsLinks'), 10, 2);
 	}
 
 	/**
@@ -63,7 +71,7 @@ class NextGENDownloadGallery {
 			$custom_template = locate_template("nggallery/$template_name.php");
 			if (!$custom_template) {
 				// no custom template so set to the default
-				$custom_template = dirname(__FILE__) . "/templates/$template_name.php";
+				$custom_template = NGG_DLGALL_PLUGIN_ROOT . "templates/$template_name.php";
 			}
 		}
 
@@ -81,16 +89,40 @@ class NextGENDownloadGallery {
 
 		if (is_array($images) && count($images) > 0) {
 			$zip = new ZipArchive();
-			$filename = tempnam(sys_get_temp_dir(), 'zip');
+			$filename = tempnam(get_temp_dir(), 'zip');
 
-			if ($zip->open($filename, ZIPARCHIVE::CREATE) !== true) {
-				die("Can't create ZIP archive: $filename");
+			$status = $zip->open($filename, ZIPARCHIVE::CREATE);
+			if ($status !== TRUE) {
+				$zipErrors = array(
+					ZIPARCHIVE::ER_EXISTS => 'File already exists',
+					ZIPARCHIVE::ER_INCONS => 'Zip archive inconsistent',
+					ZIPARCHIVE::ER_INVAL => 'Invalid argument',
+					ZIPARCHIVE::ER_MEMORY => 'Out of memory',
+					ZIPARCHIVE::ER_NOENT => 'No such file',
+					ZIPARCHIVE::ER_NOZIP => 'Not a zip archive',
+					ZIPARCHIVE::ER_OPEN => 'Can\'t open file',
+					ZIPARCHIVE::ER_READ => 'Read error',
+					ZIPARCHIVE::ER_SEEK => 'Seek error',
+				);
+
+				if (isset($zipErrors[$status]))
+					$status = $zipErrors[$status];
+				else
+					$status = "Unknown error: $status";
+
+				die(__("Can't create ZIP archive", 'nextgen-download-gallery') . ": $filename; $status");
 			}
 
 			foreach ($images as $image) {
 				$image = $nggdb->find_image($image);
-				if ($image)
-					$zip->addFile($image->imagePath, $image->filename);
+				if ($image) {
+					if ($zip->addFile($image->imagePath, $image->filename) !== TRUE) {
+						// error, so close the ZIP file and delete it, then fail with error description
+						$zip->close();
+						unlink($filename);
+						die(__("Can't add to ZIP archive", 'nextgen-download-gallery') . ": $filename; file was {$image->filename}");
+					}
+				}
 			}
 			$zip->close();
 
@@ -109,6 +141,18 @@ class NextGENDownloadGallery {
 
 			exit;
 		}
+	}
+
+	/**
+	* action hook for adding plugin details links
+	*/
+	public static function addPluginDetailsLinks($links, $file) {
+		// add donations link
+		if ($file == NGG_DLGALL_PLUGIN_NAME) {
+			$links[] = '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=P3LPZAJCWTDUU">' . __('Donate') . '</a>';
+		}
+
+		return $links;
 	}
 }
 

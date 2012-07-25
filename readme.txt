@@ -7,7 +7,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: nextgen, gallery
 Requires at least: 3.0.1
 Tested up to: 3.4.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,9 +21,10 @@ This plugin is targetted at creating "Trade/Media" areas on websites, allowing j
 
 == Installation ==
 
-1. Upload this plugin to your /wp-content/plugins/ directory.
-2. Activate the plugin through the 'Plugins' menu in WordPress.
-3. Specify the gallery template as "download"
+1. Install [NextGEN Gallery](http://wordpress.org/extend/plugins/nextgen-gallery/) and create galleries/albums
+2. Upload this plugin to your /wp-content/plugins/ directory.
+3. Activate the plugin through the 'Plugins' menu in WordPress.
+4. Specify the gallery template as "download"
 
 = From a gallery shortcode =
 
@@ -62,6 +63,10 @@ The initial translations were made using Google Translate, so it's likely that s
 1. example download gallery
 
 == Changelog ==
+
+= 1.0.1 [2012-07-26] =
+* fixed: provide ZipArchive error message when zip create fails
+* fixed: use WordPress function `get_temp_dir()` to get temporary file directory, which can be specified by setting `WP_TEMP_DIR` in wp-config.php if required (thanks, WP-Spezialist)
 
 = 1.0.0 [2012-07-06] =
 * initial public release
