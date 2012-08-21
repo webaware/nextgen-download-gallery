@@ -7,7 +7,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: nextgen, gallery
 Requires at least: 3.0.1
 Tested up to: 3.4.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,6 +63,9 @@ The initial translations were made using Google Translate, so it's likely that s
 1. example download gallery
 
 == Changelog ==
+
+= 1.0.2 [2012-08-22] =
+* fixed: sanitize the Zip filename, removing spaces and special characters, so that downloaded files are received correctly on Firefox and others
 
 = 1.0.1 [2012-07-26] =
 * fixed: provide ZipArchive error message when zip create fails

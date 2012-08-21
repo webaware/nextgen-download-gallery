@@ -3,7 +3,7 @@
 Plugin Name: NextGEN Download Gallery
 Plugin URI: http://snippets.webaware.com.au/wordpress-plugins/nextgen-download-gallery/
 Description: Add a template to NextGEN Gallery to provide multiple-file downloads for trade/media galleries
-Version: 1.0.1
+Version: 1.0.2
 Author: WebAware
 Author URI: http://www.webaware.com.au/
 */
@@ -128,7 +128,7 @@ class NextGENDownloadGallery {
 
 			header('Content-Description: File Transfer');
 			header('Content-Type: application/zip');
-			header('Content-Disposition: attachment; filename=' . $gallery . '.zip');
+			header('Content-Disposition: attachment; filename=' . sanitize_file_name($gallery) . '.zip');
 			header('Content-Transfer-Encoding: binary');
 			header('Expires: 0');
 			header('Cache-Control: must-revalidate');
