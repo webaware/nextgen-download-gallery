@@ -67,6 +67,7 @@ Follow variables are useable :
 		<?php endforeach; ?>
 
 		<hr />
+		<input class="button ngg-download-selectall" type="button" style="display:none" value="<?php _e('select all', 'nextgen-download-gallery'); ?>" />
 		<input class="button downloadButton" type="submit" value="<?php _e('download selected images', 'nextgen-download-gallery'); ?>" />
 	</form>
 
@@ -75,15 +76,20 @@ Follow variables are useable :
 
 </div>
 
-<?php /* make sure that at least one image is selected before submitting form for download */ ?>
 <script>
 jQuery(function($) {
 
+<?php /* make sure that at least one image is selected before submitting form for download */ ?>
 	$("#ngg-download-frm").submit(function(event) {
 		if ($("input[name='pid[]']:checked", this).length == 0) {
 			event.preventDefault();
 			alert("<?php _e('Please select one or more images to download', 'nextgen-download-gallery'); ?>");
 		}
+	});
+
+<?php /* reveal "select all" button and active it */ ?>
+	$("input.ngg-download-selectall").show().click(function() {
+		$(this).closest("form").find("input[name='pid[]']").prop({checked: true});
 	});
 
 });

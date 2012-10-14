@@ -7,15 +7,15 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: nextgen, gallery
 Requires at least: 3.0.1
 Tested up to: 3.4.1
-Stable tag: 1.0.2
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Add a template to NextGEN Gallery to provide multiple-file downloads for trade/media galleries
+Add a template to NextGEN Gallery that provides multiple-file downloads for trade/media galleries
 
 == Description ==
 
-[NextGEN Gallery](http://wordpress.org/extend/plugins/nextgen-gallery/) is one of the best gallery plugins for WordPress because it is very flexible and has a nice, simple admin. This plugin adds a new template for galleries that lets you select multiple images from the gallery to be downloaded as a ZIP archive.
+Add a template to NextGEN Gallery that provides multiple-file downloads for trade/media galleries. [NextGEN Gallery](http://wordpress.org/extend/plugins/nextgen-gallery/) is one of the best gallery plugins for WordPress because it is very flexible and has a nice, simple admin. This plugin adds a new gallery template that lets you select multiple images from the gallery to be downloaded as a ZIP archive.
 
 This plugin is targetted at creating "Trade/Media" areas on websites, allowing journalists to easily download multiple product images.
 
@@ -52,7 +52,7 @@ Yes, the album shortcode has separate parameters for album and gallery templates
 
 = I don't like the download template; can I customise it? =
 
-Yes. Copy the template from the templates folder of the plugin, into a folder called nggallery in your theme's folder. You can then edit your copy of the template to get the pretty.
+Yes. Copy the template from the templates folder in the plugin, into a folder called nggallery in your theme's folder. You can then edit your copy of the template to get the pretty.
 
 = You've translated my language badly / it's missing =
 
@@ -63,6 +63,10 @@ The initial translations were made using Google Translate, so it's likely that s
 1. example download gallery
 
 == Changelog ==
+
+= 1.1.0 [2012-10-14] =
+* added: "select all" button on download gallery template (only visible if JavaScript enabled)
+* changed: no longer require Zip extension, uses WordPress-supplied PclZip class
 
 = 1.0.2 [2012-08-22] =
 * fixed: sanitize the Zip filename, removing spaces and special characters, so that downloaded files are received correctly on Firefox and others

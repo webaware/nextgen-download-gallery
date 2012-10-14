@@ -2,8 +2,8 @@
 /*
 Plugin Name: NextGEN Download Gallery
 Plugin URI: http://snippets.webaware.com.au/wordpress-plugins/nextgen-download-gallery/
-Description: Add a template to NextGEN Gallery to provide multiple-file downloads for trade/media galleries
-Version: 1.0.2
+Description: Add a template to NextGEN Gallery that provides multiple-file downloads for trade/media galleries
+Version: 1.1.0
 Author: WebAware
 Author URI: http://www.webaware.com.au/
 */
@@ -46,7 +46,7 @@ class NextGENDownloadGallery {
 		add_action('wp_ajax_ngg-download-gallery-zip', array(__CLASS__, 'ajaxDownloadZip'));
 		add_action('wp_ajax_nopriv_ngg-download-gallery-zip', array(__CLASS__, 'ajaxDownloadZip'));
 
-		// add action hook for adding plugin meta links
+		// hooks for admin screens
 		add_filter('plugin_row_meta', array(__CLASS__, 'addPluginDetailsLinks'), 10, 2);
 	}
 
@@ -88,58 +88,44 @@ class NextGENDownloadGallery {
 		$gallery = trim(stripslashes($_GET['gallery']));
 
 		if (is_array($images) && count($images) > 0) {
-			$zip = new ZipArchive();
-			$filename = tempnam(get_temp_dir(), 'zip');
-
-			$status = $zip->open($filename, ZIPARCHIVE::CREATE);
-			if ($status !== TRUE) {
-				$zipErrors = array(
-					ZIPARCHIVE::ER_EXISTS => 'File already exists',
-					ZIPARCHIVE::ER_INCONS => 'Zip archive inconsistent',
-					ZIPARCHIVE::ER_INVAL => 'Invalid argument',
-					ZIPARCHIVE::ER_MEMORY => 'Out of memory',
-					ZIPARCHIVE::ER_NOENT => 'No such file',
-					ZIPARCHIVE::ER_NOZIP => 'Not a zip archive',
-					ZIPARCHIVE::ER_OPEN => 'Can\'t open file',
-					ZIPARCHIVE::ER_READ => 'Read error',
-					ZIPARCHIVE::ER_SEEK => 'Seek error',
-				);
-
-				if (isset($zipErrors[$status]))
-					$status = $zipErrors[$status];
-				else
-					$status = "Unknown error: $status";
-
-				die(__("Can't create ZIP archive", 'nextgen-download-gallery') . ": $filename; $status");
+			if (!class_exists('PclZip')) {
+				require ABSPATH . 'wp-admin/includes/class-pclzip.php';
 			}
+
+			$filename = tempnam(get_temp_dir(), 'zip');
+			$zip = new PclZip($filename);
+			$files = array();
 
 			foreach ($images as $image) {
 				$image = $nggdb->find_image($image);
 				if ($image) {
-					if ($zip->addFile($image->imagePath, $image->filename) !== TRUE) {
-						// error, so close the ZIP file and delete it, then fail with error description
-						$zip->close();
-						unlink($filename);
-						die(__("Can't add to ZIP archive", 'nextgen-download-gallery') . ": $filename; file was {$image->filename}");
-					}
+					$files[] = $image->imagePath;
 				}
 			}
-			$zip->close();
 
-			header('Content-Description: File Transfer');
-			header('Content-Type: application/zip');
-			header('Content-Disposition: attachment; filename=' . sanitize_file_name($gallery) . '.zip');
-			header('Content-Transfer-Encoding: binary');
-			header('Expires: 0');
-			header('Cache-Control: must-revalidate');
-			header('Pragma: public');
-			header('Content-Length: ' . filesize($filename));
-			readfile($filename);
+			if (count($files) > 0) {
+				// create the Zip archive, without paths or compression (images are already compressed)
+				$properties = $zip->create($files, PCLZIP_OPT_REMOVE_ALL_PATH, PCLZIP_OPT_NO_COMPRESSION);
+				if (!is_array($properties)) {
+					die($zip->errorInfo(true));
+				}
 
-			// delete the temporary file
-			unlink($filename);
+				// send the Zip archive to the browser
+				header('Content-Description: File Transfer');
+				header('Content-Type: application/zip');
+				header('Content-Disposition: attachment; filename=' . sanitize_file_name($gallery) . '.zip');
+				header('Content-Transfer-Encoding: binary');
+				header('Expires: 0');
+				header('Cache-Control: must-revalidate');
+				header('Pragma: public');
+				header('Content-Length: ' . filesize($filename));
+				readfile($filename);
 
-			exit;
+				// delete the temporary file
+				unlink($filename);
+
+				exit;
+			}
 		}
 	}
 
@@ -149,10 +135,20 @@ class NextGENDownloadGallery {
 	public static function addPluginDetailsLinks($links, $file) {
 		// add donations link
 		if ($file == NGG_DLGALL_PLUGIN_NAME) {
-			$links[] = '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=P3LPZAJCWTDUU">' . __('Donate') . '</a>';
+			$links[] = '<a href="http://wordpress.org/support/plugin/nextgen-download-gallery">' . __('Support') . '</a>';
+			$links[] = '<a href="http://wordpress.org/extend/plugins/nextgen-download-gallery/">' . __('Rating') . '</a>';
+			$links[] = '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=P3LPZAJCWTDUU">' . __('Donate') . '</a>';
 		}
 
 		return $links;
+	}
+
+	/**
+	* display an error message (already HTML-conformant)
+	* @param string $msg HTML-encoded message to display inside a paragraph
+	*/
+	public static function showError($msg) {
+		echo "<div class='error'><p><strong>$msg</strong></p></div>\n";
 	}
 }
 
