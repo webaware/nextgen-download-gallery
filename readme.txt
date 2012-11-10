@@ -5,7 +5,7 @@ Plugin URI: http://snippets.webaware.com.au/wordpress-plugins/nextgen-download-g
 Author URI: http://www.webaware.com.au/
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=P3LPZAJCWTDUU
 Tags: nextgen, gallery
-Requires at least: 3.0.1
+Requires at least: 3.2.1
 Tested up to: 3.4.2
 Stable tag: 1.1.0
 License: GPLv2 or later
