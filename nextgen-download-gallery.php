@@ -3,7 +3,7 @@
 Plugin Name: NextGEN Download Gallery
 Plugin URI: http://snippets.webaware.com.au/wordpress-plugins/nextgen-download-gallery/
 Description: Add a template to NextGEN Gallery that provides multiple-file downloads for trade/media galleries
-Version: 1.1.0
+Version: 1.1.1
 Author: WebAware
 Author URI: http://www.webaware.com.au/
 */
@@ -84,8 +84,8 @@ class NextGENDownloadGallery {
 	public static function ajaxDownloadZip() {
 		global $nggdb;
 
-		$images = $_GET['pid'];
-		$gallery = trim(stripslashes($_GET['gallery']));
+		$images = $_REQUEST['pid'];
+		$gallery = trim(stripslashes($_REQUEST['gallery']));
 
 		if (is_array($images) && count($images) > 0) {
 			if (!class_exists('PclZip')) {
@@ -109,6 +109,7 @@ class NextGENDownloadGallery {
 				if (!is_array($properties)) {
 					die($zip->errorInfo(true));
 				}
+				unset($zip);
 
 				// send the Zip archive to the browser
 				header('Content-Description: File Transfer');
@@ -133,22 +134,13 @@ class NextGENDownloadGallery {
 	* action hook for adding plugin details links
 	*/
 	public static function addPluginDetailsLinks($links, $file) {
-		// add donations link
 		if ($file == NGG_DLGALL_PLUGIN_NAME) {
-			$links[] = '<a href="http://wordpress.org/support/plugin/nextgen-download-gallery">' . __('Support') . '</a>';
+			$links[] = '<a href="http://wordpress.org/support/plugin/nextgen-download-gallery">' . __('Get Help') . '</a>';
 			$links[] = '<a href="http://wordpress.org/extend/plugins/nextgen-download-gallery/">' . __('Rating') . '</a>';
 			$links[] = '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=P3LPZAJCWTDUU">' . __('Donate') . '</a>';
 		}
 
 		return $links;
-	}
-
-	/**
-	* display an error message (already HTML-conformant)
-	* @param string $msg HTML-encoded message to display inside a paragraph
-	*/
-	public static function showError($msg) {
-		echo "<div class='error'><p><strong>$msg</strong></p></div>\n";
 	}
 }
 

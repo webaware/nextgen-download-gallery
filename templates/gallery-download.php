@@ -42,7 +42,7 @@ Follow variables are useable :
 <?php } ?>
 
 	<!-- Thumbnails -->
-	<form action="<?php echo admin_url('admin-ajax.php'); ?>" method="get" id="ngg-download-frm">
+	<form action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" id="ngg-download-frm">
 		<input type="hidden" name="action" value="ngg-download-gallery-zip" />
 		<input type="hidden" name="gallery" value="<?php echo htmlspecialchars($gallery->title); ?>" />
 
@@ -89,7 +89,7 @@ jQuery(function($) {
 
 <?php /* reveal "select all" button and active it */ ?>
 	$("input.ngg-download-selectall").show().click(function() {
-		$(this).closest("form").find("input[name='pid[]']").prop({checked: true});
+		$(this.form).find("input[name='pid[]']").prop({checked: true});
 	});
 
 });

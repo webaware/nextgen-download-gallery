@@ -7,7 +7,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: nextgen, gallery
 Requires at least: 3.2.1
 Tested up to: 3.4.2
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,6 +63,9 @@ The initial translations were made using Google Translate, so it's likely that s
 1. example download gallery
 
 == Changelog ==
+
+= 1.1.1 [2012-12-07] =
+* fixed: submit list of images to download via POST, to prevent list length errors and truncation
 
 = 1.1.0 [2012-10-14] =
 * added: "select all" button on download gallery template (only visible if JavaScript enabled)
