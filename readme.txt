@@ -7,7 +7,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: nextgen, gallery, download
 Requires at least: 3.2.1
 Tested up to: 3.5.1
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,6 +80,10 @@ The initial translations were made using Google Translate, so it's likely that s
 1. example download gallery
 
 == Changelog ==
+
+= 1.2.1 [2013-03-23] =
+* fixed: download gallery title is "tagged: {taglist}" when using shortcode `nggtags_ext`; was using gallery title from first image (NextGEN Gallery bug)
+* added: filter 'ngg_dlgallery_tags_gallery_title' for changing gallery title when using shortcode `nggtags_ext`
 
 = 1.2.0 [2013-03-23] =
 * fixed: template was HTML-encoding the gallery title & description when they are already HTML-encoded

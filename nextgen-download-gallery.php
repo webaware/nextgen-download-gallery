@@ -3,7 +3,7 @@
 Plugin Name: NextGEN Download Gallery
 Plugin URI: http://snippets.webaware.com.au/wordpress-plugins/nextgen-download-gallery/
 Description: Add a template to NextGEN Gallery that provides multiple-file downloads for trade/media galleries
-Version: 1.2.0
+Version: 1.2.1
 Author: WebAware
 Author URI: http://www.webaware.com.au/
 */
@@ -36,6 +36,8 @@ if (!defined('NGG_DLGALL_PLUGIN_ROOT')) {
 }
 
 class NextGENDownloadGallery {
+
+	protected static $taglist = false;				// for recording taglist when building gallery for nggtags_ext shortcode
 
 	/**
 	* hook WordPress to handle script and style fixes
@@ -113,8 +115,17 @@ class NextGENDownloadGallery {
 			return;
 
 		// show gallery
-		if ( is_array($picturelist) )
+		if ( is_array($picturelist) ) {
+			// record taglist and set filter to override gallery title with taglist
+			self::$taglist = $taglist;
+			add_filter('ngg_gallery_object', array(__CLASS__, 'filterNggGalleryObjectTagged'));
+
+			// process gallery using selected template
 			$out = nggCreateGallery($picturelist, false, $template);
+
+			// remove filter for gallery title
+			remove_filter('ngg_gallery_object', array(__CLASS__, 'filterNggGalleryObjectTagged'));
+		}
 
 		$out = apply_filters('ngg_show_gallery_tags_content', $out, $taglist);
 		return $out;
@@ -175,6 +186,20 @@ class NextGENDownloadGallery {
 		$out = apply_filters('ngg_show_album_tags_content', $out, $taglist);
 
 		return $out;
+	}
+
+	/**
+	* override gallery title with taglist
+	* @param stdClass $gallery
+	* @return stdClass
+	*/
+	public static function filterNggGalleryObjectTagged($gallery) {
+		if (self::$taglist) {
+			$title = 'tagged: ' . self::$taglist;
+			$gallery->title = apply_filters('ngg_dlgallery_tags_gallery_title', $title, self::$taglist);
+		}
+
+		return $gallery;
 	}
 
 	/**
