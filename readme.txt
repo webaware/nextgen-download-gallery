@@ -41,7 +41,7 @@ When using a shortcode to show a NextGEN gallery, you can make it a download gal
 
 When using a shortcode to show a NextGEN album, you can make it show download galleries by specifying the gallery template:
 
-`[album id=1 gallery=download]`
+`[nggalbum id=1 gallery=download]`
 
 = From a tags shortcode =
 
@@ -59,7 +59,7 @@ No. [NextGEN Gallery](http://wordpress.org/extend/plugins/nextgen-gallery/) is d
 
 Yes, the album shortcode has separate parameters for album and gallery templates. The "template" parameter tells it which template to use for the album, and the "gallery" parameter tells it which template to use for the gallery. e.g.
 
-`[album id=1 template=compact gallery=download]`
+`[nggalbum id=1 template=compact gallery=download]`
 
 = Can I make the tags shortcode use the download template? =
 
