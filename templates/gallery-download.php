@@ -17,10 +17,10 @@ Follow variables are useable :
 
 <div class="ngg-galleryoverview" id="<?php echo $gallery->anchor ?>">
 
-<h3><?php echo htmlspecialchars($gallery->title); ?></h3>
+<h3><?php echo $gallery->title; ?></h3>
 
 <?php if (!empty($gallery->description)): ?>
-<p><?php echo htmlspecialchars($gallery->description); ?></p>
+<p><?php echo $gallery->description; ?></p>
 <?php endif; ?>
 
 <?php if ($gallery->show_slideshow) { ?>
@@ -44,7 +44,7 @@ Follow variables are useable :
 	<!-- Thumbnails -->
 	<form action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" id="ngg-download-frm">
 		<input type="hidden" name="action" value="ngg-download-gallery-zip" />
-		<input type="hidden" name="gallery" value="<?php echo htmlspecialchars($gallery->title); ?>" />
+		<input type="hidden" name="gallery" value="<?php echo $gallery->title; ?>" />
 
 		<?php foreach ( $images as $image ) : ?>
 

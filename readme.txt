@@ -4,10 +4,10 @@ Plugin Name: NextGEN Download Gallery
 Plugin URI: http://snippets.webaware.com.au/wordpress-plugins/nextgen-download-gallery/
 Author URI: http://www.webaware.com.au/
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=P3LPZAJCWTDUU
-Tags: nextgen, gallery
+Tags: nextgen, gallery, download
 Requires at least: 3.2.1
-Tested up to: 3.4.2
-Stable tag: 1.1.1
+Tested up to: 3.5.1
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,6 +18,11 @@ Add a template to NextGEN Gallery that provides multiple-file downloads for trad
 Add a template to NextGEN Gallery that provides multiple-file downloads for trade/media galleries. [NextGEN Gallery](http://wordpress.org/extend/plugins/nextgen-gallery/) is one of the best gallery plugins for WordPress because it is very flexible and has a nice, simple admin. This plugin adds a new gallery template that lets you select multiple images from the gallery to be downloaded as a ZIP archive.
 
 This plugin is targetted at creating "Trade/Media" areas on websites, allowing journalists to easily download multiple product images.
+
+= Credits =
+
+This program incorporates some code that is copyright by Photocrati Media 2012 under the GPLv2. Some PHP code was copied from NextGEN Gallery and altered, so that the `nggtags` shortcode could be extended as `nggtags_ext` and specify a gallery template.
+
 
 == Installation ==
 
@@ -38,6 +43,12 @@ When using a shortcode to show a NextGEN album, you can make it show download ga
 
 `[album id=1 gallery=download]`
 
+= From a tags shortcode =
+
+The standard `nggtags` shortcode doesn't allow you to specify the gallery template, so this plugin adds an extended version of that shortcode.
+
+`[nggtags_ext gallery="frogs,lizards" template=download]`
+
 == Frequently Asked Questions ==
 
 = Will this plugin work without NextGEN Gallery? =
@@ -49,6 +60,12 @@ No. [NextGEN Gallery](http://wordpress.org/extend/plugins/nextgen-gallery/) is d
 Yes, the album shortcode has separate parameters for album and gallery templates. The "template" parameter tells it which template to use for the album, and the "gallery" parameter tells it which template to use for the gallery. e.g.
 
 `[album id=1 template=compact gallery=download]`
+
+= Can I make the tags shortcode use the download template? =
+
+Not directly; the `nggtags` shortcode doesn't support a template parameter, but this plugin adds a new shortcode that does.
+
+`[nggtags_ext gallery="frogs,lizards" template=download]`
 
 = I don't like the download template; can I customise it? =
 
@@ -63,6 +80,10 @@ The initial translations were made using Google Translate, so it's likely that s
 1. example download gallery
 
 == Changelog ==
+
+= 1.2.0 [2013-03-23] =
+* fixed: template was HTML-encoding the gallery title & description when they are already HTML-encoded
+* added: shortcode `nggtags_ext` to extend `nggtags` so that you can specify a gallery template
 
 = 1.1.1 [2012-12-07] =
 * fixed: submit list of images to download via POST, to prevent list length errors and truncation
