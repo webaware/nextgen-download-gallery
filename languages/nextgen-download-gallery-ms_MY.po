@@ -3,9 +3,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: nextgen-download-gallery\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/nextgen-download-gallery\n"
-"POT-Creation-Date: 2012-07-06 19:30+1000\n"
-"PO-Revision-Date: 2012-07-07 09:12+1000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-23 19:23+1000\n"
+"PO-Revision-Date: 2013-04-23 21:30+1000\n"
 "Last-Translator: Ross McKay <rmckay@webaware.com.au>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -21,12 +21,32 @@ msgstr ""
 "X-Poedit-SearchPath-0: ..\n"
 
 # @ nextgen-download-gallery
+#: ../nextgen-download-gallery.php:281
+msgid "Get help"
+msgstr "Dapatkan bantuan"
+
+# @ nextgen-download-gallery
+#: ../nextgen-download-gallery.php:282
+msgid "Rating"
+msgstr "Penilaian"
+
+# @ nextgen-download-gallery
+#: ../nextgen-download-gallery.php:283
+msgid "Donate"
+msgstr "menderma"
+
+# @ nextgen-download-gallery
 #: ../templates/gallery-download.php:70
+msgid "select all"
+msgstr "pilih semua"
+
+# @ nextgen-download-gallery
+#: ../templates/gallery-download.php:71
 msgid "download selected images"
 msgstr "memuat turun imej yang dipilih"
 
 # @ nextgen-download-gallery
-#: ../templates/gallery-download.php:85
+#: ../templates/gallery-download.php:86
 msgid "Please select one or more images to download"
 msgstr "Sila pilih satu atau lebih imej untuk memuat turun"
 

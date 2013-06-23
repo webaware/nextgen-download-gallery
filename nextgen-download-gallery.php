@@ -3,7 +3,7 @@
 Plugin Name: NextGEN Download Gallery
 Plugin URI: http://snippets.webaware.com.au/wordpress-plugins/nextgen-download-gallery/
 Description: Add a template to NextGEN Gallery that provides multiple-file downloads for trade/media galleries
-Version: 1.2.1
+Version: 1.2.2
 Author: WebAware
 Author URI: http://www.webaware.com.au/
 */
@@ -77,11 +77,12 @@ class NextGENDownloadGallery {
 	*/
 	public static function shortcodeTags($attrs, $content = '') {
 		$template = isset($attrs['template']) ? $attrs['template'] : '';
+		$images = isset($attrs['images']) ? $attrs['images'] : false;
 
         if (!empty($attrs['album']))
-            $out = self::nggShowAlbumTags($attrs['album'], $template);
+            $out = self::nggShowAlbumTags($attrs['album'], $template, $images);
         else
-            $out = self::nggShowGalleryTags($attrs['gallery'], $template);
+            $out = self::nggShowGalleryTags($attrs['gallery'], $template, $images);
 
         return $out;
 	}
@@ -91,9 +92,10 @@ class NextGENDownloadGallery {
 	* copyright (c) Photocrati Media 2012, modified to permit a template specification
 	* @param string $taglist list of tags as csv
 	* @param string $template the template to use, if any
+	* @param int $images how many images per page, defaults to all
 	* @return string
 	*/
-	protected static function nggShowGalleryTags($taglist, $template) {
+	protected static function nggShowGalleryTags($taglist, $template, $images = false) {
 
 		// $_GET from wp_query
 		$pid    = get_query_var('pid');
@@ -121,7 +123,7 @@ class NextGENDownloadGallery {
 			add_filter('ngg_gallery_object', array(__CLASS__, 'filterNggGalleryObjectTagged'));
 
 			// process gallery using selected template
-			$out = nggCreateGallery($picturelist, false, $template);
+			$out = nggCreateGallery($picturelist, false, $template, $images);
 
 			// remove filter for gallery title
 			remove_filter('ngg_gallery_object', array(__CLASS__, 'filterNggGalleryObjectTagged'));
@@ -136,9 +138,10 @@ class NextGENDownloadGallery {
 	* copyright (c) Photocrati Media 2012, modified to permit a template specification
 	* @param string $taglist list of tags as csv
 	* @param string $template the template to use, if any
+	* @param int $images how many images per page, defaults to all
 	* @return string
 	*/
-	protected static function nggShowAlbumTags($taglist, $template) {
+	protected static function nggShowAlbumTags($taglist, $template, $images = false) {
 
 		global $wpdb, $nggRewrite;
 
@@ -154,7 +157,7 @@ class NextGENDownloadGallery {
 				$slug = esc_attr( $tag );
 				$tagname = $wpdb->get_var( $wpdb->prepare( "SELECT name FROM $wpdb->terms WHERE slug = %s", $slug ) );
 				$out  = '<div id="albumnav"><span><a href="' . get_permalink() . '" title="' . __('Overview', 'nggallery') .' ">'.__('Overview', 'nggallery').'</a> | '.$tagname.'</span></div>';
-				$out .=  self::nggShowGalleryTags($slug, $template);
+				$out .=  self::nggShowGalleryTags($slug, $template, $images);
 				return $out;
 
 			}
@@ -278,9 +281,9 @@ class NextGENDownloadGallery {
 	*/
 	public static function addPluginDetailsLinks($links, $file) {
 		if ($file == NGG_DLGALL_PLUGIN_NAME) {
-			$links[] = '<a href="http://wordpress.org/support/plugin/nextgen-download-gallery">' . __('Get help') . '</a>';
-			$links[] = '<a href="http://wordpress.org/extend/plugins/nextgen-download-gallery/">' . __('Rating') . '</a>';
-			$links[] = '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=P3LPZAJCWTDUU">' . __('Donate') . '</a>';
+			$links[] = '<a href="http://wordpress.org/support/plugin/nextgen-download-gallery">' . __('Get help', 'nextgen-download-gallery') . '</a>';
+			$links[] = '<a href="http://wordpress.org/extend/plugins/nextgen-download-gallery/">' . __('Rating', 'nextgen-download-gallery') . '</a>';
+			$links[] = '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=P3LPZAJCWTDUU">' . __('Donate', 'nextgen-download-gallery') . '</a>';
 		}
 
 		return $links;

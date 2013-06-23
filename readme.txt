@@ -6,8 +6,8 @@ Author URI: http://www.webaware.com.au/
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=P3LPZAJCWTDUU
 Tags: nextgen, gallery, download
 Requires at least: 3.2.1
-Tested up to: 3.5.1
-Stable tag: 1.2.1
+Tested up to: 3.5.2
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,6 +80,10 @@ The initial translations were made using Google Translate, so it's likely that s
 1. example download gallery
 
 == Changelog ==
+
+= 1.2.2 [2013-06-23] =
+* added: shortcode `nggtags_ext` supports images attribute, for number of images to display per page
+* changed: translation updates using Google Translate, which is to say: badly! Please help by editing your language's .po and sending to me for inclusion in the next release!
 
 = 1.2.1 [2013-03-23] =
 * fixed: download gallery title is "tagged: {taglist}" when using shortcode `nggtags_ext`; was using gallery title from first image (NextGEN Gallery bug)
