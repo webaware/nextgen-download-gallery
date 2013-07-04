@@ -7,7 +7,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: nextgen, gallery, download
 Requires at least: 3.2.1
 Tested up to: 3.5.2
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -75,11 +75,19 @@ Yes. Copy the template from the templates folder in the plugin, into a folder ca
 
 The initial translations were made using Google Translate, so it's likely that some will be truly awful! Please help by editing the .po file for your language and tell me about it in the support forum.
 
+= Can I change the image paths, to download a different image? =
+
+If you have higher resolution images you'd like to download instead of the ones displayed, you can use a filter hook. See [this support post](http://wordpress.org/support/topic/linking-to-hr-images-again#post-4385317) for details.
+
 == Screenshots ==
 
 1. example download gallery
 
 == Changelog ==
+
+= 1.2.3 [2013-07-05] =
+* added: filter `ngg_dlgallery_image_path` for altering image path (e.g. to pick up a higher resolution version)
+* added: filter `ngg_dlgallery_zip_filename` for altering name of ZIP download file
 
 = 1.2.2 [2013-06-23] =
 * added: shortcode `nggtags_ext` supports images attribute, for number of images to display per page

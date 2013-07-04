@@ -3,9 +3,11 @@
 Plugin Name: NextGEN Download Gallery
 Plugin URI: http://snippets.webaware.com.au/wordpress-plugins/nextgen-download-gallery/
 Description: Add a template to NextGEN Gallery that provides multiple-file downloads for trade/media galleries
-Version: 1.2.2
+Version: 1.2.3
 Author: WebAware
 Author URI: http://www.webaware.com.au/
+Text Domain: nextgen-download-gallery
+Domain Path: /languages
 */
 
 /*
@@ -245,7 +247,7 @@ class NextGENDownloadGallery {
 			foreach ($images as $image) {
 				$image = $nggdb->find_image($image);
 				if ($image) {
-					$files[] = $image->imagePath;
+					$files[] = apply_filters('ngg_dlgallery_image_path', $image->imagePath, $image);
 				}
 			}
 
@@ -258,9 +260,10 @@ class NextGENDownloadGallery {
 				unset($zip);
 
 				// send the Zip archive to the browser
+				$zipName = apply_filters('ngg_dlgallery_zip_filename', sanitize_file_name($gallery) . '.zip', $gallery);
 				header('Content-Description: File Transfer');
 				header('Content-Type: application/zip');
-				header('Content-Disposition: attachment; filename=' . sanitize_file_name($gallery) . '.zip');
+				header('Content-Disposition: attachment; filename=' . $zipName);
 				header('Content-Transfer-Encoding: binary');
 				header('Expires: 0');
 				header('Cache-Control: must-revalidate');
@@ -282,7 +285,7 @@ class NextGENDownloadGallery {
 	public static function addPluginDetailsLinks($links, $file) {
 		if ($file == NGG_DLGALL_PLUGIN_NAME) {
 			$links[] = '<a href="http://wordpress.org/support/plugin/nextgen-download-gallery">' . __('Get help', 'nextgen-download-gallery') . '</a>';
-			$links[] = '<a href="http://wordpress.org/extend/plugins/nextgen-download-gallery/">' . __('Rating', 'nextgen-download-gallery') . '</a>';
+			$links[] = '<a href="http://wordpress.org/plugins/nextgen-download-gallery/">' . __('Rating', 'nextgen-download-gallery') . '</a>';
 			$links[] = '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=P3LPZAJCWTDUU">' . __('Donate', 'nextgen-download-gallery') . '</a>';
 		}
 
