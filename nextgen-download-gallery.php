@@ -3,7 +3,7 @@
 Plugin Name: NextGEN Download Gallery
 Plugin URI: http://snippets.webaware.com.au/wordpress-plugins/nextgen-download-gallery/
 Description: Add a template to NextGEN Gallery that provides multiple-file downloads for trade/media galleries
-Version: 1.2.3
+Version: 1.3.0
 Author: WebAware
 Author URI: http://www.webaware.com.au/
 Text Domain: nextgen-download-gallery
@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 This program incorporates some code that is copyright by Photocrati Media 2012
 under the GPLv2. Please see the readme.txt file distributed with NextGEN Gallery
-for more information: http://wordpress.org/extend/plugins/nextgen-gallery/
+for more information: http://wordpress.org/plugins/nextgen-gallery/
 
 */
 
@@ -45,30 +45,51 @@ class NextGENDownloadGallery {
 	* hook WordPress to handle script and style fixes
 	*/
 	public static function run() {
-		// load gettext domain
-		load_plugin_textdomain('nextgen-download-gallery', false, dirname(plugin_basename(__FILE__)) . '/languages');
-
-		add_action('wp_enqueue_scripts', array(__CLASS__, 'actionScripts'));
-		add_filter('ngg_render_template', array(__CLASS__, 'filterNggRenderTemplate'), 10, 2);
-
-		// custom shortcodes
-		add_shortcode('nggtags_ext', array(__CLASS__, 'shortcodeTags'));
+		add_action('init', array(__CLASS__, 'init'));
 
 		// register AJAX actions
 		add_action('wp_ajax_ngg-download-gallery-zip', array(__CLASS__, 'ajaxDownloadZip'));
 		add_action('wp_ajax_nopriv_ngg-download-gallery-zip', array(__CLASS__, 'ajaxDownloadZip'));
+	}
 
-		// hooks for admin screens
+	/**
+	* initialise plugin, after other plugins have loaded
+	*/
+	public static function init() {
+		add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueueScripts'));
 		add_filter('plugin_row_meta', array(__CLASS__, 'addPluginDetailsLinks'), 10, 2);
+
+		// load gettext domain
+		load_plugin_textdomain('nextgen-download-gallery', false, dirname(plugin_basename(__FILE__)) . '/languages');
+
+		// NextGEN Gallery integration
+		add_filter('ngg_render_template', array(__CLASS__, 'nggRenderTemplate'), 10, 2);
+
+		// custom shortcodes
+		add_shortcode('nggtags_ext', array(__CLASS__, 'shortcodeTags'));
+
+		// work-arounds for NGG2
+		if (defined('NEXTGEN_GALLERY_PLUGIN_VERSION')) {
+			add_filter('query_vars', array(__CLASS__, 'addNgg2QueryVars'));
+		}
+	}
+
+	/**
+	* add back some missing query vars that NextGEN Gallery 2.0 has dropped
+	* @param array $query_vars
+	* @return array
+	*/
+	public function addNgg2QueryVars($query_vars) {
+		$query_vars[] = 'gallerytag';
+
+		return $query_vars;
 	}
 
 	/**
 	* enqueue any scripts we need
 	*/
-	public static function actionScripts() {
-		if (!is_admin()) {
-			wp_enqueue_script('jquery');
-		}
+	public static function enqueueScripts() {
+		wp_enqueue_script('jquery');
 	}
 
 	/**
@@ -103,32 +124,47 @@ class NextGENDownloadGallery {
 		$pid    = get_query_var('pid');
 		$pageid = get_query_var('pageid');
 
-		// get now the related images
-		$picturelist = nggTags::find_images_for_tags($taglist , 'ASC');
-
-		// look for ImageBrowser if we have a $_GET('pid')
-		if ( $pageid == get_the_ID() || !is_home() ) {
-			if (!empty( $pid ))  {
-				$out = nggCreateImageBrowser($picturelist, $template);
-				return $out;
-			}
+		// NextGEN Gallery 2 can show gallery of tags with template
+		if (defined('NEXTGEN_GALLERY_PLUGIN_VERSION')) {
+			$params = array (
+				'display_type' => 'photocrati-nextgen_basic_thumbnails',
+				'tag_ids' => $taglist,
+				'template' => $template,
+			);
+			$registry = C_Component_Registry::get_instance();
+			$renderer = $registry->get_utility('I_Displayed_Gallery_Renderer');
+			$out = $renderer->display_images($params);
 		}
 
-		// go on if not empty
-		if ( empty($picturelist) )
-			return;
+		// and now for NextGEN Gallery 1.9.x:
+		else {
+			// get now the related images
+			$picturelist = nggTags::find_images_for_tags($taglist , 'ASC');
 
-		// show gallery
-		if ( is_array($picturelist) ) {
-			// record taglist and set filter to override gallery title with taglist
-			self::$taglist = $taglist;
-			add_filter('ngg_gallery_object', array(__CLASS__, 'filterNggGalleryObjectTagged'));
+			// look for ImageBrowser if we have a $_GET('pid')
+			if ( $pageid == get_the_ID() || !is_home() ) {
+				if (!empty( $pid ))  {
+					$out = nggCreateImageBrowser($picturelist, $template);
+					return $out;
+				}
+			}
 
-			// process gallery using selected template
-			$out = nggCreateGallery($picturelist, false, $template, $images);
+			// go on if not empty
+			if ( empty($picturelist) )
+				return;
 
-			// remove filter for gallery title
-			remove_filter('ngg_gallery_object', array(__CLASS__, 'filterNggGalleryObjectTagged'));
+			// show gallery
+			if ( is_array($picturelist) ) {
+				// record taglist and set filter to override gallery title with taglist
+				self::$taglist = $taglist;
+				add_filter('ngg_gallery_object', array(__CLASS__, 'nggGalleryObjectTagged'));
+
+				// process gallery using selected template
+				$out = nggCreateGallery($picturelist, false, $template, $images);
+
+				// remove filter for gallery title
+				remove_filter('ngg_gallery_object', array(__CLASS__, 'nggGalleryObjectTagged'));
+			}
 		}
 
 		$out = apply_filters('ngg_show_gallery_tags_content', $out, $taglist);
@@ -144,8 +180,11 @@ class NextGENDownloadGallery {
 	* @return string
 	*/
 	protected static function nggShowAlbumTags($taglist, $template, $images = false) {
+		global $nggRewrite;
 
-		global $wpdb, $nggRewrite;
+		// NextGEN Gallery 2.0.7 defines class nggRewrite but doesn't instantiate it
+		if (class_exists('nggRewrite') && !isset($nggRewrite))
+			$nggRewrite = new nggRewrite();
 
 		// $_GET from wp_query
 		$tag            = get_query_var('gallerytag');
@@ -154,14 +193,12 @@ class NextGENDownloadGallery {
 		// look for gallerytag variable
 		if ( $pageid == get_the_ID() || !is_home() )  {
 			if (!empty( $tag ))  {
-
-				// avoid this evil code $sql = 'SELECT name FROM wp_ngg_tags WHERE slug = \'slug\' union select concat(0x7c,user_login,0x7c,user_pass,0x7c) from wp_users WHERE 1 = 1';
 				$slug = esc_attr( $tag );
-				$tagname = $wpdb->get_var( $wpdb->prepare( "SELECT name FROM $wpdb->terms WHERE slug = %s", $slug ) );
+				$term = get_term_by('name', $slug, 'ngg_tag');
+				$tagname = $term->name;
 				$out  = '<div id="albumnav"><span><a href="' . get_permalink() . '" title="' . __('Overview', 'nggallery') .' ">'.__('Overview', 'nggallery').'</a> | '.$tagname.'</span></div>';
 				$out .=  self::nggShowGalleryTags($slug, $template, $images);
 				return $out;
-
 			}
 		}
 
@@ -179,14 +216,14 @@ class NextGENDownloadGallery {
 			$picturelist[$key]->previewurl  = site_url() . '/' . $picture->path . '/thumbs/thumbs_' . $picture->filename;
 			$picturelist[$key]->counter     = $picture->count;
 			$picturelist[$key]->title       = $picture->name;
-			$picturelist[$key]->pagelink    = $nggRewrite->get_permalink( array('gallerytag'=>$picture->slug) );
+			$picturelist[$key]->pagelink    = $nggRewrite->get_permalink(array('gallerytag' => $picture->slug));
 		}
 
 		// TODO: Add pagination later
 		$navigation = '<div class="ngg-clear"></div>';
 
 		// create the output
-		$out = nggGallery::capture ('album-compact', array ('album' => 0, 'galleries' => $picturelist, 'pagination' => $navigation) );
+		$out = nggGallery::capture('album-compact', array('album' => 0, 'galleries' => $picturelist, 'pagination' => $navigation));
 
 		$out = apply_filters('ngg_show_album_tags_content', $out, $taglist);
 
@@ -198,7 +235,7 @@ class NextGENDownloadGallery {
 	* @param stdClass $gallery
 	* @return stdClass
 	*/
-	public static function filterNggGalleryObjectTagged($gallery) {
+	public static function nggGalleryObjectTagged($gallery) {
 		if (self::$taglist) {
 			$title = 'tagged: ' . self::$taglist;
 			$gallery->title = apply_filters('ngg_dlgallery_tags_gallery_title', $title, self::$taglist);
@@ -213,7 +250,11 @@ class NextGENDownloadGallery {
 	* @param string $template_name name of custom template sought
 	* @return string
 	*/
-	public static function filterNggRenderTemplate($custom_template, $template_name) {
+	public static function nggRenderTemplate($custom_template, $template_name) {
+
+//~ error_log(__METHOD__ . ": custom_template = $custom_template");
+//~ error_log(__METHOD__ . ": template_name = $template_name");
+
 		if ($template_name == 'gallery-download') {
 			// see if theme has customised this template
 			$custom_template = locate_template("nggallery/$template_name.php");
@@ -236,6 +277,9 @@ class NextGENDownloadGallery {
 		$gallery = trim(stripslashes($_REQUEST['gallery']));
 
 		if (is_array($images) && count($images) > 0) {
+			// allow a long script run for pulling together lots of images
+			set_time_limit(300);
+
 			if (!class_exists('PclZip')) {
 				require ABSPATH . 'wp-admin/includes/class-pclzip.php';
 			}
