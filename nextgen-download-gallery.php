@@ -3,7 +3,7 @@
 Plugin Name: NextGEN Download Gallery
 Plugin URI: http://snippets.webaware.com.au/wordpress-plugins/nextgen-download-gallery/
 Description: Add a template to NextGEN Gallery that provides multiple-file downloads for trade/media galleries
-Version: 1.3.0
+Version: 1.3.1
 Author: WebAware
 Author URI: http://www.webaware.com.au/
 Text Domain: nextgen-download-gallery
@@ -251,10 +251,6 @@ class NextGENDownloadGallery {
 	* @return string
 	*/
 	public static function nggRenderTemplate($custom_template, $template_name) {
-
-//~ error_log(__METHOD__ . ": custom_template = $custom_template");
-//~ error_log(__METHOD__ . ": template_name = $template_name");
-
 		if ($template_name == 'gallery-download') {
 			// see if theme has customised this template
 			$custom_template = locate_template("nggallery/$template_name.php");
@@ -278,7 +274,17 @@ class NextGENDownloadGallery {
 
 		if (is_array($images) && count($images) > 0) {
 			// allow a long script run for pulling together lots of images
-			set_time_limit(300);
+			set_time_limit(60 * 60);
+
+			// stop/clear any output buffering
+			while (ob_get_level()) {
+				ob_end_clean();
+			}
+
+			// turn off compression on the server
+			if (function_exists('apache_setenv'))
+				@apache_setenv('no-gzip', 1);
+			@ini_set('zlib.output_compression', 'Off');
 
 			if (!class_exists('PclZip')) {
 				require ABSPATH . 'wp-admin/includes/class-pclzip.php';
@@ -296,7 +302,7 @@ class NextGENDownloadGallery {
 			}
 
 			if (count($files) > 0) {
-				// create the Zip archive, without paths or compression (images are already compressed)
+				// create the Zip archive, without paths or compression (images are generally already compressed)
 				$properties = $zip->create($files, PCLZIP_OPT_REMOVE_ALL_PATH, PCLZIP_OPT_NO_COMPRESSION);
 				if (!is_array($properties)) {
 					die($zip->errorInfo(true));
@@ -313,10 +319,21 @@ class NextGENDownloadGallery {
 				header('Cache-Control: must-revalidate');
 				header('Pragma: public');
 				header('Content-Length: ' . filesize($filename));
-				readfile($filename);
+
+				$chunksize = 64 * 1024;
+				$file = @fopen($filename, 'rb');
+				while (!feof($file)) {
+					echo @fread($file, $chunksize);
+					flush();
+				}
+				fclose($file);
+
+				// check for bug in some old PHP versions, close a second time!
+				if (is_resource($file))
+					fclose($file);
 
 				// delete the temporary file
-				unlink($filename);
+				@unlink($filename);
 
 				exit;
 			}

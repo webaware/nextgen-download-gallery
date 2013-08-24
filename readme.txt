@@ -7,7 +7,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: nextgen, gallery, download
 Requires at least: 3.2.1
 Tested up to: 3.6
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,6 +89,11 @@ If you have higher resolution images you'd like to download instead of the ones 
 1. example download gallery
 
 == Changelog ==
+
+= 1.3.1 [2013-08-25] =
+* fixed: undeclared variable warning when number of columns set in Gallery settings
+* fixed: download failures on some websites caused by theme or other plugins using output buffering early
+* fixed: download failures on some websites when using readfile(), now use read/write/flush loop
 
 = 1.3.0 [2013-08-16] =
 * fixed: `nggtags_ext` works in NextGEN Gallery 2.0.7+

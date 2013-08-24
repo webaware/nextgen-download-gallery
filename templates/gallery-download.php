@@ -46,7 +46,7 @@ Follow variables are useable :
 		<input type="hidden" name="action" value="ngg-download-gallery-zip" />
 		<input type="hidden" name="gallery" value="<?php echo $gallery->title; ?>" />
 
-		<?php foreach ( $images as $image ) : ?>
+		<?php $i = 0; foreach ( $images as $image ) : ?>
 
 		<div id="ngg-image-<?php echo $image->pid ?>" class="ngg-gallery-thumbnail-box" <?php echo $image->style ?> >
 			<div class="ngg-gallery-thumbnail" >
@@ -60,7 +60,7 @@ Follow variables are useable :
 		</div>
 
 		<?php if ( $image->hidden ) continue; ?>
-		<?php if ( $gallery->columns > 0 && ++$i % $gallery->columns == 0 ) { ?>
+		<?php if ( $gallery->columns > 0 && (++$i % $gallery->columns) == 0 ) { ?>
 			<br style="clear: both" />
 		<?php } ?>
 
