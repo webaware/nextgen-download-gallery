@@ -6,7 +6,7 @@ Author URI: http://www.webaware.com.au/
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=P3LPZAJCWTDUU
 Tags: nextgen, gallery, download
 Requires at least: 3.2.1
-Tested up to: 3.6
+Tested up to: 3.9
 Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -42,11 +42,17 @@ When using a shortcode to show a NextGEN album, you can make it show download ga
 
 `[nggalbum id=1 gallery=download]`
 
+NB: NextGEN Gallery 2.0 still doesn't support this functionality, as at v2.0.31; see FAQ for work-around.
+
 = From a tags shortcode =
 
 The standard `nggtags` shortcode doesn't allow you to specify the gallery template, so this plugin adds an extended version of that shortcode.
 
 `[nggtags_ext gallery="frogs,lizards" template=download]`
+
+Or in NextGEN Gallery v2.0:
+
+`[ngg_images tag_ids="frogs,lizards" template=download display_type="photocrati-nextgen_basic_thumbnails"]`
 
 == Frequently Asked Questions ==
 
@@ -56,15 +62,21 @@ No. [NextGEN Gallery](http://wordpress.org/plugins/nextgen-gallery/) is doing al
 
 = Can I make an album use the download template? =
 
-Yes, the album shortcode has separate parameters for album and gallery templates. The "template" parameter tells it which template to use for the album, and the "gallery" parameter tells it which template to use for the gallery. e.g.
+Yes, in NextGEN Gallery v1.9.13 the album shortcode has separate parameters for album and gallery templates. The "template" parameter tells it which template to use for the album, and the "gallery" parameter tells it which template to use for the gallery. e.g.
 
 `[nggalbum id=1 template=compact gallery=download]`
 
+NB: NextGEN Gallery v2.0 still doesn't support this functionality, as at v2.0.31. Instead, you need to link a page to each gallery in Gallery > Manage Galleries, and use the `nggalbum` shortcode on those pages to set the template as "download".
+
 = Can I make the tags shortcode use the download template? =
 
-Not directly; the `nggtags` shortcode doesn't support a template parameter, but this plugin adds a new shortcode that does.
+In NextGEN Gallery v1.9.13, Not directly; the `nggtags` shortcode doesn't support a template parameter, but this plugin adds a new shortcode that does.
 
 `[nggtags_ext gallery="frogs,lizards" template=download]`
+
+NextGEN Gallery v2.0 introduces a new shortcode, `ngg_images`; see the [Photocrati documentation for ngg_images](http://www.nextgen-gallery.com/nextgen-gallery-shortcodes/). This new shortcode does support a template parameter, like this:
+
+`[ngg_images tag_ids="frogs,lizards" template=download display_type="photocrati-nextgen_basic_thumbnails"]`
 
 = I don't like the download template; can I customise it? =
 
@@ -82,7 +94,7 @@ The initial translations were made using Google Translate, so it's likely that s
 
 = Can I change the image paths, to download a different image? =
 
-If you have higher resolution images you'd like to download instead of the ones displayed, you can use a filter hook. See [this support post](http://wordpress.org/support/topic/linking-to-hr-images-again#post-4385317) for details.
+If you have higher resolution images you'd like to download instead of the ones displayed, you can use a WordPress filter hook. See [this support post](http://wordpress.org/support/topic/linking-to-hr-images-again#post-4385317) for details. **NB:** this is advanced and requires some programming ability!
 
 == Screenshots ==
 
