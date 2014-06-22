@@ -1,13 +1,13 @@
 === NextGEN Download Gallery ===
 Contributors: webaware
 Plugin Name: NextGEN Download Gallery
-Plugin URI: http://snippets.webaware.com.au/wordpress-plugins/nextgen-download-gallery/
-Author URI: http://www.webaware.com.au/
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=P3LPZAJCWTDUU
+Plugin URI: http://shop.webaware.com.au/downloads/nextgen-download-gallery/
+Author URI: http://webaware.com.au/
+Donate link: http://shop.webaware.com.au/downloads/nextgen-download-gallery/
 Tags: nextgen, gallery, download
 Requires at least: 3.2.1
-Tested up to: 3.9
-Stable tag: 1.3.1
+Tested up to: 3.9.1
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,17 +15,25 @@ Add a template to NextGEN Gallery that provides multiple-file downloads for trad
 
 == Description ==
 
-Add a template to NextGEN Gallery that provides multiple-file downloads for trade/media galleries. [NextGEN Gallery](http://wordpress.org/plugins/nextgen-gallery/) is one of the best gallery plugins for WordPress because it is very flexible and has a nice, simple admin. This plugin adds a new gallery template that lets you select multiple images from the gallery to be downloaded as a ZIP archive.
+Add a template to NextGEN Gallery that provides multiple-file downloads for trade/media galleries. [NextGEN Gallery](http://wordpress.org/plugins/nextgen-gallery/) iss one of the best gallery plugins for WordPress because it iss very flexible and has a nice, simple admin. This plugin adds a new gallery template that lets you select multiple images from the gallery to be downloaded as a ZIP archive.
 
-This plugin is targetted at creating "Trade/Media" areas on websites, allowing journalists to easily download multiple product images. It's apparently very popular with photographers too.
+NB: the Photocrati version of NextGEN Gallery can impact the performance of your server. You might want to consider using [NextCellent Gallery](http://wordpress.org/plugins/nextcellent-gallery-nextgen-legacy/) instead -- it's a fork of the original NextGEN Gallery with continued support and compatibility, without the performance impacts.
 
-= Credits =
+NextGEN Download Gallery is targetted at creating "Trade/Media" areas on websites, allowing journalists to easily download multiple product images. It's apparently very popular with photographers too.
 
-This program incorporates some code that is copyright by Photocrati Media 2012 under the GPLv2. Some PHP code was copied from NextGEN Gallery and altered, so that the `nggtags` shortcode could be extended as `nggtags_ext` and specify a gallery template.
+= Translations =
+
+Many thanks to the generous efforts of these people for human translations:
+
+* Dutch (nl) -- [Ivan Beemster](http://www.lijndiensten.com/)
+
+If you'd like to help out by translating this plugin, please sign up for an account and dig in:
+
+* [translate.webaware.com.au/projects/nextgen-download-gallery](http://translate.webaware.com.au/projects/nextgen-download-gallery)
 
 == Installation ==
 
-1. Install [NextGEN Gallery](http://wordpress.org/plugins/nextgen-gallery/) and create galleries/albums
+1. Install [NextGEN Gallery](http://wordpress.org/plugins/nextgen-gallery/) or [NextCellent Gallery](http://wordpress.org/plugins/nextcellent-gallery-nextgen-legacy/), and create galleries/albums
 2. Upload this plugin to your /wp-content/plugins/ directory.
 3. Activate the plugin through the 'Plugins' menu in WordPress.
 4. Specify the gallery template as "download"
@@ -96,11 +104,33 @@ The initial translations were made using Google Translate, so it's likely that s
 
 If you have higher resolution images you'd like to download instead of the ones displayed, you can use a WordPress filter hook. See [this support post](http://wordpress.org/support/topic/linking-to-hr-images-again#post-4385317) for details. **NB:** this is advanced and requires some programming ability!
 
+== Contributions ==
+
+* [Translate into your preferred language](http://translate.webaware.com.au/projects/nextgen-download-gallery)
+* [Fork me on GitHub](https://github.com/webaware/nextgen-download-gallery)
+
+== Credits ==
+
+This program incorporates a little code that is copyright by Photocrati Media 2012 under the GPLv2. Some PHP code was copied from NextGEN Gallery and altered, so that the `nggtags` shortcode could be extended as `nggtags_ext` and specify a gallery template.
+
 == Screenshots ==
 
 1. example download gallery
 
 == Changelog ==
+
+= 1.4.0 [2014-06-22] =
+* fixed: zip file was getting name ".zip" when no gallery name set
+* fixed: Dutch translation (thanks, [Ivan Beemster](http://www.lijndiensten.com/)!)
+* fixed: Georgian translation (from Google Translate) renamed ka_GE so it might work now :)
+* fixed: download gallery title is "tagged: {taglist}" when using shortcode `nggtags_ext` or `ngg_images` in NextGEN Gallery 2.0.x now too!
+* added: support for downloading everything from a gallery all at once
+* added: stylesheet to force HR to behave nicely in common themes ("Finally!" so say we all)
+* added: filter `ngg_dlgallery_zip_pre_add` so that plugins/themes can supply a callback function name for PclZip `PCLZIP_CB_PRE_ADD` argument
+* changed: select all button now toggles between selected and unselected
+* changed: JavaScript now loaded as external script, not part of gallery template
+* changed: process download action through admin-post.php, no need for AJAX logic (still supported for legacy customised templates)
+* changed: [translations now updated online](http://translate.webaware.com.au/projects/nextgen-download-gallery), so .po files removed from plugin
 
 = 1.3.1 [2013-08-25] =
 * fixed: undeclared variable warning when number of columns set in Gallery settings

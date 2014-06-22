@@ -1,6 +1,6 @@
 <?php
 /**
-Template Page for the Trade/Media gallery, with a download form
+Template for the NextGEN Download Gallery
 Based on basic template (gallery.php) with a few custom additions
 
 Follow variables are useable :
@@ -9,13 +9,19 @@ Follow variables are useable :
 	$images      : Contain all images, path, title
 	$pagination  : Contain the pagination content
 
- You can check the content when you insert the tag <?php var_dump($variable) ?>
- If you would like to show the timestamp of the image ,you can use <?php echo $exif['created_timestamp'] ?>
 **/
-?>
-<?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?><?php if (!empty ($gallery)) : ?>
 
-<div class="ngg-galleryoverview" id="<?php echo $gallery->anchor ?>">
+if (!defined ('ABSPATH'))
+	die ('No direct access allowed');
+
+if (!empty($gallery)):
+
+	// get link to download all images, or false if not configured to do so
+	$nggDownloadAllUrl = NextGENDownloadGallery::getDownloadAllUrl($gallery);
+
+?>
+
+<div class="ngg-galleryoverview ngg-download" id="<?php echo $gallery->anchor ?>">
 
 <h3><?php echo $gallery->title; ?></h3>
 
@@ -23,7 +29,7 @@ Follow variables are useable :
 <p><?php echo $gallery->description; ?></p>
 <?php endif; ?>
 
-<?php if ($gallery->show_slideshow) { ?>
+<?php if (!empty($gallery->show_slideshow)) { ?>
 	<!-- Slideshow link -->
 	<div class="slideshowlink">
 		<a class="slideshowlink" href="<?php echo $gallery->slideshow_link ?>">
@@ -32,17 +38,17 @@ Follow variables are useable :
 	</div>
 <?php } ?>
 
-<?php if ($gallery->show_piclens) { ?>
+<?php if (!empty($gallery->show_piclens)) { ?>
 	<!-- Piclense link -->
 	<div class="piclenselink">
 		<a class="piclenselink" href="<?php echo $gallery->piclens_link ?>">
-			<?php _e('[View with PicLens]','nggallery'); ?>
+			<?php _e('[View with PicLens]','nextgen-download-gallery'); ?>
 		</a>
 	</div>
 <?php } ?>
 
 	<!-- Thumbnails -->
-	<form action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" id="ngg-download-frm">
+	<form action="<?php echo admin_url('admin-post.php'); ?>" method="post" id="<?php echo $gallery->anchor ?>-download-frm" class="ngg-download-frm">
 		<input type="hidden" name="action" value="ngg-download-gallery-zip" />
 		<input type="hidden" name="gallery" value="<?php echo $gallery->title; ?>" />
 
@@ -66,33 +72,18 @@ Follow variables are useable :
 
 		<?php endforeach; ?>
 
-		<hr />
+		<hr class="ngg-download-separator" />
 		<input class="button ngg-download-selectall" type="button" style="display:none" value="<?php _e('select all', 'nextgen-download-gallery'); ?>" />
-		<input class="button downloadButton" type="submit" value="<?php _e('download selected images', 'nextgen-download-gallery'); ?>" />
+		<input class="button ngg-download-download downloadButton" type="submit" value="<?php _e('download selected images', 'nextgen-download-gallery'); ?>" />
+		<?php if ($nggDownloadAllUrl): ?>
+		<input class="button ngg-download-everything" type="button" style="display:none" value="<?php _e('download all images', 'nextgen-download-gallery'); ?>" />
+		<input type="hidden" name="nggDownloadAll" value="<?php echo esc_url($nggDownloadAllUrl); ?>" />
+		<?php endif; ?>
 	</form>
 
 	<!-- Pagination -->
  	<?php echo $pagination ?>
 
 </div>
-
-<script>
-jQuery(function($) {
-
-<?php /* make sure that at least one image is selected before submitting form for download */ ?>
-	$("#ngg-download-frm").submit(function(event) {
-		if ($("input[name='pid[]']:checked", this).length == 0) {
-			event.preventDefault();
-			alert("<?php _e('Please select one or more images to download', 'nextgen-download-gallery'); ?>");
-		}
-	});
-
-<?php /* reveal "select all" button and active it */ ?>
-	$("input.ngg-download-selectall").show().click(function() {
-		$(this.form).find("input[name='pid[]']").prop({checked: true});
-	});
-
-});
-</script>
 
 <?php endif; ?>
