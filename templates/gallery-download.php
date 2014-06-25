@@ -48,7 +48,7 @@ if (!empty($gallery)):
 <?php } ?>
 
 	<!-- Thumbnails -->
-	<form action="<?php echo admin_url('admin-post.php'); ?>" method="post" id="<?php echo $gallery->anchor ?>-download-frm" class="ngg-download-frm">
+	<form action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" id="<?php echo $gallery->anchor ?>-download-frm" class="ngg-download-frm">
 		<input type="hidden" name="action" value="ngg-download-gallery-zip" />
 		<input type="hidden" name="gallery" value="<?php echo $gallery->title; ?>" />
 

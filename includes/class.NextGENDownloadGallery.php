@@ -18,13 +18,15 @@ class NextGENDownloadGallery {
 		// custom shortcodes
 		add_shortcode('nggtags_ext', array(__CLASS__, 'shortcodeTags'));
 
-		// register POST actions
-		add_action('admin_post_ngg-download-gallery-zip', array(__CLASS__, 'nggDownloadZip'));
-		add_action('admin_post_nopriv_ngg-download-gallery-zip', array(__CLASS__, 'nggDownloadZip'));
-
-		// register AJAX actions, for compatibility with old custom templates
+		// register "AJAX" actions (not really AJAX, just a cheap way into WordPress from the front end)
 		add_action('wp_ajax_ngg-download-gallery-zip', array(__CLASS__, 'nggDownloadZip'));
 		add_action('wp_ajax_nopriv_ngg-download-gallery-zip', array(__CLASS__, 'nggDownloadZip'));
+
+		// register POST actions, for compatibility with custom templates created form v1.4.0
+		// NB: see this support post for why this isn't the "official" way to grab a ZIP file:
+		// @link http://wordpress.org/support/topic/only-administrator-can-download
+		add_action('admin_post_ngg-download-gallery-zip', array(__CLASS__, 'nggDownloadZip'));
+		add_action('admin_post_nopriv_ngg-download-gallery-zip', array(__CLASS__, 'nggDownloadZip'));
 	}
 
 	/**
@@ -304,7 +306,7 @@ class NextGENDownloadGallery {
 			}
 		}
 
-		$url = add_query_arg($args, admin_url('admin-post.php'));
+		$url = add_query_arg($args, admin_url('admin-ajax.php'));
 
 		return $url;
 	}

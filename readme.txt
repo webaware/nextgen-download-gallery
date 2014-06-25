@@ -7,7 +7,7 @@ Donate link: http://shop.webaware.com.au/downloads/nextgen-download-gallery/
 Tags: nextgen, gallery, download
 Requires at least: 3.2.1
 Tested up to: 3.9.1
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ Add a template to NextGEN Gallery that provides multiple-file downloads for trad
 
 == Description ==
 
-Add a template to NextGEN Gallery that provides multiple-file downloads for trade/media galleries. [NextGEN Gallery](http://wordpress.org/plugins/nextgen-gallery/) iss one of the best gallery plugins for WordPress because it iss very flexible and has a nice, simple admin. This plugin adds a new gallery template that lets you select multiple images from the gallery to be downloaded as a ZIP archive.
+Add a template to NextGEN Gallery that provides multiple-file downloads for trade/media galleries. [NextGEN Gallery](http://wordpress.org/plugins/nextgen-gallery/) is one of the best gallery plugins for WordPress because it is very flexible and has a nice, simple admin. This plugin adds a new gallery template that lets you select multiple images from the gallery to be downloaded as a ZIP archive.
 
 NB: the Photocrati version of NextGEN Gallery can impact the performance of your server. You might want to consider using [NextCellent Gallery](http://wordpress.org/plugins/nextcellent-gallery-nextgen-legacy/) instead -- it's a fork of the original NextGEN Gallery with continued support and compatibility, without the performance impacts.
 
@@ -27,9 +27,7 @@ Many thanks to the generous efforts of these people for human translations:
 
 * Dutch (nl) -- [Ivan Beemster](http://www.lijndiensten.com/)
 
-If you'd like to help out by translating this plugin, please sign up for an account and dig in:
-
-* [translate.webaware.com.au/projects/nextgen-download-gallery](http://translate.webaware.com.au/projects/nextgen-download-gallery)
+If you'd like to help out by translating this plugin, please [sign up for an account and dig in](http://translate.webaware.com.au/projects/nextgen-download-gallery).
 
 == Installation ==
 
@@ -66,19 +64,19 @@ Or in NextGEN Gallery v2.0:
 
 = Will this plugin work without NextGEN Gallery? =
 
-No. [NextGEN Gallery](http://wordpress.org/plugins/nextgen-gallery/) is doing all the work. This plugin is only adding a new gallery template and the ZIP download functionality.
+No. [NextGEN Gallery](http://wordpress.org/plugins/nextgen-gallery/) / [NextCellent Gallery](http://wordpress.org/plugins/nextcellent-gallery-nextgen-legacy/) is doing all the work. This plugin is only adding a new gallery template and the ZIP download functionality.
 
 = Can I make an album use the download template? =
 
-Yes, in NextGEN Gallery v1.9.13 the album shortcode has separate parameters for album and gallery templates. The "template" parameter tells it which template to use for the album, and the "gallery" parameter tells it which template to use for the gallery. e.g.
+Yes, in NextCellent Gallery the album shortcode has separate parameters for album and gallery templates. The "template" parameter tells it which template to use for the album, and the "gallery" parameter tells it which template to use for the gallery. e.g.
 
 `[nggalbum id=1 template=compact gallery=download]`
 
-NB: NextGEN Gallery v2.0 still doesn't support this functionality, as at v2.0.31. Instead, you need to link a page to each gallery in Gallery > Manage Galleries, and use the `nggalbum` shortcode on those pages to set the template as "download".
+NB: NextGEN Gallery v2.0 still doesn't support this functionality. Instead, you need to link a page to each gallery in Gallery > Manage Galleries, and use the `nggalbum` shortcode on those pages to set the template as "download".
 
 = Can I make the tags shortcode use the download template? =
 
-In NextGEN Gallery v1.9.13, Not directly; the `nggtags` shortcode doesn't support a template parameter, but this plugin adds a new shortcode that does.
+In NextCellent Gallery, not directly; the `nggtags` shortcode doesn't support a template parameter, but this plugin adds a new shortcode that does.
 
 `[nggtags_ext gallery="frogs,lizards" template=download]`
 
@@ -98,7 +96,7 @@ There can be several reasons, but the most common one is that your server is lim
 
 = You've translated my language badly / it's missing =
 
-The initial translations were made using Google Translate, so it's likely that some will be truly awful! Please help by editing the .po file for your language and tell me about it in the support forum.
+The initial translations were made using Google Translate, so it's likely that some will be truly awful! Please help by [registering to translate into your preferred language](http://translate.webaware.com.au/projects/nextgen-download-gallery).
 
 = Can I change the image paths, to download a different image? =
 
@@ -118,6 +116,9 @@ This program incorporates a little code that is copyright by Photocrati Media 20
 1. example download gallery
 
 == Changelog ==
+
+= 1.4.1 [2014-06-25] =
+* fixed: reverted to using admin-ajax.php for handling the ZIP request; admin-post.php was redirecting to the home page for non-admin users on at least one website (why? anybody know, please [tell me in the support forum](http://wordpress.org/support/topic/only-administrator-can-download)).
 
 = 1.4.0 [2014-06-22] =
 * fixed: zip file was getting name ".zip" when no gallery name set
@@ -147,7 +148,7 @@ This program incorporates a little code that is copyright by Photocrati Media 20
 
 = 1.2.2 [2013-06-23] =
 * added: shortcode `nggtags_ext` supports images attribute, for number of images to display per page
-* changed: translation updates using Google Translate, which is to say: badly! Please help by editing your language's .po and sending to me for inclusion in the next release!
+* changed: translation updates using Google Translate, which is to say: badly! Please help by [registering to translate into your preferred language](http://translate.webaware.com.au/projects/nextgen-download-gallery).
 
 = 1.2.1 [2013-03-23] =
 * fixed: download gallery title is "tagged: {taglist}" when using shortcode `nggtags_ext`; was using gallery title from first image (NextGEN Gallery bug)
@@ -165,7 +166,7 @@ This program incorporates a little code that is copyright by Photocrati Media 20
 * changed: no longer require Zip extension, uses WordPress-supplied PclZip class
 
 = 1.0.2 [2012-08-22] =
-* fixed: sanitize the Zip filename, removing spaces and special characters, so that downloaded files are received correctly on Firefox and others
+* fixed: sanitise the Zip filename, removing spaces and special characters, so that downloaded files are received correctly on Firefox and others
 
 = 1.0.1 [2012-07-26] =
 * fixed: provide ZipArchive error message when zip create fails
