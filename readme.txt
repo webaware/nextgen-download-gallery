@@ -117,6 +117,9 @@ This program incorporates a little code that is copyright by Photocrati Media 20
 
 == Changelog ==
 
+= 1.4.2 [soon...] =
+* fixed: Portuguese for "select all" has wrong gender (thanks, [Juliano Arantes](marydesign.com.br)!)
+
 = 1.4.1 [2014-06-25] =
 * fixed: reverted to using admin-ajax.php for handling the ZIP request; admin-post.php was redirecting to the home page for non-admin users on at least one website (why? anybody know, please [tell me in the support forum](http://wordpress.org/support/topic/only-administrator-can-download)).
 
