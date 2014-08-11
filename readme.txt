@@ -6,7 +6,7 @@ Author URI: http://webaware.com.au/
 Donate link: http://shop.webaware.com.au/downloads/nextgen-download-gallery/
 Tags: nextgen, gallery, download
 Requires at least: 3.2.1
-Tested up to: 3.9.1
+Tested up to: 4.0
 Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -17,15 +17,16 @@ Add a template to NextGEN Gallery that provides multiple-file downloads for trad
 
 Add a template to NextGEN Gallery that provides multiple-file downloads for trade/media galleries. [NextGEN Gallery](http://wordpress.org/plugins/nextgen-gallery/) is one of the best gallery plugins for WordPress because it is very flexible and has a nice, simple admin. This plugin adds a new gallery template that lets you select multiple images from the gallery to be downloaded as a ZIP archive.
 
-NB: the Photocrati version of NextGEN Gallery can impact the performance of your server. You might want to consider using [NextCellent Gallery](http://wordpress.org/plugins/nextcellent-gallery-nextgen-legacy/) instead -- it's a fork of the original NextGEN Gallery with continued support and compatibility, without the performance impacts.
+NB: the Photocrati version of NextGEN Gallery can impact the performance of your server, and not all of the old plugin's functionality works. You might want to consider using [NextCellent Gallery](http://wordpress.org/plugins/nextcellent-gallery-nextgen-legacy/) instead -- it's a fork of the original NextGEN Gallery with continued support and compatibility, without the performance impacts.
 
 NextGEN Download Gallery is targetted at creating "Trade/Media" areas on websites, allowing journalists to easily download multiple product images. It's apparently very popular with photographers too.
 
 = Translations =
 
-Many thanks to the generous efforts of these people for human translations:
+Many thanks to the generous efforts of our translators:
 
 * Dutch (nl) -- [Ivan Beemster](http://www.lijndiensten.com/)
+* Portuguese (pt-BR) -- [Juliano Arantes](http://www.42fotografia.com.br/)
 
 If you'd like to help out by translating this plugin, please [sign up for an account and dig in](http://translate.webaware.com.au/projects/nextgen-download-gallery).
 
@@ -44,11 +45,11 @@ When using a shortcode to show a NextGEN gallery, you can make it a download gal
 
 = From an album shortcode =
 
-When using a shortcode to show a NextGEN album, you can make it show download galleries by specifying the gallery template:
+When using a shortcode to show a NextCellent Gallery album, you can make it show download galleries by specifying the gallery template:
 
 `[nggalbum id=1 gallery=download]`
 
-NB: NextGEN Gallery 2.0 still doesn't support this functionality, as at v2.0.31; see FAQ for work-around.
+NB: NextGEN Gallery 2.0 still doesn't support this functionality, as at v2.0.66.17; see FAQ for work-around.
 
 = From a tags shortcode =
 
@@ -62,9 +63,9 @@ Or in NextGEN Gallery v2.0:
 
 == Frequently Asked Questions ==
 
-= Will this plugin work without NextGEN Gallery? =
+= Will this plugin work without NextGEN Gallery or NextCellent Gallery? =
 
-No. [NextGEN Gallery](http://wordpress.org/plugins/nextgen-gallery/) / [NextCellent Gallery](http://wordpress.org/plugins/nextcellent-gallery-nextgen-legacy/) is doing all the work. This plugin is only adding a new gallery template and the ZIP download functionality.
+No. [NextGEN Gallery](http://wordpress.org/plugins/nextgen-gallery/) / [NextCellent Gallery](http://wordpress.org/plugins/nextcellent-gallery-nextgen-legacy/) are doing all the work. This plugin is only adding a new gallery template and the ZIP download functionality.
 
 = Can I make an album use the download template? =
 
@@ -72,15 +73,15 @@ Yes, in NextCellent Gallery the album shortcode has separate parameters for albu
 
 `[nggalbum id=1 template=compact gallery=download]`
 
-NB: NextGEN Gallery v2.0 still doesn't support this functionality. Instead, you need to link a page to each gallery in Gallery > Manage Galleries, and use the `nggalbum` shortcode on those pages to set the template as "download".
+NB: NextGEN Gallery v2.0 still doesn't support this functionality. Instead, you need to link a page to each gallery in Gallery > Manage Galleries, and use the `nggallery` shortcode on those pages to set the template as "download".
 
 = Can I make the tags shortcode use the download template? =
 
-In NextCellent Gallery, not directly; the `nggtags` shortcode doesn't support a template parameter, but this plugin adds a new shortcode that does.
+In NextCellent Gallery, just add the template to the `nggtags` shortcode:
 
-`[nggtags_ext gallery="frogs,lizards" template=download]`
+`[nggtags gallery="frogs,lizards" template=download]`
 
-NextGEN Gallery v2.0 introduces a new shortcode, `ngg_images`; see the [Photocrati documentation for ngg_images](http://www.nextgen-gallery.com/nextgen-gallery-shortcodes/). This new shortcode does support a template parameter, like this:
+NextGEN Gallery v2.0 introduces a new shortcode, `ngg_images`; see the [Photocrati documentation for ngg_images](http://www.nextgen-gallery.com/nextgen-gallery-shortcodes/). This new shortcode can support a template parameter, like this:
 
 `[ngg_images tag_ids="frogs,lizards" template=download display_type="photocrati-nextgen_basic_thumbnails"]`
 
@@ -118,7 +119,7 @@ This program incorporates a little code that is copyright by Photocrati Media 20
 == Changelog ==
 
 = 1.4.2 [soon...] =
-* fixed: Portuguese for "select all" has wrong gender (thanks, [Juliano Arantes](marydesign.com.br)!)
+* fixed: Portuguese for "select all" has wrong gender (thanks, [Juliano Arantes](http://www.42fotografia.com.br/)!)
 
 = 1.4.1 [2014-06-25] =
 * fixed: reverted to using admin-ajax.php for handling the ZIP request; admin-post.php was redirecting to the home page for non-admin users on at least one website (why? anybody know, please [tell me in the support forum](http://wordpress.org/support/topic/only-administrator-can-download)).
