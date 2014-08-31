@@ -5,9 +5,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nextgen-download-gallery\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-22 13:13+1000\n"
-"PO-Revision-Date: 2014-06-22 13:13+1000\n"
-"Last-Translator: Ross McKay <translate@webaware.com.au>\n"
+"POT-Creation-Date: 2014-08-31 19:22+1000\n"
+"PO-Revision-Date: 2014-08-31 19:22+1000\n"
+"Last-Translator: Ross McKay <rmckay@webaware.com.au>\n"
 "Language-Team: \n"
 "Language: en_AU\n"
 "MIME-Version: 1.0\n"
@@ -23,28 +23,31 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../includes/class.NextGENDownloadGallery.php:72
+#: ../includes/class.NextGENDownloadGallery.php:74
 msgid "Please select one or more images to download"
 msgstr ""
 
-#: ../includes/class.NextGENDownloadGallery.php:191
+#: ../includes/class.NextGENDownloadGallery.php:193
 msgid "Overview"
 msgstr ""
 
-#: ../includes/class.NextGENDownloadGallery.php:439
+#: ../includes/class.NextGENDownloadGallery.php:441
+msgctxt "plugin details links"
 msgid "Get help"
 msgstr ""
 
-#: ../includes/class.NextGENDownloadGallery.php:440
+#: ../includes/class.NextGENDownloadGallery.php:442
+msgctxt "plugin details links"
 msgid "Rating"
 msgstr ""
 
-#: ../includes/class.NextGENDownloadGallery.php:441
-msgctxt "translate from English"
+#: ../includes/class.NextGENDownloadGallery.php:443
+msgctxt "plugin details links"
 msgid "Translate"
 msgstr ""
 
-#: ../includes/class.NextGENDownloadGallery.php:442
+#: ../includes/class.NextGENDownloadGallery.php:444
+msgctxt "plugin details links"
 msgid "Donate"
 msgstr ""
 
