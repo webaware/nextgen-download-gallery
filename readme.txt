@@ -7,7 +7,7 @@ Donate link: http://shop.webaware.com.au/downloads/nextgen-download-gallery/
 Tags: nextgen, gallery, download
 Requires at least: 3.2.1
 Tested up to: 4.0
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,7 +25,8 @@ NextGEN Download Gallery is targetted at creating "Trade/Media" areas on website
 
 Many thanks to the generous efforts of our translators:
 
-* Dutch (nl) -- [Ivan Beemster](http://www.lijndiensten.com/)
+* Dutch (nl-NL) -- [Ivan Beemster](http://www.lijndiensten.com/)
+* Frensh (fr-FR) -- Nicolas Sizun
 * Portuguese (pt-BR) -- [Juliano Arantes](http://www.42fotografia.com.br/)
 
 If you'd like to help out by translating this plugin, please [sign up for an account and dig in](http://translate.webaware.com.au/projects/nextgen-download-gallery).
@@ -118,7 +119,8 @@ This program incorporates a little code that is copyright by Photocrati Media 20
 
 == Changelog ==
 
-= 1.4.2 [soon...] =
+= 1.4.2 [2014-09-18] =
+* fixed: French translation (thanks, Nicolas Sizun!)
 * fixed: Portuguese for "select all" has wrong gender (thanks, [Juliano Arantes](http://www.42fotografia.com.br/)!)
 
 = 1.4.1 [2014-06-25] =
