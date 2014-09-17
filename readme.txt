@@ -26,7 +26,7 @@ NextGEN Download Gallery is targetted at creating "Trade/Media" areas on website
 Many thanks to the generous efforts of our translators:
 
 * Dutch (nl-NL) -- [Ivan Beemster](http://www.lijndiensten.com/)
-* Frensh (fr-FR) -- Nicolas Sizun
+* French (fr-FR) -- Nicolas Sizun
 * Portuguese (pt-BR) -- [Juliano Arantes](http://www.42fotografia.com.br/)
 
 If you'd like to help out by translating this plugin, please [sign up for an account and dig in](http://translate.webaware.com.au/projects/nextgen-download-gallery).
