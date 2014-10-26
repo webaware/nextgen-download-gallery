@@ -356,7 +356,7 @@ class NextGENDownloadGallery {
 
 		if (is_array($images) && count($images) > 0) {
 			// allow a long script run for pulling together lots of images
-			set_time_limit(60 * 60);
+			@set_time_limit(HOUR_IN_SECONDS);
 
 			// stop/clear any output buffering
 			while (ob_get_level()) {

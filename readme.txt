@@ -120,6 +120,9 @@ This program incorporates a little code that is copyright by Photocrati Media 20
 
 == Changelog ==
 
+= 1.4.4, soon... =
+* fixed: suppress errors on `set_time_limit()` to avoid download problems when that function has been disabled
+
 = 1.4.3, 2014-10-21 =
 * fixed: Danish translation (thanks, [Ligefrem](http://www.ligefrem.dk/)!)
 
