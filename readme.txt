@@ -7,7 +7,7 @@ Donate link: http://shop.webaware.com.au/downloads/nextgen-download-gallery/
 Tags: nextgen, gallery, download
 Requires at least: 3.2.1
 Tested up to: 4.0
-Stable tag: 1.4.3
+Stable tag: 1.4.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,6 +25,7 @@ NextGEN Download Gallery is targetted at creating "Trade/Media" areas on website
 
 Many thanks to the generous efforts of our translators:
 
+* Czech (cs-CZ) ([Rudolf Klusal](http://www.klusik.cz/))
 * Danish (da-DK) -- [Ligefrem](http://www.ligefrem.dk/)
 * Dutch (nl-NL) -- [Ivan Beemster](http://www.lijndiensten.com/)
 * French (fr-FR) -- Nicolas Sizun
@@ -120,8 +121,9 @@ This program incorporates a little code that is copyright by Photocrati Media 20
 
 == Changelog ==
 
-= 1.4.4, soon... =
+= 1.4.4, 2014-10-27 =
 * fixed: suppress errors on `set_time_limit()` to avoid download problems when that function has been disabled
+* added: Czech translation (thanks, [Rudolf Klusal](http://www.klusik.cz/)!)
 
 = 1.4.3, 2014-10-21 =
 * fixed: Danish translation (thanks, [Ligefrem](http://www.ligefrem.dk/)!)
