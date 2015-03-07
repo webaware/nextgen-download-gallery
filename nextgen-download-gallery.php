@@ -3,7 +3,7 @@
 Plugin Name: NextGEN Download Gallery
 Plugin URI: http://shop.webaware.com.au/downloads/nextgen-download-gallery/
 Description: Add a template to NextGEN Gallery that provides multiple-file downloads for trade/media galleries
-Version: 1.4.4
+Version: 1.4.5-dev
 Author: WebAware
 Author URI: http://webaware.com.au/
 Text Domain: nextgen-download-gallery
@@ -11,7 +11,7 @@ Domain Path: /languages/
 */
 
 /*
-copyright (c) 2012-2014 WebAware Pty Ltd (email : support@webaware.com.au)
+copyright (c) 2012-2015 WebAware Pty Ltd (email : support@webaware.com.au)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -42,7 +42,7 @@ if (!defined('NGG_DLGALL_PLUGIN_ROOT')) {
 	define('NGG_DLGALL_PLUGIN_ROOT', dirname(__FILE__) . '/');
 	define('NGG_DLGALL_PLUGIN_NAME', basename(dirname(__FILE__)) . '/' . basename(__FILE__));
 	define('NGG_DLGALL_PLUGIN_FILE', __FILE__);
-	define('NGG_DLGALL_PLUGIN_VERSION', '1.4.4');
+	define('NGG_DLGALL_PLUGIN_VERSION', '1.4.5-dev');
 
 	define('NGG_DLGALL_OPTIONS', 'ngg_dlgallery');
 }
