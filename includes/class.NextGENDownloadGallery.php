@@ -24,7 +24,7 @@ class NextGENDownloadGallery {
 
 		// register POST actions, for compatibility with custom templates created form v1.4.0
 		// NB: see this support post for why this isn't the "official" way to grab a ZIP file:
-		// @link http://wordpress.org/support/topic/only-administrator-can-download
+		// @link https://wordpress.org/support/topic/only-administrator-can-download
 		add_action('admin_post_ngg-download-gallery-zip', array(__CLASS__, 'nggDownloadZip'));
 		add_action('admin_post_nopriv_ngg-download-gallery-zip', array(__CLASS__, 'nggDownloadZip'));
 	}
@@ -438,9 +438,9 @@ class NextGENDownloadGallery {
 	*/
 	public static function addPluginDetailsLinks($links, $file) {
 		if ($file == NGG_DLGALL_PLUGIN_NAME) {
-			$links[] = sprintf('<a href="http://wordpress.org/support/plugin/nextgen-download-gallery" target="_blank">%s</a>', _x('Get help', 'plugin details links', 'nextgen-download-gallery'));
-			$links[] = sprintf('<a href="http://wordpress.org/plugins/nextgen-download-gallery/" target="_blank">%s</a>', _x('Rating', 'plugin details links', 'nextgen-download-gallery'));
-			$links[] = sprintf('<a href="http://translate.webaware.com.au/projects/nextgen-download-gallery" target="_blank">%s</a>', _x('Translate', 'plugin details links', 'nextgen-download-gallery'));
+			$links[] = sprintf('<a href="https://wordpress.org/support/plugin/nextgen-download-gallery" target="_blank">%s</a>', _x('Get help', 'plugin details links', 'nextgen-download-gallery'));
+			$links[] = sprintf('<a href="https://wordpress.org/plugins/nextgen-download-gallery/" target="_blank">%s</a>', _x('Rating', 'plugin details links', 'nextgen-download-gallery'));
+			$links[] = sprintf('<a href="https://translate.webaware.com.au/projects/nextgen-download-gallery" target="_blank">%s</a>', _x('Translate', 'plugin details links', 'nextgen-download-gallery'));
 			$links[] = sprintf('<a href="http://shop.webaware.com.au/downloads/nextgen-download-gallery/" target="_blank">%s</a>', _x('Donate', 'plugin details links', 'nextgen-download-gallery'));
 		}
 

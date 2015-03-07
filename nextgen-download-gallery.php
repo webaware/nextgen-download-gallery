@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 This program incorporates some code that is copyright by Photocrati Media 2012
 under the GPLv2. Please see the readme.txt file distributed with NextGEN Gallery
-for more information: http://wordpress.org/plugins/nextgen-gallery/
+for more information: https://wordpress.org/plugins/nextgen-gallery/
 */
 
 
