@@ -45,6 +45,9 @@ class NextGENDownloadGallery {
 
 			// pick up tags when ngg_images uses tags
 			add_filter('ngg_gallery_object', array(__CLASS__, 'ngg2GalleryObject'));
+
+			// tell NGG2 to look in plugin for legacy templates
+			add_filter('ngg_legacy_template_directories', array(__CLASS__, 'ngg2LegacyTemplateFolders'));
 		}
 	}
 
@@ -255,6 +258,17 @@ class NextGENDownloadGallery {
 		}
 
 		return $gallery;
+	}
+
+	/**
+	* add this plugin's template folder to NextGEN Gallery 2's list of legacy template folders
+	* @param array $folders
+	* @return array
+	*/
+	public function ngg2LegacyTemplateFolders($folders) {
+		$folders['NextGEN Download Gallery'] = NGG_DLGALL_PLUGIN_ROOT . DIRECTORY_SEPARATOR . 'templates';
+
+		return $folders;
 	}
 
 	/**
