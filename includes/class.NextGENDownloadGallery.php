@@ -265,7 +265,7 @@ class NextGENDownloadGallery {
 	* @param array $folders
 	* @return array
 	*/
-	public function ngg2LegacyTemplateFolders($folders) {
+	public static function ngg2LegacyTemplateFolders($folders) {
 		$folders['NextGEN Download Gallery'] = NGG_DLGALL_PLUGIN_ROOT . DIRECTORY_SEPARATOR . 'templates';
 
 		return $folders;
