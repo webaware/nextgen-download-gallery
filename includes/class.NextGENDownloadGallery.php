@@ -193,7 +193,8 @@ class NextGENDownloadGallery {
 				$slug = esc_attr( $tag );
 				$term = get_term_by('name', $slug, 'ngg_tag');
 				$tagname = $term->name;
-				$out  = '<div id="albumnav"><span><a href="' . get_permalink() . '" title="' . __('Overview', 'nextgen-download-gallery') .' ">'.__('Overview', 'nextgen-download-gallery').'</a> | '.$tagname.'</span></div>';
+				$out  = sprintf('<div id="albumnav"><span><a href="%1$s" title="%2$s">%2$s</a> | %3$s</span></div>',
+							esc_url(get_permalink()), __('Overview', 'nextgen-download-gallery'), esc_html($tagname));
 				$out .=  self::nggShowGalleryTags($slug, $template, $images);
 				return $out;
 			}

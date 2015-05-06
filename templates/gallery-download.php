@@ -56,12 +56,12 @@ if (!empty($gallery)):
 
 		<div id="ngg-image-<?php echo $image->pid ?>" class="ngg-gallery-thumbnail-box" <?php echo $image->style ?> >
 			<div class="ngg-gallery-thumbnail" >
-				<a href="<?php echo $image->imageURL ?>" title="<?php echo htmlspecialchars($image->description) ?>" <?php echo $image->thumbcode ?> >
+				<a href="<?php echo $image->imageURL ?>" title="<?php echo esc_attr($image->description) ?>" <?php echo $image->thumbcode ?> >
 					<?php if ( !$image->hidden ) { ?>
-					<img title="<?php echo htmlspecialchars($image->alttext) ?>" alt="<?php echo htmlspecialchars($image->alttext) ?>" src="<?php echo $image->thumbnailURL ?>" <?php echo $image->size ?> />
+					<img title="<?php echo esc_attr($image->alttext) ?>" alt="<?php echo esc_attr($image->alttext) ?>" src="<?php echo $image->thumbnailURL ?>" <?php echo $image->size ?> />
 					<?php } ?>
 				</a>
-				<label><input type="checkbox" name="pid[]" value="<?php echo $image->pid ?>" /><span><?php echo htmlspecialchars($image->alttext) ?></span></label>
+				<label><input type="checkbox" name="pid[]" value="<?php echo $image->pid ?>" /><span><?php echo esc_html($image->alttext) ?></span></label>
 			</div>
 		</div>
 
