@@ -337,7 +337,7 @@ class NextGENDownloadGallery {
 
 		// sanity check
 		if (!is_object($nggdb)) {
-			exit;
+			wp_die(__('NextGEN Download Gallery requires NextGEN Gallery or NextCellent Gallery', 'nextgen-download-gallery'));
 		}
 
 		// check for request to download everything
@@ -404,7 +404,7 @@ class NextGENDownloadGallery {
 				// create the Zip archive, without paths or compression (images are generally already compressed)
 				$properties = $zip->create($files, PCLZIP_OPT_REMOVE_ALL_PATH, PCLZIP_OPT_NO_COMPRESSION, PCLZIP_CB_PRE_ADD, $preAddCallback);
 				if (!is_array($properties)) {
-					die($zip->errorInfo(true));
+					wp_die($zip->errorInfo(true));
 				}
 				unset($zip);
 
@@ -436,7 +436,12 @@ class NextGENDownloadGallery {
 
 				exit;
 			}
+
+			// no files, report to user
+			wp_die(__('No files found to download', 'nextgen-download-gallery'));
 		}
+
+		wp_die(__('No images selected for download', 'nextgen-download-gallery'));
 	}
 
 	/**
