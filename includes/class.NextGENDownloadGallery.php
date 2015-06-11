@@ -3,6 +3,7 @@
 class NextGENDownloadGallery {
 
 	protected static $taglist = false;				// for recording taglist when building gallery for nggtags_ext shortcode
+	protected static $downloadAll = false;			// for recording the list of gallery IDs for "download all images" button
 
 	/**
 	* hook WordPress to handle script and style fixes
@@ -22,7 +23,7 @@ class NextGENDownloadGallery {
 		add_action('wp_ajax_ngg-download-gallery-zip', array(__CLASS__, 'nggDownloadZip'));
 		add_action('wp_ajax_nopriv_ngg-download-gallery-zip', array(__CLASS__, 'nggDownloadZip'));
 
-		// register POST actions, for compatibility with custom templates created form v1.4.0
+		// register POST actions, for compatibility with custom templates created from v1.4.0
 		// NB: see this support post for why this isn't the "official" way to grab a ZIP file:
 		// @link https://wordpress.org/support/topic/only-administrator-can-download
 		add_action('admin_post_ngg-download-gallery-zip', array(__CLASS__, 'nggDownloadZip'));
@@ -295,35 +296,51 @@ class NextGENDownloadGallery {
 	}
 
 	/**
-	* generate link for downloading everything, if configured
+	* @deprecated generate link for downloading everything, if configured
 	* @param object $gallery
 	* @return string|false
 	*/
 	public static function getDownloadAllUrl($gallery) {
-		$args = array(
-			'action' => 'ngg-download-gallery-zip',
-			'gallery' => urlencode($gallery->title),
-		);
+		return self::getDownloadAllId($gallery);
+	}
+
+	/**
+	* generate link for downloading everything, if configured
+	* @param object $gallery
+	* @return string|false
+	*/
+	public static function getDownloadAllId($gallery) {
+		if (empty(self::$downloadAll)) {
+			self::$downloadAll = array();
+		}
+
+		//~ $args = array(
+			//~ 'action' => 'ngg-download-gallery-zip',
+			//~ 'gallery' => urlencode($gallery->title),
+		//~ );
 
 		if (defined('NEXTGEN_GALLERY_PLUGIN_VERSION')) {
 			// NextGEN Gallery 2 virtual gallery
-			$args['all-id'] = $gallery->displayed_gallery->transient_id;
+			$id = $gallery->displayed_gallery->transient_id;
+			self::$downloadAll[$id] = $id;
 		}
 		else {
 			// legacy plugin
 			if (empty($gallery->nggDownloadTaglist)) {
 				// just a gallery
-				$args['all-id'] = $gallery->ID;
+				$id = $gallery->ID;
+				self::$downloadAll[$id] = $id;
 			}
 			else {
 				// virtual gallery from tags
-				$args['all-tags'] = urlencode($gallery->nggDownloadTaglist);
+				$id = md5($gallery->nggDownloadTaglist);
+				self::$downloadAll[$id] = urlencode($gallery->nggDownloadTaglist);
 			}
 		}
 
-		$url = add_query_arg($args, admin_url('admin-ajax.php'));
+		//~ $url = add_query_arg($args, admin_url('admin-ajax.php'));
 
-		return $url;
+		return $id;
 	}
 
 	/**
