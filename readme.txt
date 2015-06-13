@@ -6,8 +6,8 @@ Author URI: http://webaware.com.au/
 Donate link: http://shop.webaware.com.au/downloads/nextgen-download-gallery/
 Tags: nextgen, gallery, download
 Requires at least: 3.2.1
-Tested up to: 4.1.1
-Stable tag: 1.4.4
+Tested up to: 4.2.2
+Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -121,8 +121,8 @@ This program incorporates a little code that is copyright by Photocrati Media 20
 
 == Changelog ==
 
-= 1.4.5, soon... =
-* fixed: NextGEN Gallery no longer permits typing in download gallery template name; add our templates to list
+= 1.5.0, 2015-06-13 =
+* fixed: NextGEN Gallery no longer permits typing in download gallery template name; add our templates to list (pending NGG update)
 * added: action hooks `ngg_dlgallery_zip_before_send` and `ngg_dlgallery_zip_after_send`
 * changed: Download All handled via POST, not GET; more robust
 
