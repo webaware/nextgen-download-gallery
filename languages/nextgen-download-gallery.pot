@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nextgen-download-gallery\n"
 "Report-Msgid-Bugs-To: translate@webaware.com.au\n"
-"POT-Creation-Date: 2015-06-13 17:17+1000\n"
-"PO-Revision-Date: 2015-06-13 17:17+1000\n"
+"POT-Creation-Date: 2015-06-13 17:40+1000\n"
+"PO-Revision-Date: 2015-06-13 17:40+1000\n"
 "Last-Translator: Ross McKay <translate@webaware.com.au>\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -24,40 +24,41 @@ msgstr ""
 msgid "Overview"
 msgstr ""
 
-#: includes/class.NextGENDownloadGallery.php:252
+#. translators: gallery title when it has been created from image tags
+#: includes/class.NextGENDownloadGallery.php:253
 #, php-format
 msgid "tagged: %s"
 msgstr ""
 
-#: includes/class.NextGENDownloadGallery.php:397
+#: includes/class.NextGENDownloadGallery.php:398
 msgid ""
 "NextGEN Download Gallery requires NextGEN Gallery or NextCellent Gallery"
 msgstr ""
 
-#: includes/class.NextGENDownloadGallery.php:508
+#: includes/class.NextGENDownloadGallery.php:509
 msgid "No files found to download"
 msgstr ""
 
-#: includes/class.NextGENDownloadGallery.php:511
+#: includes/class.NextGENDownloadGallery.php:512
 msgid "No images selected for download"
-msgstr ""
-
-#: includes/class.NextGENDownloadGallery.php:527
-msgctxt "plugin details links"
-msgid "Get help"
 msgstr ""
 
 #: includes/class.NextGENDownloadGallery.php:528
 msgctxt "plugin details links"
-msgid "Rating"
+msgid "Get help"
 msgstr ""
 
 #: includes/class.NextGENDownloadGallery.php:529
 msgctxt "plugin details links"
-msgid "Translate"
+msgid "Rating"
 msgstr ""
 
 #: includes/class.NextGENDownloadGallery.php:530
+msgctxt "plugin details links"
+msgid "Translate"
+msgstr ""
+
+#: includes/class.NextGENDownloadGallery.php:531
 msgctxt "plugin details links"
 msgid "Donate"
 msgstr ""

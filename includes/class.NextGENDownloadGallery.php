@@ -249,6 +249,7 @@ class NextGENDownloadGallery {
 	* @return string
 	*/
 	public static function getTitleFromTaglist($taglist) {
+		/* translators: gallery title when it has been created from image tags */
 		$title = sprintf(__('tagged: %s', 'nextgen-download-gallery'), $taglist);
 
 		return apply_filters('ngg_dlgallery_tags_gallery_title', $title, $taglist);
