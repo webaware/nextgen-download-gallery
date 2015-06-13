@@ -10,6 +10,7 @@
 	"browser": true,
 	"jquery": true,
 	"globals": {
+		"module": false,
 		"ngg_dlgallery": false
 	}
 }

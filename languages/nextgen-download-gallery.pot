@@ -1,68 +1,79 @@
-# copyright (c) 2012-2014 WebAware Pty Ltd
+# copyright (c) 2012-2015 WebAware Pty Ltd
 # This file is distributed under the same license as the plugin package.
-# @link http://translate.webaware.com.au/projects/nextgen-download-gallery
+# @link https://translate.webaware.com.au/projects/nextgen-download-gallery
+#
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: nextgen-download-gallery\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-31 19:22+1000\n"
-"PO-Revision-Date: 2014-08-31 19:22+1000\n"
-"Last-Translator: Ross McKay <rmckay@webaware.com.au>\n"
+"Report-Msgid-Bugs-To: translate@webaware.com.au\n"
+"POT-Creation-Date: 2015-06-13 17:17+1000\n"
+"PO-Revision-Date: 2015-06-13 17:17+1000\n"
+"Last-Translator: Ross McKay <translate@webaware.com.au>\n"
 "Language-Team: \n"
-"Language: en_AU\n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
-"_n_noop:1,2;_c;_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
-"esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
-"X-Poedit-Basepath: .\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Textdomain-Support: yes\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.4\n"
-"X-Poedit-SearchPath-0: ..\n"
 
-#: ../includes/class.NextGENDownloadGallery.php:74
+#: includes/class.NextGENDownloadGallery.php:77
 msgid "Please select one or more images to download"
 msgstr ""
 
-#: ../includes/class.NextGENDownloadGallery.php:193
+#: includes/class.NextGENDownloadGallery.php:197
 msgid "Overview"
 msgstr ""
 
-#: ../includes/class.NextGENDownloadGallery.php:441
+#: includes/class.NextGENDownloadGallery.php:252
+#, php-format
+msgid "tagged: %s"
+msgstr ""
+
+#: includes/class.NextGENDownloadGallery.php:397
+msgid ""
+"NextGEN Download Gallery requires NextGEN Gallery or NextCellent Gallery"
+msgstr ""
+
+#: includes/class.NextGENDownloadGallery.php:508
+msgid "No files found to download"
+msgstr ""
+
+#: includes/class.NextGENDownloadGallery.php:511
+msgid "No images selected for download"
+msgstr ""
+
+#: includes/class.NextGENDownloadGallery.php:527
 msgctxt "plugin details links"
 msgid "Get help"
 msgstr ""
 
-#: ../includes/class.NextGENDownloadGallery.php:442
+#: includes/class.NextGENDownloadGallery.php:528
 msgctxt "plugin details links"
 msgid "Rating"
 msgstr ""
 
-#: ../includes/class.NextGENDownloadGallery.php:443
+#: includes/class.NextGENDownloadGallery.php:529
 msgctxt "plugin details links"
 msgid "Translate"
 msgstr ""
 
-#: ../includes/class.NextGENDownloadGallery.php:444
+#: includes/class.NextGENDownloadGallery.php:530
 msgctxt "plugin details links"
 msgid "Donate"
 msgstr ""
 
-#: ../views/settings-form.php:18 ../templates/gallery-download.php:79
-msgid "download all images"
-msgstr ""
-
-#: ../templates/gallery-download.php:45
+#: templates/gallery-download.php:39
 msgid "[View with PicLens]"
 msgstr ""
 
-#: ../templates/gallery-download.php:76
+#: templates/gallery-download.php:70
 msgid "select all"
 msgstr ""
 
-#: ../templates/gallery-download.php:77
+#: templates/gallery-download.php:71
 msgid "download selected images"
+msgstr ""
+
+#: templates/gallery-download.php:77 views/settings-form.php:18
+msgid "download all images"
 msgstr ""
