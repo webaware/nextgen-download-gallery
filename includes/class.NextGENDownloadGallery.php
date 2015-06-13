@@ -373,6 +373,7 @@ class NextGENDownloadGallery {
 				// TODO: extend this function to pick up other NGG2 gallery sources
 				$title = '';
 				break;
+
 		}
 
 		// restrict length to 250 characters
@@ -473,6 +474,7 @@ class NextGENDownloadGallery {
 
 				// send the Zip archive to the browser
 				$zipName = apply_filters('ngg_dlgallery_zip_filename', sanitize_file_name(strtr($gallery, ',', '-')) . '.zip', $gallery);
+				do_action('ngg_dlgallery_zip_before_send', $zipName, $filename, $images);
 				header('Content-Description: File Transfer');
 				header('Content-Type: application/zip');
 				header('Content-Disposition: attachment; filename=' . $zipName);
@@ -493,6 +495,8 @@ class NextGENDownloadGallery {
 				// check for bug in some old PHP versions, close a second time!
 				if (is_resource($file))
 					@fclose($file);
+
+				do_action('ngg_dlgallery_zip_after_send', $zipName, $filename, $images);
 
 				// delete the temporary file
 				@unlink($filename);

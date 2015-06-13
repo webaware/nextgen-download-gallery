@@ -123,6 +123,7 @@ This program incorporates a little code that is copyright by Photocrati Media 20
 
 = 1.4.5, soon... =
 * fixed: NextGEN Gallery no longer permits typing in download gallery template name; add our templates to list
+* added: action hooks `ngg_dlgallery_zip_before_send` and `ngg_dlgallery_zip_after_send`
 * changed: Download All handled via POST, not GET; more robust
 
 = 1.4.4, 2014-10-27 =
