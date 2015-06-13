@@ -389,7 +389,7 @@ class NextGENDownloadGallery {
 		global $nggdb;
 
 		// pick up gallery ID and array of image IDs from AJAX request
-		$images = isset($_REQUEST['pid']) && is_array($_REQUEST['pid']) ? $_REQUEST['pid'] : false;
+		$images  = isset($_REQUEST['pid']) && is_array($_REQUEST['pid']) ? array_map('intval', $_REQUEST['pid']) : false;
 		$gallery = isset($_REQUEST['gallery']) ? trim(wp_unslash($_REQUEST['gallery'])) : '';
 
 		// sanity check

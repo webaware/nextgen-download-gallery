@@ -10,7 +10,7 @@ global $wp_version;
 	<?php if (version_compare($wp_version, '3.8', '<')) screen_icon('options-general'); ?>
 	<h2>NextGEN Download Gallery</h2>
 
-	<form action="<?php echo admin_url('options.php'); ?>" method="POST">
+	<form action="<?php echo esc_url(admin_url('options.php')); ?>" method="POST">
 		<?php settings_fields(NGG_DLGALL_OPTIONS); ?>
 
 		<label>
