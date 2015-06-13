@@ -311,8 +311,9 @@ class NextGENDownloadGallery {
 	*/
 	public static function getDownloadAllUrl($gallery) {
 		$args = array(
-			'action'	=> 'ngg-download-gallery-zip',
-			'all-id'	=> urlencode(self::getDownloadAllId($gallery)),
+			'action'		=> 'ngg-download-gallery-zip',
+			'all-id'		=> urlencode(self::getDownloadAllId($gallery)),
+			'download-all'	=> 1,
 		);
 
 		$url = add_query_arg($args, admin_url('admin-ajax.php'));
@@ -346,6 +347,41 @@ class NextGENDownloadGallery {
 	}
 
 	/**
+	* build download title from NextGEN 2 displayed gallery properties, e.g. selected galleries, taglist, etc.
+	* @param C_Displayed_Gallery $displayed_gallery
+	* @return string
+	*/
+	protected static function getNgg2DownloadTitle($displayed_gallery) {
+		switch ($displayed_gallery->source) {
+
+			case 'galleries':
+				$titles = array();
+				foreach ($displayed_gallery->container_ids as $gallery_id) {
+					$gallery = nggdb::find_gallery($gallery_id);
+					$titles[] = $gallery->title;
+				}
+				$title = implode(',', $titles);
+				break;
+
+			case 'tags':
+				$taglist = implode(',', $displayed_gallery->container_ids);
+				$title = self::getTitleFromTaglist($taglist);
+				break;
+
+			default:
+				// allow title to be confected
+				// TODO: extend this function to pick up other NGG2 gallery sources
+				$title = '';
+				break;
+		}
+
+		// restrict length to 250 characters
+		$title = substr($title, 0, 250);
+
+		return $title;
+	}
+
+	/**
 	* POST action for downloading a bunch of NextGEN gallery images as a ZIP archive
 	*/
 	public static function nggDownloadZip() {
@@ -361,21 +397,21 @@ class NextGENDownloadGallery {
 		}
 
 		// check for request to download everything
-		if (!empty($_REQUEST['all-id'])) {
+		if (!empty($_REQUEST['download-all']) && !empty($_REQUEST['all-id'])) {
 			$allID = wp_unslash($_REQUEST['all-id']);
 
 			if (defined('NEXTGEN_GALLERY_PLUGIN_VERSION')) {
 				$displayed_gallery = new C_Displayed_Gallery();
 				$displayed_gallery->apply_transient($allID);
 				$entities = $displayed_gallery->get_entities(false, false, true);
+
 				$images = array();
 				foreach ($entities as $image) {
 					$images[] = $image->pid;
 				}
 
-				if (empty($gallery) && $displayed_gallery->source == 'tags') {
-					$taglist = implode(',', $displayed_gallery->container_ids);
-					$gallery = self::getTitleFromTaglist($taglist);
+				if (empty($gallery)) {
+					$gallery = self::getNgg2DownloadTitle($displayed_gallery);
 				}
 			}
 			else {

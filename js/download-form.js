@@ -5,12 +5,16 @@
 
 (function($) {
 
+	var isDownloadAll = false;
+
 	/* make sure that at least one image is selected before submitting form for download */
 	$(document.body).on("submit", "form.ngg-download-frm", function(event) {
-		if ($("input[name='pid[]']:checked", this).length === 0) {
+		if (!isDownloadAll && $("input[name='pid[]']:checked", this).length === 0) {
 			event.preventDefault();
 			window.alert(ngg_dlgallery.alertNoImages);
 		}
+
+		isDownloadAll = false;
 	});
 
 	/* reveal "select all" button and active it; if all are checked, action is to uncheck all */
@@ -22,7 +26,14 @@
 	/* reveal "download all images" button and active it */
 	if (ngg_dlgallery.canDownloadAll) {
 		$(document.body).on("click", "input.ngg-download-everything", function() {
-			document.location = this.form.elements.nggDownloadAll.value;
+			if (this.form.elements.nggDownloadAll) {
+				// old template using getDownloadAllUrl()
+				document.location = this.form.elements.nggDownloadAll.value;
+			}
+			else {
+				// flag that submit is a Download All
+				isDownloadAll = true;
+			}
 		});
 	}
 
