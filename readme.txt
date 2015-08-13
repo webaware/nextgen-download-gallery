@@ -119,9 +119,15 @@ This program incorporates a little code that is copyright by Photocrati Media 20
 
 1. example download gallery
 
+== Upgrade Notice ==
+
+= 1.5.1 =
+
+Fixes Download All button missing since NextGEN Gallery 2.1.7
+
 == Changelog ==
 
-= 1.5.1, soon... =
+= 1.5.1, 2015-08-13 =
 
 * fixed: Download All button missing since NextGEN Gallery 2.1.7
 
