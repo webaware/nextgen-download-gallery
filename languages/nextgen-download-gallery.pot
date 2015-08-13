@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nextgen-download-gallery\n"
 "Report-Msgid-Bugs-To: translate@webaware.com.au\n"
-"POT-Creation-Date: 2015-06-13 17:40+1000\n"
-"PO-Revision-Date: 2015-06-13 17:40+1000\n"
+"POT-Creation-Date: 2015-08-13 19:39+1000\n"
+"PO-Revision-Date: 2015-08-13 19:39+1000\n"
 "Last-Translator: Ross McKay <translate@webaware.com.au>\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -43,22 +43,22 @@ msgstr ""
 msgid "No images selected for download"
 msgstr ""
 
-#: includes/class.NextGENDownloadGallery.php:528
+#: includes/class.NextGENDownloadGallery.php:554
 msgctxt "plugin details links"
 msgid "Get help"
 msgstr ""
 
-#: includes/class.NextGENDownloadGallery.php:529
+#: includes/class.NextGENDownloadGallery.php:555
 msgctxt "plugin details links"
 msgid "Rating"
 msgstr ""
 
-#: includes/class.NextGENDownloadGallery.php:530
+#: includes/class.NextGENDownloadGallery.php:556
 msgctxt "plugin details links"
 msgid "Translate"
 msgstr ""
 
-#: includes/class.NextGENDownloadGallery.php:531
+#: includes/class.NextGENDownloadGallery.php:557
 msgctxt "plugin details links"
 msgid "Donate"
 msgstr ""
@@ -77,4 +77,9 @@ msgstr ""
 
 #: templates/gallery-download.php:77 views/settings-form.php:18
 msgid "download all images"
+msgstr ""
+
+#: views/admin-upgrade-message.php:7
+#, php-format
+msgid "There is a new version of %s available."
 msgstr ""
