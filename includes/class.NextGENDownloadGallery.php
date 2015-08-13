@@ -330,7 +330,7 @@ class NextGENDownloadGallery {
 	public static function getDownloadAllId($gallery) {
 		if (defined('NEXTGEN_GALLERY_PLUGIN_VERSION')) {
 			// NextGEN Gallery 2 virtual gallery
-			$id = $gallery->displayed_gallery->transient_id;
+			$id = $gallery->displayed_gallery->id();
 		}
 		else {
 			// legacy plugin
