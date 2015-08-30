@@ -323,14 +323,32 @@ class NextGENDownloadGallery {
 	}
 
 	/**
+	* get list of expected NGG2 gallery query fields
+	* @return array
+	*/
+	protected static function getNgg2QueryFields() {
+		return array('ID', 'container_ids', 'exclusions', 'excluded_container_ids', 'entity_ids', 'returns', 'source');
+	}
+
+	/**
 	* generate link for downloading everything, if configured
 	* @param object $gallery
 	* @return string|false
 	*/
 	public static function getDownloadAllId($gallery) {
 		if (defined('NEXTGEN_GALLERY_PLUGIN_VERSION')) {
-			// NextGEN Gallery 2 virtual gallery
-			$id = $gallery->displayed_gallery->id();
+			// build query for NextGEN Gallery 2 virtual gallery
+			$params = $gallery->displayed_gallery->object->get_entity();
+			$query = array();
+			foreach (self::getNgg2QueryFields() as $field) {
+				if (!empty($params->$field)) {
+					$query[$field] = $params->$field;
+				}
+			}
+
+			// encode to prevent accidental corruption
+			$json = json_encode($query);
+			$id = base64_encode($json);
 		}
 		else {
 			// legacy plugin
@@ -403,17 +421,28 @@ class NextGENDownloadGallery {
 			$allID = wp_unslash($_REQUEST['all-id']);
 
 			if (defined('NEXTGEN_GALLERY_PLUGIN_VERSION')) {
-				$displayed_gallery = new C_Displayed_Gallery();
-				$displayed_gallery->apply_transient($allID);
-				$entities = $displayed_gallery->get_entities(false, false, true);
+				// decode NGG2 encoded query for virtual gallery
+				$json = base64_decode($allID);
+				$query = $json ? json_decode($json, true) : false;
 
-				$images = array();
-				foreach ($entities as $image) {
-					$images[] = $image->pid;
-				}
+				// reduce query to permitted fields
+				$query = $query ? array_intersect_key($query, array_flip(self::getNgg2QueryFields())) : false;
 
-				if (empty($gallery)) {
-					$gallery = self::getNgg2DownloadTitle($displayed_gallery);
+				if (!empty($query)) {
+					$mapper = C_Displayed_Gallery_Mapper::get_instance();
+					$factory = C_Component_Factory::get_instance();
+					$displayed_gallery = $factory->create('displayed_gallery', $query, $mapper);
+
+					$entities = $displayed_gallery->get_entities(false, false, true);
+
+					$images = array();
+					foreach ($entities as $image) {
+						$images[] = $image->pid;
+					}
+
+					if (empty($gallery)) {
+						$gallery = self::getNgg2DownloadTitle($displayed_gallery);
+					}
 				}
 			}
 			else {

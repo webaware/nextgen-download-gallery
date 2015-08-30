@@ -7,7 +7,7 @@ Donate link: http://shop.webaware.com.au/donations/?donation_for=NextGEN+Downloa
 Tags: nextgen, gallery, download
 Requires at least: 3.2.1
 Tested up to: 4.3
-Stable tag: 1.5.1
+Stable tag: 1.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -121,11 +121,15 @@ This program incorporates a little code that is copyright by Photocrati Media 20
 
 == Upgrade Notice ==
 
-= 1.5.1 =
+= 1.5.2 =
 
-Fixes Download All button missing since NextGEN Gallery 2.1.7
+Fixes Download All button intermittent failures since NextGEN Gallery 2.1.7
 
 == Changelog ==
+
+= 1.5.2, 2015-08-30 =
+
+* fixed: Download All button intermittent failures since NextGEN Gallery 2.1.7
 
 = 1.5.1, 2015-08-13 =
 
