@@ -1,5 +1,9 @@
 # NextGEN Download Gallery
 
+## 1.5.3, soon...
+
+* added: Polish translation (thanks, Jakub Molek!)
+
 ## 1.5.2, 2015-08-30
 
 * fixed: Download All button intermittent failures since NextGEN Gallery 2.1.7
