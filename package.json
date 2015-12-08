@@ -1,6 +1,6 @@
 {
   "name": "NextGEN Download Gallery",
-  "version": "1.5.0",
+  "version": "1.5.3",
   "description": "Add a template to NextGEN Gallery that provides multiple-file downloads for trade/media galleries",
   "main": "Gruntfile.js",
   "devDependencies": {
@@ -15,5 +15,5 @@
   },
   "author": "WebAware http://webaware.com.au/",
   "license": "GPLv2 or later",
-  "homepage": "http://shop.webaware.com.au/downloads/nextgen-download-gallery/"
+  "homepage": "https://wordpress.org/plugins/nextgen-download-gallery/"
 }

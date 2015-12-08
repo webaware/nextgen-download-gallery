@@ -5,10 +5,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: nextgen-download-gallery\n"
+"Project-Id-Version: nextgen-download-gallery 1.5.3\n"
 "Report-Msgid-Bugs-To: translate@webaware.com.au\n"
-"POT-Creation-Date: 2015-08-30 14:31+1000\n"
-"PO-Revision-Date: 2015-08-30 14:31+1000\n"
+"POT-Creation-Date: 2015-12-08 21:22+1100\n"
+"PO-Revision-Date: 2015-12-08 21:22+1100\n"
 "Last-Translator: Ross McKay <translate@webaware.com.au>\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -16,49 +16,49 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: includes/class.NextGENDownloadGallery.php:77
+#: includes/class.NextGENDownloadGallery.php:81
 msgid "Please select one or more images to download"
 msgstr ""
 
-#: includes/class.NextGENDownloadGallery.php:197
+#: includes/class.NextGENDownloadGallery.php:201
 msgid "Overview"
 msgstr ""
 
 #. translators: gallery title when it has been created from image tags
-#: includes/class.NextGENDownloadGallery.php:253
+#: includes/class.NextGENDownloadGallery.php:257
 #, php-format
 msgid "tagged: %s"
 msgstr ""
 
-#: includes/class.NextGENDownloadGallery.php:416
+#: includes/class.NextGENDownloadGallery.php:420
 msgid ""
 "NextGEN Download Gallery requires NextGEN Gallery or NextCellent Gallery"
 msgstr ""
 
-#: includes/class.NextGENDownloadGallery.php:538
+#: includes/class.NextGENDownloadGallery.php:542
 msgid "No files found to download"
 msgstr ""
 
-#: includes/class.NextGENDownloadGallery.php:541
+#: includes/class.NextGENDownloadGallery.php:545
 msgid "No images selected for download"
 msgstr ""
 
-#: includes/class.NextGENDownloadGallery.php:583
+#: includes/class.NextGENDownloadGallery.php:587
 msgctxt "plugin details links"
 msgid "Get help"
 msgstr ""
 
-#: includes/class.NextGENDownloadGallery.php:584
+#: includes/class.NextGENDownloadGallery.php:588
 msgctxt "plugin details links"
 msgid "Rating"
 msgstr ""
 
-#: includes/class.NextGENDownloadGallery.php:585
+#: includes/class.NextGENDownloadGallery.php:589
 msgctxt "plugin details links"
 msgid "Translate"
 msgstr ""
 
-#: includes/class.NextGENDownloadGallery.php:586
+#: includes/class.NextGENDownloadGallery.php:590
 msgctxt "plugin details links"
 msgid "Donate"
 msgstr ""
@@ -75,11 +75,11 @@ msgstr ""
 msgid "download selected images"
 msgstr ""
 
-#: templates/gallery-download.php:77 views/settings-form.php:18
+#: templates/gallery-download.php:77 views/settings-form.php:22
 msgid "download all images"
 msgstr ""
 
-#: views/admin-upgrade-message.php:7
+#: views/admin-upgrade-message.php:12
 #, php-format
 msgid "There is a new version of %s available."
 msgstr ""

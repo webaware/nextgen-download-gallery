@@ -37,7 +37,6 @@ module.exports = function (grunt) {
 			options: {
 				text_domain: "nextgen-download-gallery",
 				package_name: "nextgen-download-gallery",
-				package_version: "",
 				msgid_bugs_address: "translate@webaware.com.au",
 				encoding: "UTF-8",
 				dest: "languages/",
