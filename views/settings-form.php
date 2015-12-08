@@ -1,6 +1,10 @@
 <?php
 // settings form
 
+if (!defined('ABSPATH')) {
+	die('No direct access allowed');
+}
+
 global $wp_version;
 ?>
 

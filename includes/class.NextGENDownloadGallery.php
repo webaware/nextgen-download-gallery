@@ -1,5 +1,9 @@
 <?php
 
+if (!defined('ABSPATH')) {
+	die('No direct access allowed');
+}
+
 class NextGENDownloadGallery {
 
 	protected static $taglist = false;				// for recording taglist when building gallery for nggtags_ext shortcode
@@ -559,7 +563,7 @@ class NextGENDownloadGallery {
 	* @param string $file
 	* @param object $current_meta
 	*/
-	public function upgradeMessage($file, $plugin_data) {
+	public static function upgradeMessage($file, $plugin_data) {
 		$current = get_site_transient('update_plugins');
 
 		if (isset($current->response[$file])) {

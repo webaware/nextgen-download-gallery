@@ -1,3 +1,8 @@
+<?php
+if (!defined('ABSPATH')) {
+	die('No direct access allowed');
+}
+?>
 
 <?php if (is_multisite() && !is_network_admin()): ?>
 <tr class="active update plugin-update-tr" id="<?php echo esc_attr($r->slug . '-update'); ?>" data-slug="<?php echo esc_attr($r->slug); ?>" data-plugin="<?php echo esc_attr($file); ?>">
