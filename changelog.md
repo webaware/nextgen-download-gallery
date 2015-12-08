@@ -48,7 +48,7 @@
 * changed: select all button now toggles between selected and unselected
 * changed: JavaScript now loaded as external script, not part of gallery template
 * changed: process download action through admin-post.php, no need for AJAX logic (still supported for legacy customised templates)
-* changed: [translations now updated online](https://translate.webaware.com.au/projects/nextgen-download-gallery), so .po files removed from plugin
+* changed: [translations now updated online](https://translate.wordpress.org/projects/wp-plugins/nextgen-download-gallery), so .po files removed from plugin
 
 ## 1.3.1, 2013-08-25
 
@@ -69,7 +69,7 @@
 ## 1.2.2, 2013-06-23
 
 * added: shortcode `nggtags_ext` supports images attribute, for number of images to display per page
-* changed: translation updates using Google Translate, which is to say: badly! Please help by [registering to translate into your preferred language](https://translate.webaware.com.au/projects/nextgen-download-gallery).
+* changed: translation updates using Google Translate, which is to say: badly! Please help by [registering to translate into your preferred language](https://translate.wordpress.org/projects/wp-plugins/nextgen-download-gallery).
 
 ## 1.2.1, 2013-03-23
 

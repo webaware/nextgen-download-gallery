@@ -6,7 +6,7 @@ Author URI: http://webaware.com.au/
 Donate link: http://shop.webaware.com.au/donations/?donation_for=NextGEN+Download+Gallery
 Tags: nextgen, gallery, download
 Requires at least: 3.2.1
-Tested up to: 4.3
+Tested up to: 4.4
 Stable tag: 1.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -32,7 +32,7 @@ Many thanks to the generous efforts of our translators:
 * Portuguese (pt-BR) -- [Juliano Arantes](http://www.42fotografia.com.br/)
 * Polish (pl-PL) -- Jakub Molek
 
-If you'd like to help out by translating this plugin, please [sign up for an account and dig in](https://translate.webaware.com.au/projects/nextgen-download-gallery).
+If you'd like to help out by translating this plugin, please [sign up for an account and dig in](https://translate.wordpress.org/projects/wp-plugins/nextgen-download-gallery).
 
 == Installation ==
 
@@ -101,7 +101,7 @@ There can be several reasons, but the most common one is that your server is lim
 
 = You've translated my language badly / it's missing =
 
-The initial translations were made using Google Translate, so it's likely that some will be truly awful! Please help by [registering to translate into your preferred language](https://translate.webaware.com.au/projects/nextgen-download-gallery).
+The initial translations were made using Google Translate, so it's likely that some will be truly awful! Please help by [registering to translate into your preferred language](https://translate.wordpress.org/projects/wp-plugins/nextgen-download-gallery).
 
 = Can I change the image paths, to download a different image? =
 
@@ -109,7 +109,7 @@ If you have higher resolution images you'd like to download instead of the ones 
 
 == Contributions ==
 
-* [Translate into your preferred language](https://translate.webaware.com.au/projects/nextgen-download-gallery)
+* [Translate into your preferred language](https://translate.wordpress.org/projects/wp-plugins/nextgen-download-gallery)
 * [Fork me on GitHub](https://github.com/webaware/nextgen-download-gallery)
 
 == Credits ==
