@@ -2,16 +2,14 @@
 // settings form
 
 if (!defined('ABSPATH')) {
-	die('No direct access allowed');
+	exit;
 }
-
-global $wp_version;
 ?>
 
 <?php settings_errors(); ?>
 
 <div class="wrap">
-	<?php if (version_compare($wp_version, '3.8', '<')) screen_icon('options-general'); ?>
+
 	<h2>NextGEN Download Gallery</h2>
 
 	<form action="<?php echo esc_url(admin_url('options.php')); ?>" method="POST">
@@ -24,4 +22,5 @@ global $wp_version;
 
 		<?php submit_button(); ?>
 	</form>
+
 </div>

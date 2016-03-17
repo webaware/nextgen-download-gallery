@@ -11,8 +11,9 @@ Follow variables are useable :
 
 **/
 
-if (!defined ('ABSPATH'))
-	die ('No direct access allowed');
+if (!defined('ABSPATH')) {
+	exit;
+}
 
 if (!empty($gallery)):
 ?>

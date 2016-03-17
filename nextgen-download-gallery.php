@@ -33,7 +33,7 @@ for more information: https://wordpress.org/plugins/nextgen-gallery/
 */
 
 if (!defined('ABSPATH')) {
-	die('No direct access allowed');
+	exit;
 }
 
 define('NGG_DLGALL_PLUGIN_ROOT', dirname(__FILE__) . '/');
