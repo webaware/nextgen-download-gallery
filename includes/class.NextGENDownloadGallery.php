@@ -60,7 +60,7 @@ class NextGENDownloadGallery {
 	* @param array $query_vars
 	* @return array
 	*/
-	public function addNgg2QueryVars($query_vars) {
+	public static function addNgg2QueryVars($query_vars) {
 		$query_vars[] = 'gallerytag';
 
 		return $query_vars;

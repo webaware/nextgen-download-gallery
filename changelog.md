@@ -2,6 +2,7 @@
 
 ## 1.5.3, soon...
 
+* fixed: deprecated warning on non-static method call in PHP 7
 * added: Polish translation (thanks, Jakub Molek!)
 
 ## 1.5.2, 2015-08-30
