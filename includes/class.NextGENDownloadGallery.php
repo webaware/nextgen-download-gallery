@@ -70,8 +70,8 @@ class NextGENDownloadGallery {
 	* enqueue any scripts we need
 	*/
 	public static function enqueueScripts() {
-		$min = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
-		$ver = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? time() : NGG_DLGALL_PLUGIN_VERSION;
+		$min = SCRIPT_DEBUG ? '' : '.min';
+		$ver = SCRIPT_DEBUG ? time() : NGG_DLGALL_PLUGIN_VERSION;
 
 		$options = (array) get_option(NGG_DLGALL_OPTIONS);
 
