@@ -132,7 +132,7 @@ if can't open the zip file, don't attempt to send it (fixes errors logged for `f
 
 The full changelog can be found [on GitHub](https://github.com/webaware/nextgen-download-gallery/blob/master/changelog.md). Recent entries:
 
-## 1.5.3, 2016-11-19
+### 1.5.3, 2016-11-19
 
 * fixed: if can't open the zip file, don't attempt to send it (fixes errors logged for `feof()`)
 * fixed: deprecated warning on non-static method call in PHP 7
