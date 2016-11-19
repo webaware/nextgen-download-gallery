@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: NextGEN Download Gallery
-Plugin URI: http://shop.webaware.com.au/downloads/nextgen-download-gallery/
+Plugin URI: https://shop.webaware.com.au/downloads/nextgen-download-gallery/
 Description: Add a template to NextGEN Gallery that provides multiple-file downloads for trade/media galleries
 Version: 1.5.3-dev
 Author: WebAware
-Author URI: http://webaware.com.au/
+Author URI: https://shop.webaware.com.au/
 Text Domain: nextgen-download-gallery
 Domain Path: /languages/
 */

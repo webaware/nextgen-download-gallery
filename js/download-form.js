@@ -1,6 +1,6 @@
 /*!
 * NextGEN Download Gallery form script
-* http://shop.webaware.com.au/downloads/nextgen-download-gallery/
+* https://shop.webaware.com.au/downloads/nextgen-download-gallery/
 */
 
 (function($) {

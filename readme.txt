@@ -1,15 +1,15 @@
 === NextGEN Download Gallery ===
 Contributors: webaware
 Plugin Name: NextGEN Download Gallery
-Plugin URI: http://shop.webaware.com.au/downloads/nextgen-download-gallery/
-Author URI: http://webaware.com.au/
-Donate link: http://shop.webaware.com.au/donations/?donation_for=NextGEN+Download+Gallery
+Plugin URI: https://shop.webaware.com.au/downloads/nextgen-download-gallery/
+Author URI: https://shop.webaware.com.au/
+Donate link: https://shop.webaware.com.au/donations/?donation_for=NextGEN+Download+Gallery
 Tags: nextgen, gallery, download
 Requires at least: 3.2.1
 Tested up to: 4.4
 Stable tag: 1.5.2
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Add a template to NextGEN Gallery that provides multiple-file downloads for trade/media galleries
 
@@ -85,7 +85,7 @@ In NextCellent Gallery, just add the template to the `nggtags` shortcode:
 
 `[nggtags gallery="frogs,lizards" template=download]`
 
-NextGEN Gallery v2.0 introduces a new shortcode, `ngg_images`; see the [Photocrati documentation for ngg_images](http://www.nextgen-gallery.com/nextgen-gallery-shortcodes/). This new shortcode can support a template parameter, like this:
+NextGEN Gallery v2.0 introduces a new shortcode, `ngg_images`; see the [Photocrati documentation for ngg_images](https://www.imagely.com/docs/nextgen-gallery-shortcodes/). This new shortcode can support a template parameter, like this:
 
 `[ngg_images tag_ids="frogs,lizards" template=download display_type="photocrati-nextgen_basic_thumbnails"]`
 
