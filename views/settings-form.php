@@ -15,10 +15,10 @@ if (!defined('ABSPATH')) {
 	<form action="<?php echo esc_url(admin_url('options.php')); ?>" method="POST">
 		<?php settings_fields(NGG_DLGALL_OPTIONS); ?>
 
-		<label>
-			<input name="ngg_dlgallery[enable_all]" type="checkbox" value="1" <?php checked($options['enable_all'], 1); ?> />
-			<?php esc_html_e('download all images', 'nextgen-download-gallery'); ?>
-		</label>
+		<p>
+			<input name="ngg_dlgallery[enable_all]" id="ngg_dlgallery_enable_all" type="checkbox" value="1" <?php checked($options['enable_all'], 1); ?> />
+			<label for="ngg_dlgallery_enable_all"><?php esc_html_e('download all images', 'nextgen-download-gallery'); ?></label>
+		</p>
 
 		<?php submit_button(); ?>
 	</form>
