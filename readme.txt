@@ -5,9 +5,9 @@ Plugin URI: https://shop.webaware.com.au/downloads/nextgen-download-gallery/
 Author URI: https://shop.webaware.com.au/
 Donate link: https://shop.webaware.com.au/donations/?donation_for=NextGEN+Download+Gallery
 Tags: nextgen, gallery, download
-Requires at least: 3.2.1
-Tested up to: 4.4
-Stable tag: 1.5.2
+Requires at least: 4.0
+Tested up to: 4.7
+Stable tag: 1.5.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -124,24 +124,16 @@ This program incorporates a little code that is copyright by Photocrati Media 20
 
 == Upgrade Notice ==
 
-= 1.5.2 =
+= 1.5.3 =
 
-Fixes Download All button intermittent failures since NextGEN Gallery 2.1.7
+if can't open the zip file, don't attempt to send it (fixes errors logged for `feof()`); fixed deprecated warning in PHP 7
 
 == Changelog ==
 
 The full changelog can be found [on GitHub](https://github.com/webaware/nextgen-download-gallery/blob/master/changelog.md). Recent entries:
 
-= 1.5.2, 2015-08-30 =
+## 1.5.3, 2016-11-19
 
-* fixed: Download All button intermittent failures since NextGEN Gallery 2.1.7
-
-= 1.5.1, 2015-08-13 =
-
-* fixed: Download All button missing since NextGEN Gallery 2.1.7
-
-= 1.5.0, 2015-06-13 =
-
-* fixed: NextGEN Gallery no longer permits typing in download gallery template name; add our templates to list
-* added: action hooks `ngg_dlgallery_zip_before_send` and `ngg_dlgallery_zip_after_send`
-* changed: Download All handled via POST, not GET; more robust
+* fixed: if can't open the zip file, don't attempt to send it (fixes errors logged for `feof()`)
+* fixed: deprecated warning on non-static method call in PHP 7
+* added: Polish translation (thanks, Jakub Molek!)

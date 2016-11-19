@@ -1,6 +1,6 @@
 # NextGEN Download Gallery
 
-## 1.5.3, soon...
+## 1.5.3, 2016-11-19
 
 * fixed: if can't open the zip file, don't attempt to send it (fixes errors logged for `feof()`)
 * fixed: deprecated warning on non-static method call in PHP 7
