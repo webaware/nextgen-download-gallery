@@ -282,7 +282,7 @@ class NextGENDownloadGallery {
 	* @return array
 	*/
 	public static function ngg2LegacyTemplateFolders($folders) {
-		$folders['NextGEN Download Gallery'] = NGG_DLGALL_PLUGIN_ROOT . 'templates';
+		$folders[__('NextGEN Download Gallery', 'nextgen-download-gallery')] = NGG_DLGALL_PLUGIN_ROOT . 'templates';
 
 		return $folders;
 	}
