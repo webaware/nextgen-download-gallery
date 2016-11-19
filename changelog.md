@@ -2,6 +2,7 @@
 
 ## 1.5.3, soon...
 
+* fixed: if can't open the zip file, don't attempt to send it (fixes errors logged for `feof()`)
 * fixed: deprecated warning on non-static method call in PHP 7
 * added: Polish translation (thanks, Jakub Molek!)
 

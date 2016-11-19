@@ -520,15 +520,18 @@ class NextGENDownloadGallery {
 
 				$chunksize = 512 * 1024;
 				$file = @fopen($filename, 'rb');
-				while (!feof($file)) {
-					echo @fread($file, $chunksize);
-					flush();
-				}
-				fclose($file);
+				if ($file !== false) {
+					while (!feof($file)) {
+						echo @fread($file, $chunksize);
+						flush();
+					}
+					fclose($file);
 
-				// check for bug in some old PHP versions, close a second time!
-				if (is_resource($file))
-					@fclose($file);
+					// check for bug in some old PHP versions, close a second time!
+					if (is_resource($file)) {
+						@fclose($file);
+					}
+				}
 
 				do_action('ngg_dlgallery_zip_after_send', $zipName, $filename, $images);
 
