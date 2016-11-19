@@ -25,12 +25,14 @@ NextGEN Download Gallery is targetted at creating "Trade/Media" areas on website
 
 Many thanks to the generous efforts of our translators:
 
-* Czech (cs-CZ) -- [Rudolf Klusal](http://www.klusik.cz/)
-* Danish (da-DK) -- [Ligefrem](http://www.ligefrem.dk/)
-* Dutch (nl-NL) -- [Ivan Beemster](http://www.lijndiensten.com/)
-* French (fr-FR) -- Nicolas Sizun
-* Portuguese (pt-BR) -- [Juliano Arantes](http://www.42fotografia.com.br/)
-* Polish (pl-PL) -- Jakub Molek
+* Czech (cs_CZ) -- [Rudolf Klusal](http://www.klusik.cz/)
+* Danish (da_DK) -- [Ligefrem](http://www.ligefrem.dk/)
+* Dutch (nl_NL) -- [the Dutch translation team](https://translate.wordpress.org/locale/nl/default/wp-plugins/nextgen-download-gallery)
+* English (en_CA) -- [the English (Canadian) translation team](https://translate.wordpress.org/locale/en-ca/default/wp-plugins/nextgen-download-gallery)
+* French (fr_FR) -- Nicolas Sizun
+* Korean (ko_KR) -- [the Korean translation team](https://translate.wordpress.org/locale/ko/default/wp-plugins/nextgen-download-gallery)
+* Portuguese (pt_BR) -- [Juliano Arantes](http://www.42fotografia.com.br/)
+* Polish (pl_PL) -- Jakub Molek
 
 If you'd like to help out by translating this plugin, please [sign up for an account and dig in](https://translate.wordpress.org/projects/wp-plugins/nextgen-download-gallery).
 
