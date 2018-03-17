@@ -1,15 +1,15 @@
 {
   "name": "nextgen-download-gallery",
   "version": "1.5.3",
-  "description": "Add a template to NextGEN Gallery that provides multiple-file downloads for trade/media galleries",
+  "description": "NextGEN Download Gallery",
   "main": "Gruntfile.js",
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-contrib-clean": "^1.0.0",
-    "grunt-contrib-compress": "^1.3.0",
+    "grunt": "^1.0.2",
+    "grunt-contrib-clean": "^1.1.0",
+    "grunt-contrib-compress": "^1.4.3",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-jshint": "^0.11.0",
-    "grunt-contrib-uglify": "^0.8.0"
+    "grunt-contrib-uglify": "^3.3.0",
+    "grunt-eslint": "^20.1.0"
   },
   "repository": {
     "type": "git",
