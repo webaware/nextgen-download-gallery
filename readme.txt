@@ -6,7 +6,8 @@ Author URI: https://shop.webaware.com.au/
 Donate link: https://shop.webaware.com.au/donations/?donation_for=NextGEN+Download+Gallery
 Tags: nextgen, gallery, download
 Requires at least: 4.0
-Tested up to: 4.7
+Tested up to: 4.9
+Requires PHP: 5.3
 Stable tag: 1.5.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
