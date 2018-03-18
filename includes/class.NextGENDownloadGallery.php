@@ -414,16 +414,19 @@ class NextGENDownloadGallery {
 		// pick up gallery ID and array of image IDs from AJAX request
 		$images  = isset($_REQUEST['pid']) && is_array($_REQUEST['pid']) ? array_map('intval', $_REQUEST['pid']) : false;
 		$gallery = isset($_REQUEST['gallery']) ? trim(wp_unslash($_REQUEST['gallery'])) : '';
+		$tags    = isset($_REQUEST['all-tags']) ? trim(wp_unslash($_REQUEST['all-tags'])) : '';
+		$allID   = !empty($_REQUEST['download-all']) && !empty($_REQUEST['all-id']) ? wp_unslash($_REQUEST['all-id']) : false;
 
 		// sanity check
 		if (!is_object($nggdb)) {
 			wp_die(__('NextGEN Download Gallery requires NextGEN Gallery or NextCellent Gallery', 'nextgen-download-gallery'));
 		}
 
-		// check for request to download everything
-		if (!empty($_REQUEST['download-all']) && !empty($_REQUEST['all-id'])) {
-			$allID = wp_unslash($_REQUEST['all-id']);
+		// check for Chrome on iOS and maybe kludge for it
+		self::maybeKludgeChromeIOS($images, $gallery, $tags, $allID);
 
+		// check for request to download everything
+		if ($allID) {
 			if (defined('NEXTGEN_GALLERY_PLUGIN_VERSION')) {
 				// decode NGG2 encoded query for virtual gallery
 				$json = base64_decode($allID);
@@ -453,8 +456,8 @@ class NextGENDownloadGallery {
 				$images = $nggdb->get_ids_from_gallery($allID);
 			}
 		}
-		else if (!empty($_REQUEST['all-tags'])) {
-			$picturelist = nggTags::find_images_for_tags(wp_unslash($_REQUEST['all-tags']), 'ASC');
+		elseif ($tags) {
+			$picturelist = nggTags::find_images_for_tags($tags, 'ASC');
 			$images = array();
 			foreach ($picturelist as $image) {
 				$images[] = $image->pid;
@@ -545,6 +548,45 @@ class NextGENDownloadGallery {
 		}
 
 		wp_die(__('No images selected for download', 'nextgen-download-gallery'));
+	}
+
+	/**
+	* if POST request came from Google Chrome on iOS, try to work around it by redirecting to a GET request
+	* @param array $images
+	* @param string $gallery
+	* @param string $tags
+	* @param string $allID
+	*/
+	protected static function maybeKludgeChromeIOS($images, $gallery, $tags, $allID) {
+		if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+			return;
+		}
+
+		// @link https://developer.chrome.com/multidevice/user-agent
+		if (!isset($_SERVER['HTTP_USER_AGENT']) || strpos($_SERVER['HTTP_USER_AGENT'], 'CriOS/') === false) {
+			return;
+		}
+
+		$request = array(
+			'action'		=> 'ngg-download-gallery-zip',
+			'gallery'		=> urlencode($gallery),
+		);
+
+		if ($allID) {
+			$request['download-all'] = 1;
+			$request['all-id'] = urlencode($allID);
+		}
+		elseif (!empty($tags)) {
+			$request['all-tags'] = urlencode($tags);
+		}
+		elseif (is_array($images) && count($images) > 0) {
+			$request['pid'] = $images;
+		}
+
+		$url = add_query_arg($request, admin_url('admin-ajax.php'));
+
+		header("Location: $url");
+		exit;
 	}
 
 	/**
