@@ -509,16 +509,15 @@ class NextGENDownloadGallery {
 				// send the Zip archive to the browser
 				$zipName = apply_filters('ngg_dlgallery_zip_filename', sanitize_file_name(strtr($gallery, ',', '-')) . '.zip', $gallery);
 				do_action('ngg_dlgallery_zip_before_send', $zipName, $filename, $images);
+				header_remove();
+				nocache_headers();
 				header('Content-Description: File Transfer');
 				header('Content-Type: application/zip');
-				header('Content-Disposition: attachment; filename=' . $zipName);
+				header("Content-Disposition: attachment; filename=\"$zipName\"");
 				header('Content-Transfer-Encoding: binary');
-				header('Expires: 0');
-				header('Cache-Control: must-revalidate');
-				header('Pragma: public');
 				header('Content-Length: ' . filesize($filename));
 
-				$chunksize = 512 * 1024;
+				$chunksize = 1024 * 1024;
 				$file = @fopen($filename, 'rb');
 				if ($file !== false) {
 					while (!feof($file)) {
