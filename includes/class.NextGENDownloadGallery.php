@@ -422,6 +422,12 @@ class NextGENDownloadGallery {
 			wp_die(__('NextGEN Download Gallery requires NextGEN Gallery or NextCellent Gallery', 'nextgen-download-gallery'));
 		}
 
+		// check for GET request bundling images into a comma-separated string
+		if (empty($images) && !empty($_GET['pids'])) {
+			$images = explode('~', trim(wp_unslash($_GET['pids'])));
+			$images = array_map('intval', $images);
+		}
+
 		// check for Chrome on iOS and maybe kludge for it
 		self::maybeKludgeChromeIOS($images, $gallery, $tags, $allID);
 
@@ -569,18 +575,18 @@ class NextGENDownloadGallery {
 
 		$request = array(
 			'action'		=> 'ngg-download-gallery-zip',
-			'gallery'		=> urlencode($gallery),
+			'gallery'		=> rawurlencode($gallery),
 		);
 
 		if ($allID) {
 			$request['download-all'] = 1;
-			$request['all-id'] = urlencode($allID);
+			$request['all-id'] = rawurlencode($allID);
 		}
 		elseif (!empty($tags)) {
-			$request['all-tags'] = urlencode($tags);
+			$request['all-tags'] = rawurlencode($tags);
 		}
 		elseif (is_array($images) && count($images) > 0) {
-			$request['pid'] = $images;
+			$request['pids'] = implode('~', $images);
 		}
 
 		$url = add_query_arg($request, admin_url('admin-ajax.php'));
