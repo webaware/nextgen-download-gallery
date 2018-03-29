@@ -500,7 +500,7 @@ class NextGENDownloadGallery {
 			foreach ($images as $image) {
 				$image = $nggdb->find_image($image);
 				if ($image) {
-					$files[] = apply_filters('ngg_dlgallery_image_path', $image->imagePath, $image);
+					$files[] = apply_filters('ngg_dlgallery_image_path', $image->imagePath, $image, $gallery);
 				}
 			}
 

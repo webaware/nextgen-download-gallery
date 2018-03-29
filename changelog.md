@@ -2,6 +2,11 @@
 
 ## Changelog
 
+### 1.5.4, soon...
+
+* fixed: downloads fail in Google Chrome on iOS (iPhone / iPad)
+* changed: added the gallery name as the third parameter of the `ngg_dlgallery_image_path` filter hook
+
 ### 1.5.3, 2016-11-19
 
 * fixed: if can't open the zip file, don't attempt to send it (fixes errors logged for `feof()`)
