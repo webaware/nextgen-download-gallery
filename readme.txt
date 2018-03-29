@@ -34,6 +34,8 @@ Many thanks to the generous efforts of our translators:
 * Korean (ko_KR) -- [the Korean translation team](https://translate.wordpress.org/locale/ko/default/wp-plugins/nextgen-download-gallery)
 * Portuguese (pt_BR) -- [Juliano Arantes](http://www.42fotografia.com.br/)
 * Polish (pl_PL) -- Jakub Molek
+* Swedish (sv_SE) -- [the Swedish translation team](https://translate.wordpress.org/locale/sv/default/wp-plugins/nextgen-download-gallery)
+* Turkish (tr_TR) -- [the Turkish translation team](https://translate.wordpress.org/locale/tr/default/wp-plugins/nextgen-download-gallery)
 
 If you'd like to help out by translating this plugin, please [sign up for an account and dig in](https://translate.wordpress.org/projects/wp-plugins/nextgen-download-gallery).
 
