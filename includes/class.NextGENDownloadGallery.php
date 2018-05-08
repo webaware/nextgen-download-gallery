@@ -608,10 +608,10 @@ class NextGENDownloadGallery {
 	*/
 	public static function addPluginDetailsLinks($links, $file) {
 		if ($file == NGG_DLGALL_PLUGIN_NAME) {
-			$links[] = sprintf('<a href="https://wordpress.org/support/plugin/nextgen-download-gallery" target="_blank">%s</a>', _x('Get help', 'plugin details links', 'nextgen-download-gallery'));
-			$links[] = sprintf('<a href="https://wordpress.org/plugins/nextgen-download-gallery/" target="_blank">%s</a>', _x('Rating', 'plugin details links', 'nextgen-download-gallery'));
-			$links[] = sprintf('<a href="https://translate.wordpress.org/projects/wp-plugins/nextgen-download-gallery" target="_blank">%s</a>', _x('Translate', 'plugin details links', 'nextgen-download-gallery'));
-			$links[] = sprintf('<a href="https://shop.webaware.com.au/donations/?donation_for=NextGEN+Download+Gallery" target="_blank">%s</a>', _x('Donate', 'plugin details links', 'nextgen-download-gallery'));
+			$links[] = sprintf('<a href="https://wordpress.org/support/plugin/nextgen-download-gallery" rel="noopener" target="_blank">%s</a>', _x('Get help', 'plugin details links', 'nextgen-download-gallery'));
+			$links[] = sprintf('<a href="https://wordpress.org/plugins/nextgen-download-gallery/" rel="noopener" target="_blank">%s</a>', _x('Rating', 'plugin details links', 'nextgen-download-gallery'));
+			$links[] = sprintf('<a href="https://translate.wordpress.org/projects/wp-plugins/nextgen-download-gallery" rel="noopener" target="_blank">%s</a>', _x('Translate', 'plugin details links', 'nextgen-download-gallery'));
+			$links[] = sprintf('<a href="https://shop.webaware.com.au/donations/?donation_for=NextGEN+Download+Gallery" rel="noopener" target="_blank">%s</a>', _x('Donate', 'plugin details links', 'nextgen-download-gallery'));
 		}
 
 		return $links;
