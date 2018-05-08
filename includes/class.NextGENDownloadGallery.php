@@ -38,7 +38,7 @@ class NextGENDownloadGallery {
 	*/
 	public static function init() {
 		// load gettext domain
-		load_plugin_textdomain('nextgen-download-gallery', false, basename(dirname(NGG_DLGALL_PLUGIN_FILE)) . '/languages/');
+		load_plugin_textdomain('nextgen-download-gallery', false, plugin_basename(NGG_DLGALL_PLUGIN_ROOT . 'languages'));
 
 		// NextGEN Gallery integration
 		add_filter('ngg_render_template', array(__CLASS__, 'nggRenderTemplate'), 10, 2);
