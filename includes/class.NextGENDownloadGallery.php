@@ -601,32 +601,6 @@ class NextGENDownloadGallery {
 	public static function adminInit() {
 		add_settings_section(NGG_DLGALL_OPTIONS, false, false, NGG_DLGALL_OPTIONS);
 		register_setting(NGG_DLGALL_OPTIONS, NGG_DLGALL_OPTIONS, array(__CLASS__, 'settingsValidate'));
-
-		// in_plugin_update_message isn't supported on multisite != blog-1, so just add another row
-		if (current_user_can('update_plugins')) {
-			add_action('after_plugin_row_' . NGG_DLGALL_PLUGIN_NAME, array(__CLASS__, 'upgradeMessage'), 20, 2);
-		}
-	}
-
-	/**
-	* show upgrade messages on Plugins admin page
-	* @param string $file
-	* @param object $current_meta
-	*/
-	public static function upgradeMessage($file, $plugin_data) {
-		$current = get_site_transient('update_plugins');
-
-		if (isset($current->response[$file])) {
-			$r = $current->response[$file];
-
-			if (!empty($r->upgrade_notice)) {
-				$wp_list_table = _get_list_table('WP_Plugins_List_Table');
-				$colspan = $wp_list_table->get_column_count();
-				$plugin_name = wp_kses($plugin_data['Name'], 'strip');
-
-				require NGG_DLGALL_PLUGIN_ROOT . 'views/admin-upgrade-message.php';
-			}
-		}
 	}
 
 	/**
