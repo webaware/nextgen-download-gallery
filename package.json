@@ -1,6 +1,6 @@
 {
   "name": "nextgen-download-gallery",
-  "version": "1.5.4-dev",
+  "version": "1.5.4",
   "description": "NextGEN Download Gallery",
   "main": "Gruntfile.js",
   "devDependencies": {

@@ -8,7 +8,7 @@ Tags: nextgen, gallery, download
 Requires at least: 4.0
 Tested up to: 4.9
 Requires PHP: 5.3
-Stable tag: 1.5.3
+Stable tag: 1.5.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -127,16 +127,15 @@ This program incorporates a little code that is copyright by Photocrati Media 20
 
 == Upgrade Notice ==
 
-= 1.5.3 =
+= 1.5.4 =
 
-if can't open the zip file, don't attempt to send it (fixes errors logged for `feof()`); fixed deprecated warning in PHP 7
+fixed downloads in Google Chrome on iOS (iPhone / iPad); filter hook improvements
 
 == Changelog ==
 
 The full changelog can be found [on GitHub](https://github.com/webaware/nextgen-download-gallery/blob/master/changelog.md). Recent entries:
 
-### 1.5.3, 2016-11-19
+### 1.5.4, 2018-05-08
 
-* fixed: if can't open the zip file, don't attempt to send it (fixes errors logged for `feof()`)
-* fixed: deprecated warning on non-static method call in PHP 7
-* added: Polish translation (thanks, Jakub Molek!)
+* fixed: downloads fail in Google Chrome on iOS (iPhone / iPad)
+* changed: added the gallery name as the third parameter of the `ngg_dlgallery_image_path` filter hook

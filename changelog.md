@@ -2,7 +2,7 @@
 
 ## Changelog
 
-### 1.5.4, soon...
+### 1.5.4, 2018-05-08
 
 * fixed: downloads fail in Google Chrome on iOS (iPhone / iPad)
 * changed: added the gallery name as the third parameter of the `ngg_dlgallery_image_path` filter hook
