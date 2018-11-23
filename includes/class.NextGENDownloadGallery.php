@@ -476,6 +476,8 @@ class NextGENDownloadGallery {
 		}
 
 		if (is_array($images) && count($images) > 0) {
+			// phpcs:disable Generic.PHP.NoSilencedErrors.Discouraged
+
 			// allow a long script run for pulling together lots of images
 			@set_time_limit(HOUR_IN_SECONDS);
 
@@ -548,6 +550,8 @@ class NextGENDownloadGallery {
 
 				exit;
 			}
+
+			// phpcs:enable
 
 			// no files, report to user
 			wp_die(__('No files found to download', 'nextgen-download-gallery'));
