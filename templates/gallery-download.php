@@ -1,15 +1,16 @@
 <?php
-/**
+/*
 Template for the NextGEN Download Gallery
-Based on basic template (gallery.php) with a few custom additions
+Based on NextGEN Gallery (legacy) basic template (gallery.php) with a few custom additions
 
-Follow variables are useable :
+These variables are useable :
 
-	$gallery     : Contain all about the gallery
-	$images      : Contain all images, path, title
-	$pagination  : Contain the pagination content
+	$gallery     : Contains all about the gallery
+	$images      : Contains all images, path, title
+	$pagination  : Contains the pagination content
 
-**/
+	$ngg_dlgallery_all_id  : for use in downloading the entire gallery, not only those displayed on one page
+*/
 
 if (!defined('ABSPATH')) {
 	exit;
@@ -17,47 +18,47 @@ if (!defined('ABSPATH')) {
 
 if (!empty($gallery)): ?>
 
-	<div class="ngg-galleryoverview ngg-download" id="<?php echo $gallery->anchor ?>">
+	<div class="ngg-galleryoverview ngg-download" id="<?= $gallery->anchor ?>">
 
-		<h3><?php echo $gallery->title; ?></h3>
+		<h3><?= $gallery->title; ?></h3>
 
 		<?php if (!empty($gallery->description)): ?>
-		<p><?php echo $gallery->description; ?></p>
+		<p><?= $gallery->description; ?></p>
 		<?php endif; ?>
 
 		<?php if (!empty($gallery->show_slideshow)) { ?>
 			<div class="slideshowlink">
-				<a class="slideshowlink" href="<?php echo $gallery->slideshow_link ?>">
-					<?php echo $gallery->slideshow_link_text ?>
+				<a class="slideshowlink" href="<?= $gallery->slideshow_link ?>">
+					<?= $gallery->slideshow_link_text ?>
 				</a>
 			</div>
 		<?php } ?>
 
 		<?php if (!empty($gallery->show_piclens)) { ?>
 			<div class="piclenselink">
-				<a class="piclenselink" href="<?php echo $gallery->piclens_link ?>">
+				<a class="piclenselink" href="<?= $gallery->piclens_link ?>">
 					<?php _e('[View with PicLens]','nextgen-download-gallery'); ?>
 				</a>
 			</div>
 		<?php } ?>
 
 		<!-- Thumbnails -->
-		<form action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" id="<?php echo $gallery->anchor ?>-download-frm" class="ngg-download-frm">
+		<form action="<?= admin_url('admin-ajax.php'); ?>" method="post" id="<?= $gallery->anchor ?>-download-frm" class="ngg-download-frm">
 			<input type="hidden" name="action" value="ngg-download-gallery-zip" />
-			<input type="hidden" name="gallery" value="<?php echo $gallery->title; ?>" />
+			<input type="hidden" name="gallery" value="<?= $gallery->title; ?>" />
 
 			<?php $i = 0; foreach ( $images as $image ) : ?>
 
-			<div id="ngg-image-<?php echo $image->pid ?>" class="ngg-gallery-thumbnail-box" <?php echo $image->style ?> >
-				<div class="ngg-gallery-thumbnail" >
-					<a href="<?php echo $image->imageURL ?>" title="<?php echo esc_attr($image->description) ?>" <?php echo $image->thumbcode ?> >
-						<?php if ( !$image->hidden ) { ?>
-						<img title="<?php echo esc_attr($image->alttext) ?>" alt="<?php echo esc_attr($image->alttext) ?>" src="<?php echo $image->thumbnailURL ?>" <?php echo $image->size ?> />
-						<?php } ?>
-					</a>
-					<label><input type="checkbox" name="pid[]" value="<?php echo $image->pid ?>" /><span><?php echo esc_html($image->alttext) ?></span></label>
+				<div id="ngg-image-<?= $image->pid ?>" class="ngg-gallery-thumbnail-box" <?= $image->style ?> >
+					<div class="ngg-gallery-thumbnail" >
+						<a href="<?= $image->imageURL ?>" title="<?= esc_attr($image->description) ?>" <?= $image->thumbcode ?> >
+							<?php if ( !$image->hidden ) { ?>
+							<img title="<?= esc_attr($image->alttext) ?>" alt="<?= esc_attr($image->alttext) ?>" src="<?= $image->thumbnailURL ?>" <?= $image->size ?> />
+							<?php } ?>
+						</a>
+						<label><input type="checkbox" name="pid[]" value="<?= $image->pid ?>" /><span><?= esc_html($image->alttext) ?></span></label>
+					</div>
 				</div>
-			</div>
 
 				<?php if ( $image->hidden ) continue; ?>
 				<?php if ( $gallery->columns > 0 && (++$i % $gallery->columns) == 0 ) { ?>
@@ -74,12 +75,12 @@ if (!empty($gallery)): ?>
 			$ngg_dlgallery_all_id = NextGENDownloadGallery::getDownloadAllId($gallery);
 			if ($ngg_dlgallery_all_id): ?>
 			<input class="button ngg-download-everything" type="submit" name="download-all" style="display:none" value="<?php _e('download all images', 'nextgen-download-gallery'); ?>" />
-			<input type="hidden" name="all-id" value="<?php echo esc_attr($ngg_dlgallery_all_id); ?>" />
+			<input type="hidden" name="all-id" value="<?= esc_attr($ngg_dlgallery_all_id); ?>" />
 			<?php endif; ?>
 		</form>
 
 	<!-- Pagination -->
- 	<?php echo $pagination ?>
+ 	<?= $pagination ?>
 
 	</div>
 

@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
 
 	<h1><?php esc_html_e('NextGEN Download Gallery', 'nextgen-download-gallery'); ?></h1>
 
-	<form action="<?php echo esc_url(admin_url('options.php')); ?>" method="POST">
+	<form action="<?= esc_url(admin_url('options.php')); ?>" method="POST">
 		<?php settings_fields(NGG_DLGALL_OPTIONS); ?>
 
 		<p>
