@@ -44,7 +44,9 @@
 	* show buttons that are hidden unless JavaScript is operational
 	*/
 	function showHiddenButtons() {
-		$("input.ngg-download-selectall").show();
+		if (ngg_dlgallery.canSelectAll) {
+			$("input.ngg-download-selectall").show();
+		}
 
 		if (ngg_dlgallery.canDownloadAll) {
 			$("input.ngg-download-everything").show();

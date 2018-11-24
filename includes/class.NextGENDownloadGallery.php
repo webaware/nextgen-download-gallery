@@ -84,11 +84,12 @@ class NextGENDownloadGallery {
 		$min = SCRIPT_DEBUG ? '' : '.min';
 		$ver = SCRIPT_DEBUG ? time() : NGG_DLGALL_PLUGIN_VERSION;
 
-		$options = (array) get_option(NGG_DLGALL_OPTIONS, []);
+		$options = $this->getOptions();
 
 		wp_register_script('nextgen-download-gallery-form', plugins_url("js/download-form$min.js", NGG_DLGALL_PLUGIN_FILE), ['jquery'], $ver, true);
 		wp_localize_script('nextgen-download-gallery-form', 'ngg_dlgallery', [
 			'canDownloadAll'	=> !empty($options['enable_all']),
+			'canSelectAll'		=> !empty($options['select_all']),
 			'alertNoImages'		=> __('Please select one or more images to download', 'nextgen-download-gallery'),
 		]);
 
@@ -653,7 +654,7 @@ class NextGENDownloadGallery {
 	* settings admin
 	*/
 	public function settingsPage() {
-		$options = (array) get_option(NGG_DLGALL_OPTIONS, []);
+		$options = $this->getOptions();
 
 		if (!isset($options['enable_all'])) {
 			$options['enable_all'] = 0;
@@ -671,8 +672,20 @@ class NextGENDownloadGallery {
 		$output = [];
 
 		$output['enable_all'] = empty($input['enable_all']) ? 0 : 1;
+		$output['select_all'] = empty($input['select_all']) ? 0 : 1;
 
 		return $output;
+	}
+
+	/**
+	* get plugin options, setting defaults if values are missing
+	* @return array
+	*/
+	protected function getOptions() {
+		return wp_parse_args((array) get_option(NGG_DLGALL_OPTIONS, []), [
+			'enable_all'		=> 1,
+			'select_all'		=> 1,
+		]);
 	}
 
 }
