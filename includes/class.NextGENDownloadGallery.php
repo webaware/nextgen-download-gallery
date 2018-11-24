@@ -6,52 +6,63 @@ if (!defined('ABSPATH')) {
 
 class NextGENDownloadGallery {
 
-	protected static $taglist = false;				// for recording taglist when building gallery for nggtags_ext shortcode
+	protected $taglist = false;				// for recording taglist when building gallery for nggtags_ext shortcode
 
 	/**
-	* hook WordPress to handle script and style fixes
+	* static method for getting the instance of this singleton object
+	* @return self
 	*/
-	public static function run() {
-		add_action('init', array(__CLASS__, 'init'));
-		add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueueScripts'));
+	public static function getInstance() {
+		static $instance = null;
 
-		add_action('admin_init', array(__CLASS__, 'adminInit'));
-		add_action('admin_menu', array(__CLASS__, 'adminMenu'), 11);
-		add_filter('plugin_row_meta', array(__CLASS__, 'addPluginDetailsLinks'), 10, 2);
+		if ($instance === null) {
+			$instance = new self();
+		}
+
+		return $instance;
+	}
+
+	/**
+	* hide constructor
+	*/
+	private function __construct() {}
+
+	/**
+	* initialise plugin
+	*/
+	public function pluginStart() {
+		add_action('init', 'ngg_download_gallery_load_text_domain');
+		add_action('wp_enqueue_scripts', [$this, 'enqueueScripts']);
+
+		add_action('admin_init', [$this, 'adminInit']);
+		add_action('admin_menu', [$this, 'adminMenu'], 11);
+		add_filter('plugin_row_meta', [$this, 'addPluginDetailsLinks'], 10, 2);
 
 		// custom shortcodes
-		add_shortcode('nggtags_ext', array(__CLASS__, 'shortcodeTags'));
+		add_shortcode('nggtags_ext', [$this, 'shortcodeTags']);
 
 		// register "AJAX" actions (not really AJAX, just a cheap way into WordPress from the front end)
-		add_action('wp_ajax_ngg-download-gallery-zip', array(__CLASS__, 'nggDownloadZip'));
-		add_action('wp_ajax_nopriv_ngg-download-gallery-zip', array(__CLASS__, 'nggDownloadZip'));
+		add_action('wp_ajax_ngg-download-gallery-zip', [$this, 'nggDownloadZip']);
+		add_action('wp_ajax_nopriv_ngg-download-gallery-zip', [$this, 'nggDownloadZip']);
 
 		// register POST actions, for compatibility with custom templates created from v1.4.0
 		// NB: see this support post for why this isn't the "official" way to grab a ZIP file:
 		// @link https://wordpress.org/support/topic/only-administrator-can-download
-		add_action('admin_post_ngg-download-gallery-zip', array(__CLASS__, 'nggDownloadZip'));
-		add_action('admin_post_nopriv_ngg-download-gallery-zip', array(__CLASS__, 'nggDownloadZip'));
-	}
-
-	/**
-	* initialise plugin, after other plugins have loaded
-	*/
-	public static function init() {
-		// load gettext domain
-		load_plugin_textdomain('nextgen-download-gallery', false, plugin_basename(NGG_DLGALL_PLUGIN_ROOT . 'languages'));
+		add_action('admin_post_ngg-download-gallery-zip', [$this, 'nggDownloadZip']);
+		add_action('admin_post_nopriv_ngg-download-gallery-zip', [$this, 'nggDownloadZip']);
 
 		// NextGEN Gallery integration
-		add_filter('ngg_render_template', array(__CLASS__, 'nggRenderTemplate'), 10, 2);
+		add_filter('ngg_render_template', [$this, 'nggRenderTemplate'], 10, 2);
 
 		// work-arounds for NGG2
 		if (defined('NEXTGEN_GALLERY_PLUGIN_VERSION')) {
-			add_filter('query_vars', array(__CLASS__, 'addNgg2QueryVars'));
+			add_filter('query_vars', [$this, 'addNgg2QueryVars']);
 
 			// pick up tags when ngg_images uses tags
-			add_filter('ngg_gallery_object', array(__CLASS__, 'ngg2GalleryObject'));
+			add_filter('ngg_gallery_object', [$this, 'ngg2GalleryObject']);
 
 			// tell NGG2 to look in plugin for legacy templates
-			add_filter('ngg_legacy_template_directories', array(__CLASS__, 'ngg2LegacyTemplateFolders'));
+			add_filter('ngg_legacy_template_directories', [$this, 'ngg2LegacyTemplateFolders']);
 		}
 	}
 
@@ -60,7 +71,7 @@ class NextGENDownloadGallery {
 	* @param array $query_vars
 	* @return array
 	*/
-	public static function addNgg2QueryVars($query_vars) {
+	public function addNgg2QueryVars($query_vars) {
 		$query_vars[] = 'gallerytag';
 
 		return $query_vars;
@@ -69,19 +80,19 @@ class NextGENDownloadGallery {
 	/**
 	* enqueue any scripts we need
 	*/
-	public static function enqueueScripts() {
+	public function enqueueScripts() {
 		$min = SCRIPT_DEBUG ? '' : '.min';
 		$ver = SCRIPT_DEBUG ? time() : NGG_DLGALL_PLUGIN_VERSION;
 
-		$options = (array) get_option(NGG_DLGALL_OPTIONS);
+		$options = (array) get_option(NGG_DLGALL_OPTIONS, []);
 
-		wp_register_script('nextgen-download-gallery-form', plugins_url("js/download-form$min.js", NGG_DLGALL_PLUGIN_FILE), array('jquery'), $ver, true);
-		wp_localize_script('nextgen-download-gallery-form', 'ngg_dlgallery', array(
+		wp_register_script('nextgen-download-gallery-form', plugins_url("js/download-form$min.js", NGG_DLGALL_PLUGIN_FILE), ['jquery'], $ver, true);
+		wp_localize_script('nextgen-download-gallery-form', 'ngg_dlgallery', [
 			'canDownloadAll'	=> !empty($options['enable_all']),
 			'alertNoImages'		=> __('Please select one or more images to download', 'nextgen-download-gallery'),
-		));
+		]);
 
-		wp_enqueue_style('nextgen-download-gallery', plugins_url('css/style.css', NGG_DLGALL_PLUGIN_FILE), false, $ver);
+		wp_enqueue_style('nextgen-download-gallery', plugins_url('css/style.css', NGG_DLGALL_PLUGIN_FILE), [], $ver);
 
 		// FIXME: should be able to enqueue on demand! Find some way to tie script dependencies to NGG2 transient cached galleries
 		if (defined('NEXTGEN_GALLERY_PLUGIN_VERSION')) {
@@ -95,15 +106,15 @@ class NextGENDownloadGallery {
 	* @param string $content
 	* @return string
 	*/
-	public static function shortcodeTags($attrs, $content = '') {
+	public function shortcodeTags($attrs, $content = '') {
 		$template = isset($attrs['template']) ? $attrs['template'] : '';
 		$images = isset($attrs['images']) ? $attrs['images'] : false;
 
 		if (!empty($attrs['album'])) {
-			$out = self::nggShowAlbumTags($attrs['album'], $template, $images);
+			$out = $this->nggShowAlbumTags($attrs['album'], $template, $images);
 		}
 		else if (!empty($attrs['gallery'])) {
-			$out = self::nggShowGalleryTags($attrs['gallery'], $template, $images);
+			$out = $this->nggShowGalleryTags($attrs['gallery'], $template, $images);
 		}
 
 		return $out;
@@ -117,24 +128,24 @@ class NextGENDownloadGallery {
 	* @param int $images how many images per page, defaults to all
 	* @return string
 	*/
-	protected static function nggShowGalleryTags($taglist, $template, $images = false) {
+	protected function nggShowGalleryTags($taglist, $template, $images = false) {
 
 		// $_GET from wp_query
 		$pid    = get_query_var('pid');
 		$pageid = get_query_var('pageid');
 
 		// record taglist and set filter to override gallery title with taglist
-		self::$taglist = $taglist;
-		add_filter('ngg_gallery_object', array(__CLASS__, 'nggGalleryObjectTagged'));
+		$this->taglist = $taglist;
+		add_filter('ngg_gallery_object', [$this, 'nggGalleryObjectTagged']);
 
 		// NextGEN Gallery 2 can show gallery of tags with template
 		if (defined('NEXTGEN_GALLERY_PLUGIN_VERSION')) {
-			$params = array (
+			$params = [
 				'display_type'	=> 'photocrati-nextgen_basic_thumbnails',
 				'tag_ids'		=> $taglist,
 				'template'		=> $template,
-			);
-			$registry = C_Component_Registry::get_instance();
+			];
+			$registry = \C_Component_Registry::get_instance();
 			$renderer = $registry->get_utility('I_Displayed_Gallery_Renderer');
 			$out = $renderer->display_images($params);
 		}
@@ -142,7 +153,7 @@ class NextGENDownloadGallery {
 		// build list of tagged images in NextCellent Gallery
 		else {
 			// get the related images
-			$picturelist = nggTags::find_images_for_tags($taglist , 'ASC');
+			$picturelist = \nggTags::find_images_for_tags($taglist , 'ASC');
 
 			// look for ImageBrowser if we have a $_GET('pid')
 			if ( $pageid == get_the_ID() || !is_home() ) {
@@ -165,7 +176,7 @@ class NextGENDownloadGallery {
 		}
 
 		// remove filter for gallery title
-		remove_filter('ngg_gallery_object', array(__CLASS__, 'nggGalleryObjectTagged'));
+		remove_filter('ngg_gallery_object', [$this, 'nggGalleryObjectTagged']);
 
 		$out = apply_filters('ngg_show_gallery_tags_content', $out, $taglist);
 		return $out;
@@ -179,12 +190,12 @@ class NextGENDownloadGallery {
 	* @param int $images how many images per page, defaults to all
 	* @return string
 	*/
-	protected static function nggShowAlbumTags($taglist, $template, $images = false) {
+	protected function nggShowAlbumTags($taglist, $template, $images = false) {
 		global $nggRewrite;
 
 		// NextGEN Gallery 2.0[.7] defines class nggRewrite but doesn't instantiate it
 		if (class_exists('nggRewrite') && !isset($nggRewrite)) {
-			$nggRewrite = new nggRewrite();
+			$nggRewrite = new \nggRewrite();
 		}
 
 		// $_GET from wp_query
@@ -199,13 +210,13 @@ class NextGENDownloadGallery {
 				$tagname = $term->name;
 				$out  = sprintf('<div id="albumnav"><span><a href="%1$s" title="%2$s">%2$s</a> | %3$s</span></div>',
 							esc_url(get_permalink()), __('Overview', 'nextgen-download-gallery'), esc_html($tagname));
-				$out .=  self::nggShowGalleryTags($slug, $template, $images);
+				$out .=  $this->nggShowGalleryTags($slug, $template, $images);
 				return $out;
 			}
 		}
 
 		// get now the related images
-		$picturelist = nggTags::get_album_images($taglist);
+		$picturelist = \nggTags::get_album_images($taglist);
 
 		// nothing to see, move along...
 		if ( empty($picturelist) ) {
@@ -219,14 +230,18 @@ class NextGENDownloadGallery {
 			$picturelist[$key]->previewurl  = site_url("/{$picture->path}/thumbs/thumbs_{$picture->filename}");
 			$picturelist[$key]->counter     = $picture->count;
 			$picturelist[$key]->title       = $picture->name;
-			$picturelist[$key]->pagelink    = $nggRewrite->get_permalink(array('gallerytag' => $picture->slug));
+			$picturelist[$key]->pagelink    = $nggRewrite->get_permalink(['gallerytag' => $picture->slug]);
 		}
 
 		// TODO: Add pagination later
 		$navigation = '<div class="ngg-clear"></div>';
 
 		// create the output
-		$out = nggGallery::capture('album-compact', array('album' => 0, 'galleries' => $picturelist, 'pagination' => $navigation));
+		$out = \nggGallery::capture('album-compact', [
+			'album'			=> 0,
+			'galleries'		=> $picturelist,
+			'pagination'	=> $navigation,
+		]);
 
 		$out = apply_filters('ngg_show_album_tags_content', $out, $taglist);
 
@@ -238,10 +253,10 @@ class NextGENDownloadGallery {
 	* @param stdClass $gallery
 	* @return stdClass
 	*/
-	public static function nggGalleryObjectTagged($gallery) {
-		if (self::$taglist) {
-			$gallery->title					= self::getTitleFromTaglist(self::$taglist);
-			$gallery->nggDownloadTaglist	= self::$taglist;
+	public function nggGalleryObjectTagged($gallery) {
+		if ($this->taglist) {
+			$gallery->title					= $this->getTitleFromTaglist($this->taglist);
+			$gallery->nggDownloadTaglist	= $this->taglist;
 		}
 
 		return $gallery;
@@ -252,7 +267,7 @@ class NextGENDownloadGallery {
 	* @param string $taglist;
 	* @return string
 	*/
-	public static function getTitleFromTaglist($taglist) {
+	public function getTitleFromTaglist($taglist) {
 		/* translators: gallery title when it has been created from image tags */
 		$title = sprintf(__('tagged: %s', 'nextgen-download-gallery'), $taglist);
 
@@ -264,13 +279,13 @@ class NextGENDownloadGallery {
 	* @param stdClass $gallery
 	* @return stdClass
 	*/
-	public static function ngg2GalleryObject($gallery) {
+	public function ngg2GalleryObject($gallery) {
 		if ($gallery->displayed_gallery->source == 'tags') {
-			self::$taglist = implode(',', $gallery->displayed_gallery->container_ids);
-			$gallery = self::nggGalleryObjectTagged($gallery);
+			$this->taglist = implode(',', $gallery->displayed_gallery->container_ids);
+			$gallery = $this->nggGalleryObjectTagged($gallery);
 		}
 		else {
-			self::$taglist = '';
+			$this->taglist = '';
 		}
 
 		return $gallery;
@@ -281,7 +296,7 @@ class NextGENDownloadGallery {
 	* @param array $folders
 	* @return array
 	*/
-	public static function ngg2LegacyTemplateFolders($folders) {
+	public function ngg2LegacyTemplateFolders($folders) {
 		$folders[__('NextGEN Download Gallery', 'nextgen-download-gallery')] = NGG_DLGALL_PLUGIN_ROOT . 'templates';
 
 		return $folders;
@@ -293,8 +308,8 @@ class NextGENDownloadGallery {
 	* @param string $template_name name of custom template sought
 	* @return string
 	*/
-	public static function nggRenderTemplate($custom_template, $template_name) {
-		if ($template_name == 'gallery-download') {
+	public function nggRenderTemplate($custom_template, $template_name) {
+		if ($template_name === 'gallery-download') {
 			// see if theme has customised this template
 			$custom_template = locate_template("nggallery/$template_name.php");
 			if (!$custom_template) {
@@ -315,11 +330,11 @@ class NextGENDownloadGallery {
 	* @return string|false
 	*/
 	public static function getDownloadAllUrl($gallery) {
-		$args = array(
+		$args = [
 			'action'		=> 'ngg-download-gallery-zip',
 			'all-id'		=> urlencode(self::getDownloadAllId($gallery)),
 			'download-all'	=> 1,
-		);
+		];
 
 		$url = add_query_arg($args, admin_url('admin-ajax.php'));
 
@@ -330,8 +345,8 @@ class NextGENDownloadGallery {
 	* get list of expected NGG2 gallery query fields
 	* @return array
 	*/
-	protected static function getNgg2QueryFields() {
-		return array('ID', 'container_ids', 'exclusions', 'excluded_container_ids', 'entity_ids', 'returns', 'source');
+	protected function getNgg2QueryFields() {
+		return ['ID', 'container_ids', 'exclusions', 'excluded_container_ids', 'entity_ids', 'returns', 'source'];
 	}
 
 	/**
@@ -341,10 +356,12 @@ class NextGENDownloadGallery {
 	*/
 	public static function getDownloadAllId($gallery) {
 		if (defined('NEXTGEN_GALLERY_PLUGIN_VERSION')) {
+			$self = self::getInstance();
+
 			// build query for NextGEN Gallery 2 virtual gallery
 			$params = $gallery->displayed_gallery->object->get_entity();
-			$query = array();
-			foreach (self::getNgg2QueryFields() as $field) {
+			$query = [];
+			foreach ($self->getNgg2QueryFields() as $field) {
 				if (!empty($params->$field)) {
 					$query[$field] = $params->$field;
 				}
@@ -374,11 +391,11 @@ class NextGENDownloadGallery {
 	* @param C_Displayed_Gallery $displayed_gallery
 	* @return string
 	*/
-	protected static function getNgg2DownloadTitle($displayed_gallery) {
+	protected function getNgg2DownloadTitle($displayed_gallery) {
 		switch ($displayed_gallery->source) {
 
 			case 'galleries':
-				$titles = array();
+				$titles = [];
 				foreach ($displayed_gallery->container_ids as $gallery_id) {
 					$gallery = nggdb::find_gallery($gallery_id);
 					$titles[] = $gallery->title;
@@ -388,7 +405,7 @@ class NextGENDownloadGallery {
 
 			case 'tags':
 				$taglist = implode(',', $displayed_gallery->container_ids);
-				$title = self::getTitleFromTaglist($taglist);
+				$title = $this->getTitleFromTaglist($taglist);
 				break;
 
 			default:
@@ -408,7 +425,7 @@ class NextGENDownloadGallery {
 	/**
 	* POST action for downloading a bunch of NextGEN gallery images as a ZIP archive
 	*/
-	public static function nggDownloadZip() {
+	public function nggDownloadZip() {
 		global $nggdb;
 
 		// pick up gallery ID and array of image IDs from AJAX request
@@ -429,7 +446,7 @@ class NextGENDownloadGallery {
 		}
 
 		// check for Chrome on iOS and maybe kludge for it
-		self::maybeKludgeChromeIOS($images, $gallery, $tags, $allID);
+		$this->maybeKludgeChromeIOS($images, $gallery, $tags, $allID);
 
 		// check for request to download everything
 		if ($allID) {
@@ -439,22 +456,22 @@ class NextGENDownloadGallery {
 				$query = $json ? json_decode($json, true) : false;
 
 				// reduce query to permitted fields
-				$query = $query ? array_intersect_key($query, array_flip(self::getNgg2QueryFields())) : false;
+				$query = $query ? array_intersect_key($query, array_flip($this->getNgg2QueryFields())) : false;
 
 				if (!empty($query)) {
-					$mapper = C_Displayed_Gallery_Mapper::get_instance();
-					$factory = C_Component_Factory::get_instance();
+					$mapper = \C_Displayed_Gallery_Mapper::get_instance();
+					$factory = \C_Component_Factory::get_instance();
 					$displayed_gallery = $factory->create('displayed_gallery', $query, $mapper);
 
 					$entities = $displayed_gallery->get_entities(false, false, true);
 
-					$images = array();
+					$images = [];
 					foreach ($entities as $image) {
 						$images[] = $image->pid;
 					}
 
 					if (empty($gallery)) {
-						$gallery = self::getNgg2DownloadTitle($displayed_gallery);
+						$gallery = $this->getNgg2DownloadTitle($displayed_gallery);
 					}
 				}
 			}
@@ -463,8 +480,8 @@ class NextGENDownloadGallery {
 			}
 		}
 		elseif ($tags) {
-			$picturelist = nggTags::find_images_for_tags($tags, 'ASC');
-			$images = array();
+			$picturelist = \nggTags::find_images_for_tags($tags, 'ASC');
+			$images = [];
 			foreach ($picturelist as $image) {
 				$images[] = $image->pid;
 			}
@@ -497,7 +514,7 @@ class NextGENDownloadGallery {
 
 			$filename = tempnam(get_temp_dir(), 'zip');
 			$zip = new PclZip($filename);
-			$files = array();
+			$files = [];
 
 			foreach ($images as $image) {
 				$image = $nggdb->find_image($image);
@@ -567,7 +584,7 @@ class NextGENDownloadGallery {
 	* @param string $tags
 	* @param string $allID
 	*/
-	protected static function maybeKludgeChromeIOS($images, $gallery, $tags, $allID) {
+	protected function maybeKludgeChromeIOS($images, $gallery, $tags, $allID) {
 		if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 			return;
 		}
@@ -577,10 +594,10 @@ class NextGENDownloadGallery {
 			return;
 		}
 
-		$request = array(
+		$request = [
 			'action'		=> 'ngg-download-gallery-zip',
 			'gallery'		=> rawurlencode($gallery),
-		);
+		];
 
 		if ($allID) {
 			$request['download-all'] = 1;
@@ -602,15 +619,15 @@ class NextGENDownloadGallery {
 	/**
 	* initialise settings for admin
 	*/
-	public static function adminInit() {
+	public function adminInit() {
 		add_settings_section(NGG_DLGALL_OPTIONS, false, false, NGG_DLGALL_OPTIONS);
-		register_setting(NGG_DLGALL_OPTIONS, NGG_DLGALL_OPTIONS, array(__CLASS__, 'settingsValidate'));
+		register_setting(NGG_DLGALL_OPTIONS, NGG_DLGALL_OPTIONS, [$this, 'settingsValidate']);
 	}
 
 	/**
 	* action hook for adding plugin details links
 	*/
-	public static function addPluginDetailsLinks($links, $file) {
+	public function addPluginDetailsLinks($links, $file) {
 		if ($file == NGG_DLGALL_PLUGIN_NAME) {
 			$links[] = sprintf('<a href="https://wordpress.org/support/plugin/nextgen-download-gallery" rel="noopener" target="_blank">%s</a>', _x('Get help', 'plugin details links', 'nextgen-download-gallery'));
 			$links[] = sprintf('<a href="https://wordpress.org/plugins/nextgen-download-gallery/" rel="noopener" target="_blank">%s</a>', _x('Rating', 'plugin details links', 'nextgen-download-gallery'));
@@ -624,18 +641,19 @@ class NextGENDownloadGallery {
 	/**
 	* admin menu items
 	*/
-	public static function adminMenu() {
-		if (!defined('NGGFOLDER'))
+	public function adminMenu() {
+		if (!defined('NGGFOLDER')) {
 			return;
+		}
 
-		add_submenu_page(NGGFOLDER, 'Download Gallery', 'Download Gallery', 'manage_options', 'ngg-dlgallery', array(__CLASS__, 'settingsPage'));
+		add_submenu_page(NGGFOLDER, 'Download Gallery', 'Download Gallery', 'manage_options', 'ngg-dlgallery', [$this, 'settingsPage']);
 	}
 
 	/**
 	* settings admin
 	*/
-	public static function settingsPage() {
-		$options = (array) get_option(NGG_DLGALL_OPTIONS);
+	public function settingsPage() {
+		$options = (array) get_option(NGG_DLGALL_OPTIONS, []);
 
 		if (!isset($options['enable_all'])) {
 			$options['enable_all'] = 0;
@@ -649,8 +667,8 @@ class NextGENDownloadGallery {
 	* @param array $input
 	* @return array
 	*/
-	public static function settingsValidate($input) {
-		$output = array();
+	public function settingsValidate($input) {
+		$output = [];
 
 		$output['enable_all'] = empty($input['enable_all']) ? 0 : 1;
 
