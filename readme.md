@@ -2,7 +2,6 @@
 
 Add a template to NextGEN Gallery that provides multiple-file downloads for trade/media galleries
 
-* [Home](https://shop.webaware.com.au/downloads/nextgen-download-gallery/)
 * [GitHub](https://github.com/webaware/nextgen-download-gallery)
 * [Readme](https://github.com/webaware/nextgen-download-gallery/blob/master/readme.txt)
 * [Download](https://wordpress.org/plugins/nextgen-download-gallery/)

@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: NextGEN Download Gallery
-Plugin URI: https://shop.webaware.com.au/downloads/nextgen-download-gallery/
+Plugin URI: https://wordpress.org/plugins/nextgen-download-gallery/
 Description: Add a template to NextGEN Gallery that provides multiple-file downloads for trade/media galleries
 Version: 1.6.0
 Author: WebAware
