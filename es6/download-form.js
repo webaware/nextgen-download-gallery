@@ -1,11 +1,11 @@
-/*!
+/**
 * NextGEN Download Gallery form script
-* https://shop.webaware.com.au/downloads/nextgen-download-gallery/
+* https://wordpress.org/plugins/nextgen-download-gallery/
 */
 
 (function($) {
 
-	var isDownloadAll = false;
+	let isDownloadAll = false;
 
 	/* make sure that at least one image is selected before submitting form for download */
 	$(document.body).on("submit", "form.ngg-download-frm", function(event) {
@@ -19,7 +19,7 @@
 
 	/* reveal "select all" button and active it; if all are checked, action is to uncheck all */
 	$(document.body).on("click", "input.ngg-download-selectall", function() {
-		var pid = $(this.form).find("input[name='pid[]']");
+		const pid = $(this.form).find("input[name='pid[]']");
 		pid.prop({ checked: pid.not(":checked").length > 0 });
 	});
 
