@@ -43,7 +43,7 @@ if (!empty($gallery)): ?>
 		<?php } ?>
 
 		<!-- Thumbnails -->
-		<form action="<?= admin_url('admin-ajax.php'); ?>" method="post" id="<?= $gallery->anchor ?>-download-frm" class="ngg-download-frm">
+		<form action="<?= esc_url(admin_url('admin-ajax.php')); ?>" method="post" id="<?= $gallery->anchor ?>-download-frm" class="ngg-download-frm">
 			<input type="hidden" name="action" value="ngg-download-gallery-zip" />
 			<input type="hidden" name="gallery" value="<?= $gallery->title; ?>" />
 
@@ -51,12 +51,12 @@ if (!empty($gallery)): ?>
 
 				<div id="ngg-image-<?= $image->pid ?>" class="ngg-gallery-thumbnail-box" <?= $image->style ?> >
 					<div class="ngg-gallery-thumbnail" >
-						<a href="<?= $image->imageURL ?>" title="<?= esc_attr($image->description) ?>" <?= $image->thumbcode ?> >
+						<a href="<?= esc_url($image->imageURL); ?>" title="<?= esc_attr($image->description) ?>" <?= $image->thumbcode ?> >
 							<?php if ( !$image->hidden ) { ?>
-							<img title="<?= esc_attr($image->alttext) ?>" alt="<?= esc_attr($image->alttext) ?>" src="<?= $image->thumbnailURL ?>" <?= $image->size ?> />
+							<img title="<?= esc_attr($image->alttext) ?>" alt="<?= esc_attr($image->alttext) ?>" src="<?= esc_url($image->thumbnailURL); ?>" <?= $image->size ?> />
 							<?php } ?>
 						</a>
-						<label><input type="checkbox" name="pid[]" value="<?= $image->pid ?>" /><span><?= esc_html($image->alttext) ?></span></label>
+						<label><input type="checkbox" name="pid[]" value="<?= esc_attr($image->pid); ?>" /><span><?= esc_html($image->alttext) ?></span></label>
 					</div>
 				</div>
 
