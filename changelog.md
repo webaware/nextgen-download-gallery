@@ -2,6 +2,10 @@
 
 ## Changelog
 
+### 1.6.1, soon...
+
+* fixed: custom templates from the theme do not load for galleries newly added to a page / post
+
 ### 1.6.0, 2018-11-24
 
 * changed: requires minimum PHP version 5.6 (recommend version 7.2 or greater)

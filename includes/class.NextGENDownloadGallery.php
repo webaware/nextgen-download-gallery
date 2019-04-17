@@ -310,14 +310,24 @@ class NextGENDownloadGallery {
 	* @return string
 	*/
 	public function nggRenderTemplate($custom_template, $template_name) {
-		if ($template_name === 'gallery-download') {
+		$default = 'gallery-download';
+
+		// detect complete filepath to default template, correct to simple template name
+		$defaultPath = NGG_DLGALL_PLUGIN_ROOT . "templates/$default.php";
+		if ($template_name === $defaultPath || $template_name === "gallery-$defaultPath") {
+			$template_name = $default;
+		}
+
+		if ($template_name === $default) {
 			// see if theme has customised this template
 			$custom_template = locate_template("nggallery/$template_name.php");
 			if (!$custom_template) {
 				// no custom template so set to the default
 				$custom_template = NGG_DLGALL_PLUGIN_ROOT . "templates/$template_name.php";
 			}
+		}
 
+		if (basename($custom_template) === "$default.php") {
 			wp_enqueue_style('nextgen-download-gallery');
 			wp_enqueue_script('nextgen-download-gallery-form');
 		}
