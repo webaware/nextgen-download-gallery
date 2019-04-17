@@ -1,6 +1,6 @@
 {
   "name": "nextgen-download-gallery",
-  "version": "1.6.1-dev",
+  "version": "1.6.1",
   "description": "NextGEN Download Gallery",
   "main": "Gruntfile.js",
   "browserslist": [

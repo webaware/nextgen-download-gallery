@@ -2,7 +2,7 @@
 
 ## Changelog
 
-### 1.6.1, soon...
+### 1.6.1, 2019-04-17
 
 * fixed: custom templates from the theme do not load for galleries newly added to a page / post
 

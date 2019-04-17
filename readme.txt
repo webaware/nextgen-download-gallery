@@ -6,9 +6,9 @@ Author URI: https://shop.webaware.com.au/
 Donate link: https://shop.webaware.com.au/donations/?donation_for=NextGEN+Download+Gallery
 Tags: nextgen, gallery, download
 Requires at least: 4.0
-Tested up to: 5.0
+Tested up to: 5.2
 Requires PHP: 5.6
-Stable tag: 1.6.0
+Stable tag: 1.6.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,16 +28,18 @@ Many thanks to the generous efforts of our translators:
 
 * Czech (cs_CZ) -- [Rudolf Klusal](http://www.klusik.cz/)
 * Danish (da_DK) -- [Ligefrem](http://www.ligefrem.dk/)
-* Dutch (nl_NL) -- [the Dutch translation team](https://translate.wordpress.org/locale/nl/default/wp-plugins/nextgen-download-gallery)
-* English (en_CA) -- [the English (Canadian) translation team](https://translate.wordpress.org/locale/en-ca/default/wp-plugins/nextgen-download-gallery)
+* Dutch (nl_NL) -- [the Dutch translation team](https://translate.wordpress.org/locale/nl/default/wp-plugins/nextgen-download-gallery/)
+* English (en_CA) -- [the English (Canadian) translation team](https://translate.wordpress.org/locale/en-ca/default/wp-plugins/nextgen-download-gallery/)
+* English (en_GB) -- [the English (British) translation team](https://translate.wordpress.org/locale/en-gb/default/wp-plugins/nextgen-download-gallery/)
+* English (en_ZA) -- [the English (South African) translation team](https://translate.wordpress.org/locale/en-za/default/wp-plugins/nextgen-download-gallery/)
 * French (fr_FR) -- Nicolas Sizun
-* Korean (ko_KR) -- [the Korean translation team](https://translate.wordpress.org/locale/ko/default/wp-plugins/nextgen-download-gallery)
+* Korean (ko_KR) -- [the Korean translation team](https://translate.wordpress.org/locale/ko/default/wp-plugins/nextgen-download-gallery/)
 * Portuguese (pt_BR) -- [Juliano Arantes](http://www.42fotografia.com.br/)
-* Polish (pl_PL) -- Jakub Molek
-* Swedish (sv_SE) -- [the Swedish translation team](https://translate.wordpress.org/locale/sv/default/wp-plugins/nextgen-download-gallery)
-* Turkish (tr_TR) -- [the Turkish translation team](https://translate.wordpress.org/locale/tr/default/wp-plugins/nextgen-download-gallery)
+* Polish (pl_PL) -- Jakub Molek and [the Polish translation team](https://translate.wordpress.org/locale/pl/default/wp-plugins/nextgen-download-gallery/)
+* Swedish (sv_SE) -- [the Swedish translation team](https://translate.wordpress.org/locale/sv/default/wp-plugins/nextgen-download-gallery/)
+* Turkish (tr_TR) -- [the Turkish translation team](https://translate.wordpress.org/locale/tr/default/wp-plugins/nextgen-download-gallery/)
 
-If you'd like to help out by translating this plugin, please [sign up for an account and dig in](https://translate.wordpress.org/projects/wp-plugins/nextgen-download-gallery).
+If you'd like to help out by translating this plugin, please [sign up for an account and dig in](https://translate.wordpress.org/projects/wp-plugins/nextgen-download-gallery/).
 
 ### Credits
 
@@ -122,18 +124,16 @@ If you have higher resolution images you'd like to download instead of the ones 
 
 ## Upgrade Notice
 
-### 1.6.0
+### 1.6.1
 
-requires minimum PHP version 5.6 (recommend version 7.2 or greater); added setting for enabling Select All button, on by default
+fixed: custom templates from the theme were not loading for galleries newly added to a page / post
 
 ## Changelog
 
 [The full changelog can be found on GitHub](https://github.com/webaware/nextgen-download-gallery/blob/master/changelog.md). Recent entries:
 
-### 1.6.0
+### 1.6.1
 
-Released 2018-11-24
+Released 2019-04-17
 
-* changed: requires minimum PHP version 5.6 (recommend version 7.2 or greater)
-* added: setting for enabling Select All button, on by default
-* tested: WordPress 5.0
+* fixed: custom templates from the theme do not load for galleries newly added to a page / post
