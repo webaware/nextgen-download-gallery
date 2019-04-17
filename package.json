@@ -1,6 +1,6 @@
 {
   "name": "nextgen-download-gallery",
-  "version": "1.6.0",
+  "version": "1.6.1-dev",
   "description": "NextGEN Download Gallery",
   "main": "Gruntfile.js",
   "browserslist": [
@@ -9,10 +9,10 @@
     "not dead"
   ],
   "devDependencies": {
-    "@babel/cli": "^7.1.5",
-    "@babel/core": "^7.1.6",
-    "@babel/preset-env": "^7.1.6",
-    "grunt": "^1.0.3",
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "grunt": "^1.0.4",
     "grunt-babel": "^8.0.0",
     "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-compress": "^1.4.3",
