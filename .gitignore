@@ -1,4 +1,6 @@
-.svn
-dist
-node_modules
-vendor
+/.dist/
+/.svn/
+/.vscode/
+/.wordpress.org/
+/node_modules/
+/vendor/
