@@ -2,10 +2,11 @@
 <ruleset name="PHP_CodeSniffer">
 	<description>Some basic coding standards sniffs for this project.</description>
 
-	<file>nextgen-download-gallery.php</file>
-	<file>includes</file>
-	<file>templates</file>
-	<file>views</file>
+	<file>.</file>
+	<exclude-pattern>node_modules/</exclude-pattern>
+	<exclude-pattern>vendor/</exclude-pattern>
+	<exclude-pattern>\.dist/</exclude-pattern>
+	<exclude-pattern>\.wordpress\.org/</exclude-pattern>
 
 	<arg name="basepath" value="." />
 	<arg name="colors" />
@@ -15,6 +16,7 @@
 	<config name="testVersion" value="5.6-"/>
 
 	<rule ref="PHPCompatibility" />
+	<rule ref="Modernize" />
 
 	<rule ref="Generic.Debug.ClosureLinter" />
 	<rule ref="Generic.Files.LineEndings" />
@@ -25,6 +27,9 @@
 	<rule ref="Generic.PHP.DisallowShortOpenTag.Found" />
 	<rule ref="Generic.PHP.NoSilencedErrors" />
 	<rule ref="Generic.Strings.UnnecessaryStringConcat" />
+	<rule ref="Generic.VersionControl.GitMergeConflict"/>
+	<rule ref="Generic.WhiteSpace.ArbitraryParenthesesSpacing"/>
+	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
 
 	<rule ref="Generic.PHP.ForbiddenFunctions">
 		<properties>
@@ -51,6 +56,7 @@
 
 	<rule ref="Generic.WhiteSpace.ScopeIndent">
 		<properties>
+			<property name="indent" value="4"/>
 			<property name="tabIndent" value="true" />
 		</properties>
 	</rule>
@@ -59,5 +65,21 @@
 	<rule ref="Squiz.PHP.DiscouragedFunctions" />
 	<rule ref="Squiz.PHP.NonExecutableCode" />
 	<rule ref="Squiz.Strings.DoubleQuoteUsage.NotRequired" />
+
+	<!-- from PHPCSExtra https://github.com/PHPCSStandards/PHPCSExtra -->
+	<rule ref="NormalizedArrays.Arrays.CommaAfterLast" />
+	<rule ref="Universal.Arrays.DuplicateArrayKey" />
+	<rule ref="Universal.Arrays.MixedArrayKeyTypes" />
+	<rule ref="Universal.CodeAnalysis.ConstructorDestructorReturn" />
+	<rule ref="Universal.CodeAnalysis.ForeachUniqueAssignment" />
+	<rule ref="Universal.CodeAnalysis.NoEchoSprintf" />
+	<rule ref="Universal.CodeAnalysis.StaticInFinalClass" />
+	<rule ref="Universal.Constants.UppercaseMagicConstants" />
+	<!-- <rule ref="Universal.FunctionDeclarations.NoLongClosures" /> -->
+	<rule ref="Universal.NamingConventions.NoReservedKeywordParameterNames" />
+	<rule ref="Universal.Operators.DisallowLogicalAndOr" />
+	<rule ref="Universal.Operators.StrictComparisons" />
+	<rule ref="Universal.PHP.OneStatementInShortEchoTag" />
+	<rule ref="Universal.UseStatements.NoLeadingBackslash" />
 
 </ruleset>

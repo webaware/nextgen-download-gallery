@@ -1,6 +1,10 @@
-/.dist/
+/.phpunit.result.cache
 /.svn/
 /.vscode/
 /.wordpress.org/
+/.dist/
+/.make-flag*
+/bin/
 /node_modules/
 /vendor/
+/tests/.env

@@ -2,6 +2,10 @@
 
 ## Changelog
 
+### 1.6.2, 2023-12-05
+
+* fixed: fatal error "call to a member function get_entity() on null"
+
 ### 1.6.1, 2019-04-17
 
 * fixed: custom templates from the theme do not load for galleries newly added to a page / post

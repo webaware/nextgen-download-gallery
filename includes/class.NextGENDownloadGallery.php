@@ -86,14 +86,14 @@ class NextGENDownloadGallery {
 
 		$options = $this->getOptions();
 
-		wp_register_script('nextgen-download-gallery-form', plugins_url("js/download-form$min.js", NGG_DLGALL_PLUGIN_FILE), ['jquery'], $ver, true);
+		wp_register_script('nextgen-download-gallery-form', plugins_url("static/js/download-form$min.js", NGG_DLGALL_PLUGIN_FILE), ['jquery'], $ver, true);
 		wp_localize_script('nextgen-download-gallery-form', 'ngg_dlgallery', [
 			'canDownloadAll'	=> !empty($options['enable_all']),
 			'canSelectAll'		=> !empty($options['select_all']),
 			'alertNoImages'		=> __('Please select one or more images to download', 'nextgen-download-gallery'),
 		]);
 
-		wp_enqueue_style('nextgen-download-gallery', plugins_url('css/style.css', NGG_DLGALL_PLUGIN_FILE), [], $ver);
+		wp_enqueue_style('nextgen-download-gallery', plugins_url('static/css/style.css', NGG_DLGALL_PLUGIN_FILE), [], $ver);
 
 		// FIXME: should be able to enqueue on demand! Find some way to tie script dependencies to NGG2 transient cached galleries
 		if (defined('NEXTGEN_GALLERY_PLUGIN_VERSION')) {
