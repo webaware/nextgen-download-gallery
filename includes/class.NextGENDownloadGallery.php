@@ -133,7 +133,7 @@ class NextGENDownloadGallery {
 
 		// $_GET from wp_query
 		$pid    = get_query_var('pid');
-		$pageid = get_query_var('pageid');
+		$pageid = (int) get_query_var('pageid');
 
 		// record taglist and set filter to override gallery title with taglist
 		$this->taglist = $taglist;
@@ -157,7 +157,7 @@ class NextGENDownloadGallery {
 			$picturelist = \nggTags::find_images_for_tags($taglist , 'ASC');
 
 			// look for ImageBrowser if we have a $_GET('pid')
-			if ( $pageid == get_the_ID() || !is_home() ) {
+			if ( $pageid === get_the_ID() || !is_home() ) {
 				if (!empty( $pid ))  {
 					$out = nggCreateImageBrowser($picturelist, $template);
 					return $out;
@@ -201,10 +201,10 @@ class NextGENDownloadGallery {
 
 		// $_GET from wp_query
 		$tag            = get_query_var('gallerytag');
-		$pageid         = get_query_var('pageid');
+		$pageid         = (int) get_query_var('pageid');
 
 		// look for gallerytag variable
-		if ( $pageid == get_the_ID() || !is_home() )  {
+		if ( $pageid === get_the_ID() || !is_home() )  {
 			if (!empty( $tag ))  {
 				$slug = esc_attr( $tag );
 				$term = get_term_by('name', $slug, 'ngg_tag');
@@ -281,7 +281,7 @@ class NextGENDownloadGallery {
 	* @return stdClass
 	*/
 	public function ngg2GalleryObject($gallery) {
-		if ($gallery->displayed_gallery->source == 'tags') {
+		if ($gallery->displayed_gallery->source === 'tags') {
 			$this->taglist = implode(',', $gallery->displayed_gallery->container_ids);
 			$gallery = $this->nggGalleryObjectTagged($gallery);
 		}
@@ -639,7 +639,7 @@ class NextGENDownloadGallery {
 	* action hook for adding plugin details links
 	*/
 	public function addPluginDetailsLinks($links, $file) {
-		if ($file == NGG_DLGALL_PLUGIN_NAME) {
+		if ($file === NGG_DLGALL_PLUGIN_NAME) {
 			$links[] = sprintf('<a href="https://wordpress.org/support/plugin/nextgen-download-gallery" rel="noopener" target="_blank">%s</a>', _x('Get help', 'plugin details links', 'nextgen-download-gallery'));
 			$links[] = sprintf('<a href="https://wordpress.org/plugins/nextgen-download-gallery/" rel="noopener" target="_blank">%s</a>', _x('Rating', 'plugin details links', 'nextgen-download-gallery'));
 			$links[] = sprintf('<a href="https://translate.wordpress.org/projects/wp-plugins/nextgen-download-gallery" rel="noopener" target="_blank">%s</a>', _x('Translate', 'plugin details links', 'nextgen-download-gallery'));

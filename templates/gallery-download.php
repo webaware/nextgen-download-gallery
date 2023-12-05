@@ -61,7 +61,7 @@ if (!empty($gallery)): ?>
 				</div>
 
 				<?php if ( $image->hidden ) continue; ?>
-				<?php if ( $gallery->columns > 0 && (++$i % $gallery->columns) == 0 ) { ?>
+				<?php if ( $gallery->columns > 0 && (++$i % $gallery->columns) === 0 ) { ?>
 				<br style="clear: both" />
 				<?php } ?>
 
@@ -80,7 +80,7 @@ if (!empty($gallery)): ?>
 		</form>
 
 	<!-- Pagination -->
- 	<?= $pagination ?>
+	<?= $pagination ?>
 
 	</div>
 
