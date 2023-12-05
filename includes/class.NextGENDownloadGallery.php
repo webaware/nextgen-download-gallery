@@ -370,7 +370,7 @@ class NextGENDownloadGallery {
 			$self = self::getInstance();
 
 			// build query for NextGEN Gallery 2 virtual gallery
-			$params = $gallery->displayed_gallery->object->get_entity();
+			$params = $gallery->displayed_gallery->get_entity();
 			$query = [];
 			foreach ($self->getNgg2QueryFields() as $field) {
 				if (!empty($params->$field)) {
