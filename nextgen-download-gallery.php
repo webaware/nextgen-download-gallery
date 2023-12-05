@@ -41,7 +41,7 @@ define('NGG_DLGALL_PLUGIN_ROOT', dirname(__FILE__) . '/');
 define('NGG_DLGALL_PLUGIN_NAME', basename(dirname(__FILE__)) . '/' . basename(__FILE__));
 define('NGG_DLGALL_PLUGIN_FILE', __FILE__);
 define('NGG_DLGALL_PLUGIN_MIN_PHP', '5.6');
-define('NGG_DLGALL_PLUGIN_VERSION', '1.6.1');
+define('NGG_DLGALL_PLUGIN_VERSION', '1.6.2');
 
 define('NGG_DLGALL_OPTIONS', 'ngg_dlgallery');
 

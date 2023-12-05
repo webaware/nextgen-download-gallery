@@ -6,9 +6,9 @@ Author URI: https://shop.webaware.com.au/
 Donate link: https://shop.webaware.com.au/donations/?donation_for=NextGEN+Download+Gallery
 Tags: nextgen, gallery, download
 Requires at least: 4.0
-Tested up to: 5.4
+Tested up to: 6.4
 Requires PHP: 5.6
-Stable tag: 1.6.1
+Stable tag: 1.6.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,6 +36,7 @@ Many thanks to the generous efforts of our translators:
 * Korean (ko_KR) -- [the Korean translation team](https://translate.wordpress.org/locale/ko/default/wp-plugins/nextgen-download-gallery/)
 * Portuguese (pt_BR) -- [Juliano Arantes](http://www.42fotografia.com.br/)
 * Polish (pl_PL) -- Jakub Molek and [the Polish translation team](https://translate.wordpress.org/locale/pl/default/wp-plugins/nextgen-download-gallery/)
+* Russian (sv_SE) -- [the Russian translation team](https://translate.wordpress.org/locale/ru/default/wp-plugins/nextgen-download-gallery/)
 * Swedish (sv_SE) -- [the Swedish translation team](https://translate.wordpress.org/locale/sv/default/wp-plugins/nextgen-download-gallery/)
 * Turkish (tr_TR) -- [the Turkish translation team](https://translate.wordpress.org/locale/tr/default/wp-plugins/nextgen-download-gallery/)
 
@@ -124,16 +125,16 @@ If you have higher resolution images you'd like to download instead of the ones 
 
 ## Upgrade Notice
 
-### 1.6.1
+### 1.6.2
 
-fixed: custom templates from the theme were not loading for galleries newly added to a page / post
+fixed fatal error "call to a member function get_entity() on null"
 
 ## Changelog
 
 [The full changelog can be found on GitHub](https://github.com/webaware/nextgen-download-gallery/blob/master/changelog.md). Recent entries:
 
-### 1.6.1
+### 1.6.2
 
-Released 2019-04-17
+Released 2023-12-05
 
-* fixed: custom templates from the theme do not load for galleries newly added to a page / post
+* fixed: fatal error "call to a member function get_entity() on null"

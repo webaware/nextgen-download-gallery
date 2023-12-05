@@ -1,6 +1,6 @@
 {
 	"name": "nextgen-download-gallery",
-	"version": "1.6.1",
+	"version": "1.6.2",
 	"description": "NextGEN Download Gallery",
 	"browserslist": [
 		"> 0.5%",
